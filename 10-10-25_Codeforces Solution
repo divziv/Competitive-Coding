@@ -1,0 +1,50 @@
+Problem Link:
+https://codeforces.com/problemset/problem/1927/B 
+
+Solution: 
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    int t; 
+    cin >> t;
+    
+    while(t--) {
+        int n; 
+        cin >> n;
+        vector<int> v(n);
+        
+        for(int i = 0; i < n; i++) 
+            cin >> v[i];
+        
+        string s(n, '?');
+        vector<vector<int>> o(26);
+        
+        int nc = 0;
+        
+        for(int i = 0; i < n; i++) 
+        {
+            if(v[i] == 0) 
+            {
+                s[i] = char('a' + nc);
+                o[nc].push_back(i);
+                nc++;
+            } 
+            else 
+            {
+                for(int c = 0; c < 26; c++) 
+                {
+                    if((int)o[c].size() == v[i]) 
+                    {
+                        s[i] = char('a' + c);
+                        o[c].push_back(i);
+                        break;
+                    }
+                }
+            }
+        }
+        
+        cout << s << "\n";
+    }
+    return 0;
+}
