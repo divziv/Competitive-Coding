@@ -1,0 +1,22 @@
+Problem Link:
+https://codeforces.com/problemset/problem/2155/A
+
+Solution:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    int t;
+    cin >> t;
+
+    while(t--) {
+        int n;
+        cin >> n;
+
+        long long m = (long long)2 * n - 2;
+
+        cout << m << "\n";
+    }
+
+    return 0;
+}
