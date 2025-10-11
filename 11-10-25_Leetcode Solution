@@ -1,0 +1,73 @@
+Problem Link:
+https://leetcode.com/problems/maximum-total-damage-with-spell-casting/?envType=daily-question&envId=2025-10-11
+
+Solution:
+class Solution {
+public:
+    long long maximumTotalDamage(vector<int>& power) {
+        sort(power.begin(), power.end());
+
+        vector<pair<int, long long>> v;
+        int n = power.size();
+        if(n == 0) 
+        {
+            return 0;
+        }
+
+        int c = power[0];
+        long long cc = 0;
+
+        for(int j = 0; j < n; ++j) 
+        {
+            if(power[j] == c) 
+            {
+                cc++;
+            } 
+            else 
+            {
+                v.push_back({c, cc * c});
+                c = power[j];
+                cc = 1;
+            }
+        }
+        v.push_back({c, cc * c});
+
+        int V = v.size();
+        vector<long long> dp(V);
+
+        dp[0] = v[0].second;
+
+        for(int j = 1; j < V; ++j) 
+        {
+            long long cd = v[j].second, cp = v[j].first;
+            long long s = dp[j - 1], d = cd, t = cp - 2;
+
+            int l = 0;
+            int h = j - 1;
+            int i = -1;
+
+            while(l <= h) 
+            {
+                int m = l + (h - l) / 2;
+                if(v[m].first < t) 
+                { 
+                    i = m;
+                    l = m + 1;
+                } 
+                else 
+                {
+                    h = m - 1;
+                }
+            }
+
+            if(i != -1) 
+            {
+                d += dp[i];
+            }
+            
+            dp[j] = d > s ? d : s;
+        }
+
+        return dp[V - 1];
+    }
+};
