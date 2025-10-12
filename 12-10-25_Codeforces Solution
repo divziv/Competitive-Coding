@@ -1,0 +1,60 @@
+Problem Link:
+https://codeforces.com/problemset/problem/1849/B
+
+Solution:
+#include <bits/stdc++.h>
+using namespace std;
+ 
+struct Monster 
+{
+    long long h;
+    int i;
+};
+ 
+bool comp(const Monster& m1, const Monster& m2) 
+{
+    if(m1.h != m2.h) 
+    {
+        return m1.h > m2.h;
+    }
+    return m1.i < m2.i;
+}
+ 
+int main() {
+    int t;
+    cin >> t;
+ 
+    while(t--) 
+    {
+        int n;
+        long long k;
+        cin >> n >> k;
+        
+        vector<Monster> m(n);
+        
+        for(int idx = 0; idx < n; ++idx) 
+        {
+            long long a;
+            cin >> a;
+            
+            long long r = a % k;
+            if(r == 0) 
+            {
+                r = k;
+            }
+            
+            m[idx].h = r;
+            m[idx].i = idx + 1;
+        }
+        
+        sort(m.begin(), m.end(), comp);
+        
+        for(int idx = 0; idx < n; ++idx) 
+        {
+            cout << m[idx].i << (idx == n - 1 ? "" : " ");
+        }
+        cout << "\n";
+    }
+ 
+    return 0;
+}
