@@ -1,0 +1,111 @@
+Problem Link:
+https://leetcode.com/problems/find-sum-of-array-product-of-magical-sequences/?envType=daily-question&envId=2025-10-12
+
+Solution:
+class Solution {
+    long long mod = 1e9 + 7;
+    vector<vector<long long>> c;
+    vector<vector<long long>> p;
+
+    int popc(int v) 
+    {
+        int count = 0;
+        while(v > 0) 
+        {
+            v &= (v - 1);
+            count++;
+        }
+        return count;
+    }
+
+public:
+    int magicalSum(int m, int k, vector<int>& nums) {
+        int s = nums.size();
+        
+        c.resize(m + 1, vector<long long>(m + 1, 0));
+        p.resize(s, vector<long long>(m + 1, 0));
+
+        for(int i = 0; i <= m; ++i) 
+        {
+            c[i][0] = 1;
+            for(int j = 1; j <= i; ++j) 
+            {
+                c[i][j] = (c[i - 1][j - 1] + c[i - 1][j]) % mod;
+            }
+        }
+
+        for(int i = 0; i < s; ++i) 
+        {
+            p[i][0] = 1;
+            for(int j = 1; j <= m; ++j) 
+            {
+                p[i][j] = (p[i][j - 1] * nums[i]) % mod;
+            }
+        }
+
+        vector<vector<vector<vector<long long>>>> dp(s + 1, 
+            vector<vector<vector<long long>>>(m + 1, 
+                vector<vector<long long>>(m + 1, vector<long long>(k + 1, 0))));
+
+        dp[0][0][0][0] = 1;
+
+        for(int i = 0; i < s; ++i) 
+        {
+            for(int mo = 0; mo <= m; ++mo) 
+            {
+                for(int co = 0; co <= m; ++co) 
+                {
+                    for(int ko = 0; ko <= k; ++ko) 
+                    {
+                        if(dp[i][mo][co][ko] == 0) 
+                            continue;
+
+                        for(int ci = 0; ci <= m - mo; ++ci) 
+                        {
+                            int mn = mo + ci;
+                            int sm = co + ci;
+                            
+                            int cn = sm / 2;
+                            int bi = sm % 2;
+
+                            int kn = ko + bi;
+                            if(kn > k) 
+                                continue;
+                            
+                            if(cn > m) 
+                                continue;
+
+                            long long ps = dp[i][mo][co][ko];
+                            long long pf = p[i][ci];
+                            long long cf = c[m - mo][ci];
+                            long long tf = (cf * pf) % mod;
+                            
+                            long long tv = (ps * tf) % mod;
+                            
+                            dp[i + 1][mn][cn][kn] = (dp[i + 1][mn][cn][kn] + tv) % mod;
+                        }
+                    }
+                }
+            }
+        }
+
+        long long ans = 0;
+        for(int car = 0; car <= m; ++car) 
+        {
+            int pcc = popc(car);
+            
+            for(int kc = 0; kc <= k; ++kc) 
+            {
+                if(dp[s][m][car][kc] == 0) 
+                    continue;
+
+                if(kc + pcc == k) 
+                {
+                    ans = (ans + dp[s][m][car][kc]) % mod;
+                }
+            }
+        }
+
+        return (int)ans;
+    }
+};
