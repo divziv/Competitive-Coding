@@ -1,0 +1,23 @@
+Problem Link:
+https://leetcode.com/problems/find-resultant-array-after-removing-anagrams/?envType=daily-question&envId=2025-10-13
+
+Solution:
+class Solution {
+public:
+    vector<string> removeAnagrams(vector<string>& words) {
+        vector<string> v;
+        v.push_back(words[0]);
+        for(int i = 1; i < words.size(); ++i) 
+        {
+            string p = v.back();
+            string c = words[i];
+            sort(p.begin(), p.end());
+            sort(c.begin(), c.end());
+            if(p != c) 
+            {
+                v.push_back(words[i]);
+            }
+        }
+        return v;
+    }
+};
