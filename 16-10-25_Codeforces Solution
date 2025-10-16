@@ -1,0 +1,31 @@
+Problem Link:
+https://codeforces.com/problemset/problem/1974/A
+
+Solution:
+#include <bits/stdc++.h>
+using namespace std;
+ 
+int main() {
+    int t; 
+    cin >> t;
+    
+    while(t--) {
+        int x, y;
+        cin >> x >> y;
+        
+        int s2 = (y + 3) / 4;
+        int l = 0;
+        if(y % 4 != 0) 
+        {
+            l = 15 - (y % 4) * 4;
+        }
+        
+        x -= l;
+        if(x < 0) 
+            x = 0;
+        
+        int s1 = (x + 15 - 1) / 15;
+        cout << s1 + s2 << "\n";
+    }
+    return 0;
+}
