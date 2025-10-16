@@ -1,0 +1,32 @@
+Problem Link:
+https://leetcode.com/problems/smallest-missing-non-negative-integer-after-operations/?envType=daily-question&envId=2025-10-16
+
+Solution:
+class Solution {
+public:
+    int findSmallestInteger(vector<int>& nums, int value) {
+        map<int, int> f;
+
+        for(int n : nums) {
+            int m = ((n % value) + value) % value;
+            f[m]++;
+        }
+
+        int i = 0;
+        while(true) 
+        {
+            int m = i % value;
+            if(f[m] > 0) 
+            {
+                f[m]--;
+                i++;
+            } 
+            else 
+            {
+                break;
+            }
+        }
+
+        return i;
+    }
+};
