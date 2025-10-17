@@ -1,0 +1,55 @@
+Problem Link:
+https://leetcode.com/problems/maximize-the-number-of-partitions-after-operations/?envType=daily-question&envId=2025-10-17
+
+Solution:
+class Solution {
+public:
+    int countPartitions(const string& s, int k) {
+        int n = s.size();
+        int p = 0;
+        map<char, int> f;
+        int d = 0;
+
+        for(int i = 0; i < n; ++i) 
+        {
+            if(++f[s[i]] == 1) 
+            {
+                d++;
+            }
+
+            if(d > k) 
+            {
+                p++;
+                f.clear();
+                f[s[i]] = 1;
+                d = 1;
+            }
+        }
+
+        if(!f.empty()) 
+        {
+            p++;
+        }
+
+        return p;
+    }
+
+    int maxPartitionsAfterOperations(string s, int k) {
+        int m = countPartitions(s, k);
+
+        for(int i = 0; i < s.size(); ++i) 
+        {
+            char o = s[i];
+            for(char c = 'a'; c <= 'z'; ++c) 
+            {
+                if(c == o) 
+                    continue;
+                s[i] = c;
+                m = max(m, countPartitions(s, k));
+            }
+            s[i] = o;
+        }
+
+        return m;
+    }
+};
