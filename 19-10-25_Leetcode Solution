@@ -1,0 +1,47 @@
+Problem Link:
+https://leetcode.com/problems/lexicographically-smallest-string-after-applying-operations/?envType=daily-question&envId=2025-10-19
+
+Solution:
+class Solution {
+public:
+    string findLexSmallestString(string s, int a, int b) {
+        set<string> v;
+        queue<string> q;
+        string r = s;
+
+        q.push(s);
+        v.insert(s);
+
+        while(!q.empty()) 
+        {
+            string c = q.front();
+            q.pop();
+
+            if(c < r) 
+            {
+                r = c;
+            }
+
+            string d = c;
+            for(int i = 1; i < d.size(); i += 2) 
+            {
+                d[i] = ((d[i] - '0' + a) % 10) + '0';
+            }
+
+            if(v.find(d) == v.end()) 
+            {
+                v.insert(d);
+                q.push(d);
+            }
+
+            string e = c.substr(c.size() - b) + c.substr(0, c.size() - b);
+            if(v.find(e) == v.end()) 
+            {
+                v.insert(e);
+                q.push(e);
+            }
+        }
+
+        return r;
+    }
+};
