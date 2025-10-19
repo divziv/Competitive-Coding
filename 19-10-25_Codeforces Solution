@@ -1,0 +1,52 @@
+Problem Link:
+https://codeforces.com/problemset/problem/1873/E
+
+Solution:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    int t;
+    cin >> t;
+    
+    while(t--) {
+        int n;
+        long long x;
+        cin >> n >> x;
+        
+        vector<int> v(n);
+        
+        for(int &y : v) 
+            cin >> y;
+
+        int l = 1;
+        int h = *max_element(v.begin(), v.end()) + x + 1;
+        int s = 1;
+
+        while(l <= h) 
+        {
+            int m = (l + h) / 2;
+            long long w = 0;
+            
+            for(int y : v) 
+            {
+                if(y < m) 
+                    w += (m - y);
+                if(w > x) 
+                    break;
+            }
+
+            if(w <= x) 
+            {
+                s = m;
+                l = m + 1;
+            } 
+            else 
+            {
+                h = m - 1;
+            }
+        }
+
+        cout << s << "\n";
+    }
+}
