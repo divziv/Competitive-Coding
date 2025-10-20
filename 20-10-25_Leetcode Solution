@@ -1,0 +1,22 @@
+Problem Link:
+https://leetcode.com/problems/final-value-of-variable-after-performing-operations/?envType=daily-question&envId=2025-10-20
+
+Solution:
+class Solution {
+public:
+    int finalValueAfterOperations(vector<string>& operations) {
+        int c = 0;
+        for(const string& o : operations) 
+        {
+            if(o.find("++") != string::npos) 
+            {
+                ++c;
+            } 
+            else 
+            {
+                --c;
+            }
+        }
+        return c;
+    }
+};
