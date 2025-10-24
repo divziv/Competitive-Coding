@@ -1,0 +1,37 @@
+Problem Link:
+https://leetcode.com/problems/next-greater-numerically-balanced-number/?envType=daily-question&envId=2025-10-24
+
+Solution:
+class Solution {
+public:
+    bool isNumericallyBalanced(int x) {
+        vector<int> v(10, 0);
+        int t = x;
+        while(t > 0) 
+        {
+            int d = t % 10;
+            v[d]++;
+            t /= 10;
+        }
+        for(int i = 0; i < 10; ++i) 
+        {
+            if(v[i] > 0 && v[i] != i) 
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    int nextBeautifulNumber(int n) {
+        int c = n + 1;
+        while(true) 
+        {
+            if(isNumericallyBalanced(c)) 
+            {
+                return c;
+            }
+            c++;
+        }
+    }
+};
