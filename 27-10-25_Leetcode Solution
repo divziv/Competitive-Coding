@@ -1,0 +1,25 @@
+Problem Link:
+https://leetcode.com/problems/number-of-laser-beams-in-a-bank/?envType=daily-question&envId=2025-10-27
+
+Solution:
+class Solution {
+public:
+    int numberOfBeams(vector<string>& bank) {
+        vector<int> v;
+        for(string& s : bank) 
+        {
+            int c = 0;
+            for(char ch : s)
+                if(ch == '1') 
+                    c++;
+            if(c > 0) 
+                v.push_back(c);
+        }
+        int n = 0;
+        for(int i = 1; i < v.size(); i++) 
+        {
+            n += v[i - 1] * v[i];
+        }
+        return n;
+    }
+};
