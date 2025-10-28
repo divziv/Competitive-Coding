@@ -1,0 +1,48 @@
+Problem Link:
+https://leetcode.com/problems/make-array-elements-equal-to-zero/?envType=daily-question&envId=2025-10-28
+
+Solution:
+class Solution {
+public:
+    int countValidSelections(vector<int>& nums) {
+        int n = nums.size();
+        int v = 0;
+        
+        auto helper = [&](int start, int d) {
+            vector<int> v = nums;
+            int c = start;
+            
+            while(c >= 0 && c < n) 
+            {
+                if(v[c] == 0) 
+                {
+                    c += d;
+                } 
+                else 
+                {
+                    v[c]--;
+                    d = -d;
+                    c += d;
+                }
+            }
+            
+            for(int x : v)
+                if(x != 0)
+                    return false;
+            return true;
+        };
+        
+        for(int i = 0; i < n; ++i) 
+        {
+            if(nums[i] == 0) 
+            {
+                if(helper(i, 1)) 
+                    v++;
+                if(helper(i, -1)) 
+                    v++;
+            }
+        }
+        
+        return v;
+    }
+};
