@@ -1,0 +1,47 @@
+Problem Link:
+https://leetcode.com/problems/find-x-sum-of-all-k-long-subarrays-i/?envType=daily-question&envId=2025-11-04
+
+Solution:
+class Solution {
+public:
+    vector<int> findXSum(vector<int>& nums, int k, int x) {
+        int n = nums.size();
+        vector<int> v;
+        
+        for(int a = 0; a + k <= n; ++a) 
+        {
+            map<int, int> m;
+            for(int b = a; b < a + k; ++b) 
+                m[nums[b]]++;
+            
+            vector<pair<int,int>> i;
+            for(auto &p : m) 
+                i.push_back(p);
+            
+            sort(i.begin(), i.end(), [](auto &a, auto &b){
+                if(a.second == b.second) 
+                    return a.first > b.first;
+                return a.second > b.second;
+            });
+            
+            int cx = 0;
+            vector<int> c;
+            for(auto &p : i) 
+            {
+                if(cx == x) 
+                    break;
+                c.push_back(p.first);
+                cx++;
+            }
+            
+            int s = 0;
+            for(int b = a; b < a + k; ++b)
+                if(find(c.begin(), c.end(), nums[b]) != c.end())
+                    s += nums[b];
+            
+            v.push_back(s);
+        }
+        
+        return v;
+    }
+};
