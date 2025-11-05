@@ -1,0 +1,102 @@
+Problem Link:
+https://leetcode.com/problems/find-x-sum-of-all-k-long-subarrays-ii/?envType=daily-question&envId=2025-11-05
+
+Solution:
+class Solution {
+public:
+    vector<long long> findXSum(vector<int>& nums, int k, int x) {
+        int n = nums.size();
+        if (n < k) return {};
+
+        auto comp = [](const pair<int, int>& a, const pair<int, int>& b) {
+            if(a.first != b.first) 
+                return a.first > b.first;
+            return a.second > b.second;
+        };
+
+        set<pair<int, int>, decltype(comp)> top(comp), rest(comp);
+        map<int, int> m;
+        long long s = 0;
+        vector<long long> v;
+
+        auto balance = [&](auto&& balance_ref) -> void {
+            while((int)top.size() < x && !rest.empty()) 
+            {
+                auto it = rest.begin();
+                s += 1LL * it->first * it->second;
+                top.insert(*it);
+                rest.erase(it);
+            }
+            while((int)top.size() > x) 
+            {
+                auto it = prev(top.end());
+                s -= 1LL * it->first * it->second;
+                rest.insert(*it);
+                top.erase(it);
+            }
+            if(!rest.empty() && !top.empty()) 
+            {
+                auto it1 = prev(top.end());
+                auto it2 = rest.begin();
+                if(comp(*it2, *it1)) 
+                {
+                    s -= 1LL * it1->first * it1->second;
+                    s += 1LL * it2->first * it2->second;
+                    rest.insert(*it1);
+                    top.insert(*it2);
+                    rest.erase(it2);
+                    top.erase(it1);
+                }
+            }
+        };
+
+        auto add = [&](int val) {
+            if(m.count(val)) 
+            {
+                auto p = make_pair(m[val], val);
+                if(top.count(p)) 
+                {
+                    top.erase(p);
+                    s -= 1LL * p.first * p.second;
+                } 
+                else 
+                    rest.erase(p);
+            }
+            m[val]++;
+            auto p = make_pair(m[val], val);
+            top.insert(p);
+            s += 1LL * p.first * p.second;
+            balance(balance);
+        };
+
+        auto remove = [&](int val) {
+            auto p = make_pair(m[val], val);
+            if(top.count(p)) 
+            {
+                top.erase(p);
+                s -= 1LL * p.first * p.second;
+            } 
+            else 
+                rest.erase(p);
+            m[val]--;
+            if(m[val] == 0) 
+                m.erase(val);
+            else 
+                rest.insert({m[val], val});
+            balance(balance);
+        };
+
+        for(int i = 0; i < k; ++i) 
+            add(nums[i]);
+        v.push_back(s);
+
+        for(int i = k; i < n; ++i) 
+        {
+            add(nums[i]);
+            remove(nums[i - k]);
+            v.push_back(s);
+        }
+
+        return v;
+    }
+};
