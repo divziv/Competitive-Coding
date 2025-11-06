@@ -1,0 +1,19 @@
+Problem Link:
+https://leetcode.com/problems/the-two-sneaky-numbers-of-digitville/?envType=daily-question&envId=2025-11-06
+
+Solution:
+class Solution {
+public:
+    vector<int> getSneakyNumbers(vector<int>& nums) {
+        int n = nums.size() - 2;
+        vector<int> f(n, 0);
+        vector<int> s;
+        for(int x : nums) 
+        {
+            f[x]++;
+            if(f[x] == 2)
+                s.push_back(x);
+        }
+        return s;
+    }
+};
