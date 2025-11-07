@@ -1,0 +1,62 @@
+Problem Link:
+https://leetcode.com/problems/maximize-the-minimum-powered-city/?envType=daily-question&envId=2025-11-07
+
+Solution:
+class Solution {
+public:
+    long long maxPower(vector<int>& stations, int r, int k) {
+        int n = stations.size();
+        long long low = 0;
+        long long high = 0; // Max possible power is sum of all stations + k
+        for (int s : stations) {
+            high += s;
+        }
+        high += k;
+
+        long long ans = 0;
+
+        while (low <= high) {
+            long long mid = low + (high - low) / 2;
+            if (check(stations, r, k, mid)) {
+                ans = mid;
+                low = mid + 1;
+            } else {
+                high = mid - 1;
+            }
+        }
+        return ans;
+    }
+
+private:
+    bool check(const vector<int>& stations, int r, long long k_remaining, long long minPower) {
+        int n = stations.size();
+        vector<long long> current_stations(stations.begin(), stations.end()); // Copy to modify
+        vector<long long> diff(n + 1, 0); // Difference array for efficient updates
+
+        long long current_added_power = 0;
+
+        for (int i = 0; i < n; ++i) {
+            current_added_power += diff[i]; // Apply pending additions/removals
+
+            // Calculate power for city i
+            long long city_power = 0;
+            // Use a sliding window sum or prefix sums to get initial power
+            // For simplicity, let's assume we recalculate for now, but a more efficient way exists
+            for (int j = max(0, i - r); j <= min(n - 1, i + r); ++j) {
+                city_power += current_stations[j];
+            }
+            city_power += current_added_power; // Add power from stations added for previous cities
+
+            if (city_power < minPower) {
+                long long required = minPower - city_power;
+                if (required > k_remaining) {
+                    return false;
+                }
+                k_remaining -= required;
+                current_added_power += required;
+                diff[min(n, i + 2 * r + 1)] -= required; // Stations added at i+r affect up to i+2r
+            }
+        }
+        return true;
+    }
+};
