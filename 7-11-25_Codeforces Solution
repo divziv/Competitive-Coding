@@ -1,0 +1,28 @@
+Problem Link:
+https://codeforces.com/problemset/problem/1913/B
+
+Solution:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    int t;
+    cin >> t;
+    
+    while(t--) {
+        string s;
+        cin >> s;
+        
+        map<char, int> m;
+        for(char c : s) 
+        {
+            m[c]++;
+        }
+        
+        int c0 = m['0'];
+        int c1 = m['1'];
+        int mn = max(0, (int)s.length() - (2 * min(c0, c1)));
+        cout << mn << "\n";
+    }
+    return 0;
+}
