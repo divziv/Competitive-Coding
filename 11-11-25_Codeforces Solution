@@ -1,0 +1,54 @@
+Problem Link:
+https://codeforces.com/problemset/problem/550/C
+
+Solution:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    string n;
+    cin >> n;
+    int l = n.size();
+
+    for(int i = 0; i < l; i++) 
+    {
+        int num = n[i] - '0';
+        if(num % 8 == 0) 
+        {
+            cout << "YES\n" << num;
+            return 0;
+        }
+    }
+
+    for(int i = 0; i < l; i++) 
+    {
+        for(int j = i + 1; j < l; j++) 
+        {
+            int num = (n[i] - '0') * 10 + (n[j] - '0');
+            if(num % 8 == 0) 
+            {
+                cout << "YES\n" << num;
+                return 0;
+            }
+        }
+    }
+
+    for(int i = 0; i < l; i++) 
+    {
+        for(int j = i + 1; j < l; j++) 
+        {
+            for(int k = j + 1; k < l; k++) 
+            {
+                int num = (n[i] - '0') * 100 + (n[j] - '0') * 10 + (n[k] - '0');
+                if(num % 8 == 0) 
+                {
+                    cout << "YES\n" << num;
+                    return 0;
+                }
+            }
+        }
+    }
+
+    cout << "NO";
+    return 0;
+}
