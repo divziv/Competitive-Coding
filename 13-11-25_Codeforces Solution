@@ -1,0 +1,30 @@
+Problem Link:
+https://codeforces.com/problemset/problem/2094/B
+
+Solution:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    int t;
+    cin >> t;
+    
+    while(t--) {
+        int n, m, l, r; 
+        cin >> n >> m >> l >> r;
+        
+        int d = n - m;
+        l = abs(l);
+        if(l >= d) 
+        {
+            l -= d;
+            d = 0;
+        }
+        else 
+        {
+            d -= l;
+            l = 0;
+        }
+        cout << -l << " " << r - d << "\n";
+    }
+}
