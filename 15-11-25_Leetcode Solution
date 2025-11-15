@@ -1,0 +1,38 @@
+Problem Link:
+https://leetcode.com/problems/count-the-number-of-substrings-with-dominant-ones/?envType=daily-question&envId=2025-11-15
+
+Solution:
+class Solution {
+public:
+    int numberOfSubstrings(string s) {
+        int a = 0;
+
+        for(int z = 0; z + z * z <= s.length(); ++z) 
+        {
+            int i = -1;
+            vector<int> c(2);
+            for(int l = 0, r = 0; r < s.length(); ++r) 
+            {
+                ++c[s[r] - '0'];
+                for(; l < r; ++l)
+                    if(s[l] == '0' && c[0] > z) 
+                    {
+                        --c[0];
+                        i = l;
+                    } 
+                    else if(s[l] == '1' && c[1] - 1 >= z * z) 
+                    {
+                        --c[1];
+                    } 
+                    else 
+                    {
+                        break;
+                    }
+                if(c[0] == z && c[1] >= z * z)
+                    a += l - i;
+            }
+        }
+
+        return a;
+    }
+};
