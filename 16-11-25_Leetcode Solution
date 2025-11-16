@@ -1,0 +1,29 @@
+Problem Link:
+https://leetcode.com/problems/number-of-substrings-with-only-1s/?envType=daily-question&envId=2025-11-16
+
+Solution:
+class Solution {
+public:
+    int numSub(string s) {
+        long long m = 1'000'000'007;
+        long long c = 0;
+        long long a = 0;
+
+        for(char ch : s) 
+        {
+            if(ch == '1') 
+            {
+                c++;
+            } 
+            else 
+            {
+                a = (a + (c * (c + 1) / 2) % m) % m;
+                c = 0;
+            }
+        }
+
+        a = (a + (c * (c + 1) / 2) % m) % m;
+
+        return a;
+    }
+};
