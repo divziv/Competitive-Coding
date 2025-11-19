@@ -1,0 +1,44 @@
+Problem Link:
+https://codeforces.com/problemset/problem/1853/A
+
+Solution:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    int t;
+    cin >> t;
+
+    while(t--) {
+        long long n;
+        cin >> n;
+
+        vector<long long> v(n);
+        for(int i = 0; i < n; i++) 
+            cin >> v[i];
+
+        long long m = LLONG_MAX;
+        bool f = false;
+
+        for(int i = 0; i < n - 1; i++) 
+        {
+            if(v[i] > v[i + 1]) 
+            {
+                f = true;
+                break;
+            }
+            m = min(m, v[i + 1] - v[i]);
+        }
+
+        if(f) 
+        {
+            cout << 0 << "\n";
+        } 
+        else 
+        {
+            cout << (m / 2 + 1) << "\n";
+        }
+    }
+
+    return 0;
+}
