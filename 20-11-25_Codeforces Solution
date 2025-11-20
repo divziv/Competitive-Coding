@@ -1,0 +1,59 @@
+Problem Link:
+https://codeforces.com/problemset/problem/1890/A
+
+Solution:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    long t;
+    cin >> t;
+    
+    while(t--)
+    {
+        long n;
+        cin >> n;
+
+        bool f = true;
+        long a;
+        cin >> a;
+
+        long ca = 1, b = 0, cb = 0;
+
+        for(long p = 1; p < n; p++)
+        {
+            long x;
+            cin >> x;
+
+            if(x == a)
+            { 
+                ++ca; 
+            }
+            else if(cb == 0)
+            { 
+                b = x; 
+                cb = 1; 
+            }
+            else if(x == b)
+            { 
+                ++cb; 
+            }
+            else
+            { 
+                f = false; 
+            }
+        }
+
+        if(cb > 0)
+        {
+            if(ca > cb + 1) 
+                f = false;
+            if(cb > ca + 1) 
+                f = false;
+        }
+
+        cout << (f ? "Yes\n" : "No\n");
+    }
+
+    return 0;
+}
