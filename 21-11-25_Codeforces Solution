@@ -1,0 +1,47 @@
+Problem Link:
+https://codeforces.com/problemset/problem/1913/B
+
+Solution:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    int t;
+    cin >> t;
+    
+    while(t--) {
+        string s;
+        cin >> s;
+
+        int z = 0, o = 0;
+        for(char c : s) 
+        {
+            if(c == '0') 
+                z++;
+            else 
+                o++;
+        }
+
+        int r = 0;
+        for(int i = 0; i < s.size(); i++) 
+        {
+            if(s[i] == '1' && z > 0) 
+            {
+                z--;
+            } 
+            else if(s[i] == '0' && o > 0) 
+            {
+                o--;
+            } 
+            else 
+            {
+                r = s.size() - i;
+                break;
+            }
+        }
+
+        cout << r << "\n";
+    }
+
+    return 0;
+}
