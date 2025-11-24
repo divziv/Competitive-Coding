@@ -1,0 +1,20 @@
+Problem Link:
+https://leetcode.com/problems/binary-prefix-divisible-by-5/?envType=daily-question&envId=2025-11-24
+
+Solution:
+class Solution {
+public:
+    vector<bool> prefixesDivBy5(vector<int>& nums) {
+        vector<bool> v;
+        v.reserve(nums.size());
+        int m = 0;
+
+        for(int x : nums) 
+        {
+            m = ((m << 1) + x) % 5;
+            v.push_back(m == 0);
+        }
+        
+        return v;
+    }
+};
