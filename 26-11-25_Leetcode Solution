@@ -1,0 +1,60 @@
+Problem Link:
+https://leetcode.com/problems/paths-in-matrix-whose-sum-is-divisible-by-k/?envType=daily-question&envId=2025-11-26
+
+Solution:
+class Solution {
+public:
+    static const int m = 1'000'000'007;
+
+    int numberOfPaths(vector<vector<int>>& grid, int k) {
+        int R = grid.size();
+        int C = grid[0].size();
+
+        vector<vector<int>> dp(C, vector<int>(k, 0));
+        vector<vector<int>> ndp(C, vector<int>(k, 0));
+
+        dp[0][ grid[0][0] % k ] = 1;
+
+        for(int j = 1; j < C; j++)
+        {
+            int v = grid[0][j];
+            for(int r = 0; r < k; r++)
+            {
+                int nr = (r + v) % k;
+                ndp[j][nr] = (ndp[j][nr] + dp[j-1][r]) % m;
+            }
+            dp[j] = ndp[j];
+            ndp[j].assign(k, 0);
+        }
+
+        for(int i = 1; i < R; i++)
+        {
+            for(int j = 0; j < C; j++)
+            {
+                for(int r = 0; r < k; r++)
+                {
+                    ndp[j][r] = 0;
+                }
+            }
+
+            for(int j = 0; j < C; j++)
+            {
+                int v = grid[i][j];
+                for(int r = 0; r < k; r++)
+                {
+                    int nr = (r + v) % k;
+
+                    ndp[j][nr] = (ndp[j][nr] + dp[j][r]) % m;
+
+                    if(j > 0)
+                    {
+                        ndp[j][nr] = (ndp[j][nr] + ndp[j-1][r]) % m;
+                    }
+                }
+            }
+            dp.swap(ndp);
+        }
+
+        return dp[C-1][0];
+    }
+};
