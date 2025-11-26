@@ -1,0 +1,58 @@
+Problem Link:
+https://codeforces.com/problemset/problem/489/C
+
+Solution:
+#include <bits/stdc++.h>
+using namespace std;
+
+bool helper(int m, int s)
+{
+	return (s >= 0) && (s <= 9 * m);
+}
+
+int main()
+{
+	int m, s;
+	cin >> m >> s;
+
+	string mn = "", mx = "";
+	int sum = s;
+
+	if((s <= 0 && m > 1) || (s > 9 * m))
+	{
+		cout << "-1 -1\n";
+		return 0;
+	}
+
+	for(int p = 0; p < m; p++)
+	{
+		for(int d = 0; d <= 9; d++)
+		{
+			if((p > 0 || d > 0 || (m == 1 && d == 0)) &&
+			   helper(m - p - 1, sum - d))
+			{
+				mn += char('0' + d);
+				sum -= d;
+				break;
+			}
+		}
+	}
+
+	sum = s;
+
+	for(int p = 0; p < m; p++)
+	{
+		for(int d = 9; d >= 0; d--)
+		{
+			if(helper(m - p - 1, sum - d))
+			{
+				mx += char('0' + d);
+				sum -= d;
+				break;
+			}
+		}
+	}
+
+	cout << mn << " " << mx << "\n";
+	return 0;
+}
