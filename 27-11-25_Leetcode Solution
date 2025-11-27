@@ -1,0 +1,27 @@
+Problem Link:
+https://leetcode.com/problems/maximum-subarray-sum-with-length-divisible-by-k/?envType=daily-question&envId=2025-11-27
+
+Solution:
+class Solution {
+public:
+    long long maxSubarraySum(vector<int>& nums, int k) {
+        int n = nums.size();
+        vector<long long> v(k, LLONG_MAX);
+        
+        long long p = 0;
+        long long m = LLONG_MIN;
+        
+        v[0] = 0;
+        
+        for(int i = 0; i < n; i++) 
+        {
+            p += nums[i];
+            int r = (i + 1) % k;
+            if(v[r] != LLONG_MAX) 
+                m = max(m, p - v[r]);
+            v[r] = min(v[r], p);
+        }
+        
+        return m;
+    }
+};
