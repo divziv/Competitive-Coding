@@ -1,0 +1,32 @@
+Problem Link:
+https://codeforces.com/problemset/problem/1807/B
+
+Solution:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    long t;
+    cin >> t;
+    
+    while(t--) 
+    {
+        long n;
+        cin >> n;
+
+        long e = 0, o = 0;
+        for(long p = 0; p < n; p++) 
+        {
+            long x;
+            cin >> x;
+            if(x % 2) 
+                o += x;
+            else 
+                e += x;
+        }
+
+        cout << (e > o ? "YES" : "NO") << "\n";
+    }
+
+    return 0;
+}
