@@ -1,0 +1,34 @@
+Problem Link:
+https://leetcode.com/problems/make-sum-divisible-by-p/?envType=daily-question&envId=2025-11-30
+
+Solution:
+class Solution {
+public:
+    int minSubarray(vector<int>& nums, int p) {
+        long long s = 0;
+        for(int x : nums) 
+            s += x;
+        int n = s % p;
+        if(n == 0) 
+            return 0;
+
+        map<int, int> m;
+        m[0] = -1;
+        long long pf = 0;
+        int r = nums.size();
+
+        for(int i = 0; i < nums.size(); i++) 
+        {
+            pf = (pf + nums[i]) % p;
+            int t = (pf - n + p) % p;
+
+            if(m.count(t)) 
+            {
+                r = min(r, i - m[t]);
+            }
+            m[pf] = i;
+        }
+
+        return r == nums.size() ? -1 : r;
+    }
+};
