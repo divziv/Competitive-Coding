@@ -1,0 +1,25 @@
+Problem Link:
+https://codeforces.com/problemset/problem/1896/A
+
+Solution:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    long t;
+    cin >> t;
+
+    while(t--) {
+        long n, x;
+        cin >> n >> x;
+
+        bool s = (x == 1);
+
+        for(long p = 1; p < n; p++) 
+            cin >> x;
+
+        cout << (s ? "YES\n" : "NO\n");
+    }
+
+    return 0;
+}
