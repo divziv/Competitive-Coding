@@ -1,0 +1,39 @@
+Problem Link:
+https://codeforces.com/problemset/problem/459/B
+
+Solution:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    long long n;
+    cin >> n;
+
+    vector<long long> b(n);
+    for(long long i = 0; i < n; i++) 
+        cin >> b[i];
+
+    long long mn = *min_element(b.begin(), b.end());
+    long long mx = *max_element(b.begin(), b.end());
+
+    long long cmin = 0, cmax = 0;
+    for(long long x : b) 
+    {
+        if(x == mn) 
+            cmin++;
+        if(x == mx) 
+            cmax++;
+    }
+
+    if(mn == mx) 
+    {
+        long long w = n * (n - 1) / 2;
+        cout << 0 << " " << w << "\n";
+    } 
+    else 
+    {
+        cout << mx - mn << " " << cmin * cmax << "\n";
+    }
+
+    return 0;
+}
