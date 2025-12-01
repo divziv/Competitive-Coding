@@ -1,0 +1,30 @@
+Problem Link:
+https://leetcode.com/problems/maximum-running-time-of-n-computers/?envType=daily-question&envId=2025-12-01
+
+Solution:
+class Solution {
+public:
+    long long maxRunTime(int n, vector<int>& batteries) {
+        long long s = 0;
+        for(int b : batteries) 
+            s += b;
+
+        long long l = 0, r = s / n;
+
+        while(l < r) 
+        {
+            long long m = (l + r + 1) / 2;
+
+            long long t = 0;
+            for(long long b : batteries)
+                t += min(b, m);
+
+            if(t >= m * n)
+                l = m;
+            else
+                r = m - 1;
+        }
+
+        return l;
+    }
+};
