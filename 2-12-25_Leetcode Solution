@@ -1,0 +1,28 @@
+Problem Link:
+https://leetcode.com/problems/count-number-of-trapezoids-i/?envType=daily-question&envId=2025-12-02
+
+Solution:
+class Solution {
+public:
+    int countTrapezoids(vector<vector<int>>& points) {
+        const int m = 1e9 + 7;
+
+        map<int, int> c;
+        for(auto p : points) 
+        {
+            c[p[1]] += 1;
+        }
+
+        long long s = 0;
+        long long a = 0;
+
+        for(auto [y, Cy] : c) 
+        {
+            long long Vy = (long long)Cy * (Cy - 1) / 2;
+            a = (a + s * Vy) % m;
+            s = (s + Vy) % m;
+        }
+
+        return a;
+    }
+};
