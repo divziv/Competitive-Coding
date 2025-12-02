@@ -1,0 +1,60 @@
+Problem Link:
+https://codeforces.com/problemset/problem/1883/C
+
+Solution:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    long t;
+    cin >> t;
+
+    while(t--) {
+        int n, k;
+        cin >> n >> k;
+
+        int m = 0, e = 0;
+        bool f = false;
+
+        for(int p = 0; p < n; p++) 
+        {
+            int x;
+            cin >> x;
+            x %= k;
+
+            if(x) 
+                m = max(m, x);
+            else 
+                f = true;
+
+            if(x == 2) 
+                ++e;
+        }
+
+        if(f) 
+        {
+            cout << 0 << "\n";
+        }
+        else if(k == 4) 
+        {
+            if(e >= 2) 
+            {
+                cout << 0 << "\n";
+            }
+            else if(e >= 1 || m == 3) 
+            {
+                cout << 1 << "\n";
+            }
+            else 
+            {
+                cout << 2 << "\n";
+            }
+        }
+        else 
+        {
+            cout << (k - m) << "\n";
+        }
+    }
+
+    return 0;
+}
