@@ -1,0 +1,15 @@
+Problem Link:
+https://leetcode.com/problems/count-partitions-with-even-sum-difference/?envType=daily-question&envId=2025-12-05
+
+Solution:
+class Solution {
+public:
+    int countPartitions(vector<int>& nums) {
+        int t = 0;
+        for(int x : nums) 
+            t += x;
+        if(t % 2 != 0) 
+            return 0;
+        return nums.size() - 1;
+    }
+};
