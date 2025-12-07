@@ -1,0 +1,83 @@
+Problem Link:
+https://codeforces.com/problemset/problem/20/C
+
+Solution:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    long long n, m;
+    cin >> n >> m;
+
+    vector<vector<pair<long long, long long>>> g(n + 1);
+    while(m--) 
+    {
+        long long u, v, w;
+        cin >> u >> v >> w;
+        g[u].push_back({v, w});
+        g[v].push_back({u, w});
+    }
+
+    long long source = 1, target = n;
+
+    set<pair<long long, long long>> q;
+    q.insert({0, source});
+
+    vector<long long> dist(n + 1, -1);
+    vector<long long> from(n + 1, -1);
+    vector<bool> visited(n + 1, false);
+
+    dist[source] = 0;
+    from[source] = -1;
+
+    while(!q.empty()) 
+    {
+        auto cur = *q.begin();
+        q.erase(q.begin());
+
+        long long d = cur.first;
+        long long u = cur.second;
+
+        if(visited[u]) 
+            continue;
+        visited[u] = true;
+
+        for(auto &edge : g[u]) 
+        {
+            long long v = edge.first;
+            long long w = edge.second;
+
+            if(visited[v]) 
+                continue;
+
+            if(dist[v] == -1 || dist[v] > d + w) 
+            {
+                dist[v] = d + w;
+                from[v] = u;
+                q.insert({dist[v], v});
+            }
+        }
+    }
+
+    if(dist[target] == -1) 
+    {
+        cout << -1;
+    } 
+    else 
+    {
+        vector<long long> path;
+        long long x = target;
+
+        while(x != -1) 
+        {
+            path.push_back(x);
+            x = from[x];
+        }
+        reverse(path.begin(), path.end());
+
+        for(long long v : path) 
+            cout << v << " ";
+    }
+
+    return 0;
+}
