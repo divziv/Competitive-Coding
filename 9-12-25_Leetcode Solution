@@ -1,0 +1,32 @@
+Problem Link:
+https://leetcode.com/problems/count-special-triplets/?envType=daily-question&envId=2025-12-09
+
+Solution:
+class Solution {
+public:
+    int specialTriplets(vector<int>& nums) {
+        const int m = 1'000'000'007;
+        const int mv = 200000;
+
+        vector<long long> r(mv + 1, 0), l(mv + 1, 0);
+
+        for(int x : nums) 
+            r[x]++;
+
+        long long s = 0;
+
+        for(int j = 0; j < nums.size(); j++) 
+        {
+            int v = nums[j];
+            r[v]--;
+
+            long long x = (long long)v * 2;
+            if(x <= mv) 
+                s = (s + l[x] * r[x]) % m;
+
+            l[v]++;
+        }
+
+        return s % m;
+    }
+};
