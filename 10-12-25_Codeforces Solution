@@ -1,0 +1,29 @@
+Problem Link:
+https://codeforces.com/problemset/problem/1933/A
+
+Solution:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    long t;
+    cin >> t;
+    
+    while(t--) {
+        long n;
+        cin >> n;
+        
+        long s = 0;
+        
+        while(n--) 
+        {
+            long x;
+            cin >> x;
+            s += (x > 0 ? x : -x);
+        }
+        
+        cout << s << "\n";
+    }
+
+    return 0;
+}
