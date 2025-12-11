@@ -1,0 +1,44 @@
+Problem Link:
+https://leetcode.com/problems/count-covered-buildings/?envType=daily-question&envId=2025-12-11
+
+Solution:
+class Solution {
+public:
+    int countCoveredBuildings(int n, vector<vector<int>>& buildings) {
+        map<int, vector<int>> rows, cols;
+
+        for(auto &b : buildings) 
+        {
+            int x = b[0], y = b[1];
+            rows[x].push_back(y);
+            cols[y].push_back(x);
+        }
+
+        for(auto &p : rows) 
+            sort(p.second.begin(), p.second.end());
+        for(auto &p : cols) 
+            sort(p.second.begin(), p.second.end());
+
+        int c = 0;
+
+        for (auto &b : buildings) {
+            int x = b[0], y = b[1];
+
+            auto &row = rows[x];
+            auto &col = cols[y];
+
+            auto itr = lower_bound(row.begin(), row.end(), y);
+            bool l = (itr != row.begin());
+            bool r = (itr + 1 != row.end());
+
+            auto itc = lower_bound(col.begin(), col.end(), x);
+            bool fa = (itc != col.begin());
+            bool fb = (itc + 1 != col.end());
+
+            if(l && r && fa && fb) 
+                c++;
+        }
+
+        return c;
+    }
+};
