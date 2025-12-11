@@ -1,0 +1,27 @@
+Problem Link:
+https://codeforces.com/problemset/problem/1521/A
+
+Solution:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    long long t;
+    cin >> t;
+
+    while(t--) {
+        long long a, b;
+        cin >> a >> b;
+
+        if(b == 1) 
+        {
+            cout << "NO\n";
+            continue;
+        }
+
+        cout << "YES\n";
+        cout << a << " " << a * b << " " << a * (b + 1) << "\n";
+    }
+
+    return 0;
+}
