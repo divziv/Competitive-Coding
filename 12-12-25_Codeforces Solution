@@ -1,0 +1,26 @@
+Problem Link:
+https://codeforces.com/problemset/problem/1875/A
+
+Solution:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    long long t;
+    cin >> t;
+    
+    while(t--) {
+        long long a, b, n;
+        cin >> a >> b >> n;
+
+        long long s = b;
+        for(long long p = 0; p < n; p++) 
+        {
+            long long x;
+            cin >> x;
+            s += (x < (a - 1)) ? x : (a - 1);
+        }
+
+        cout << s << "\n";
+    }
+}
