@@ -1,0 +1,61 @@
+Problem Link:
+https://leetcode.com/problems/count-mentions-per-user/?envType=daily-question&envId=2025-12-12
+
+Solution:
+class Solution {
+public:
+    vector<int> countMentions(int numberOfUsers, vector<vector<string>>& events) {
+        vector<int> mentions(numberOfUsers, 0);
+        vector<int> online(numberOfUsers, 1);
+        vector<int> offline(numberOfUsers, 0);
+
+        for(auto &e : events) 
+        {
+            string t = e[0];
+            int time = stoi(e[1]);
+
+            for(int u = 0; u < numberOfUsers; u++) 
+            {
+                if(!online[u] && offline[u] <= time) 
+                {
+                    online[u] = 1;
+                }
+            }
+
+            if(t == "OFFLINE") 
+            {
+                int uid = stoi(e[2]);
+                online[uid] = 0;
+                offline[uid] = time + 60;
+            } 
+            else 
+            {
+                string s = e[2];
+                stringstream ss(s);
+                string token;
+
+                while(ss >> token) 
+                {
+                    if(token == "ALL") 
+                    {
+                        for(int u = 0; u < numberOfUsers; u++)
+                            mentions[u]++;
+                    } 
+                    else if(token == "HERE") 
+                    {
+                        for(int u = 0; u < numberOfUsers; u++)
+                            if(online[u])
+                                mentions[u]++;
+                    } 
+                    else if(token.substr(0, 2) == "id") 
+                    {
+                        int uid = stoi(token.substr(2));
+                        mentions[uid]++;
+                    }
+                }
+            }
+        }
+
+        return mentions;
+    }
+};
