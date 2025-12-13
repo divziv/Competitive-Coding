@@ -1,0 +1,48 @@
+Problem Link:
+https://leetcode.com/problems/coupon-code-validator/?envType=daily-question&envId=2025-12-13
+
+Solution:
+class Solution {
+public:
+    vector<string> validateCoupons(vector<string>& code,
+                                   vector<string>& businessLine,
+                                   vector<bool>& isActive) {
+        vector<string> o = {"electronics", "grocery", "pharmacy", "restaurant"};
+        map<string, vector<string>> g;
+
+        for(int i = 0; i < code.size(); i++) 
+        {
+            if(!isActive[i]) 
+                continue;
+
+            if(find(o.begin(), o.end(), businessLine[i]) == o.end())
+                continue;
+
+            if(code[i].empty()) 
+                continue;
+            bool f = true;
+            for(char c : code[i]) 
+            {
+                if(!isalnum(c) && c != '_') 
+                {
+                    f = false;
+                    break;
+                }
+            }
+            if(!f) 
+                continue;
+
+            g[businessLine[i]].push_back(code[i]);
+        }
+
+        vector<string> v;
+        for(const string& bl : o) 
+        {
+            auto& c = g[bl];
+            sort(c.begin(), c.end());
+            v.insert(v.end(), c.begin(), c.end());
+        }
+
+        return v;
+    }
+};
