@@ -1,0 +1,18 @@
+Problem Link:
+https://codeforces.com/problemset/problem/2123/A
+
+Solution:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    long t;
+    cin >> t;
+    
+    while(t--) {
+        long n;
+        cin >> n;
+        cout << (n % 4 ? "Alice\n" : "Bob\n");
+    }
+    return 0;
+}
