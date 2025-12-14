@@ -1,0 +1,41 @@
+Problem Link:
+https://leetcode.com/problems/number-of-ways-to-divide-a-long-corridor/?envType=daily-question&envId=2025-12-14
+
+Solution:
+class Solution {
+public:
+    int numberOfWays(string corridor) {
+        const int m = 1e9 + 7;
+        
+        int t = 0;
+        for(char c : corridor)
+            if(c == 'S') 
+                t++;
+        
+        if(t == 0 || t % 2 != 0)
+            return 0;
+        
+        long long w = 1;
+        int s = 0;
+        int p = 0;
+        
+        for(char c : corridor) 
+        {
+            if(c == 'S') 
+            {
+                s++;
+                if(s > 2 && s % 2 == 1) 
+                {
+                    w = (w * (p + 1)) % m;
+                    p = 0;
+                }
+            } 
+            else if(s % 2 == 0 && s > 0) 
+            {
+                p++;
+            }
+        }
+        
+        return w;
+    }
+};
