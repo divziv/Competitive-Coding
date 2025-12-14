@@ -1,0 +1,52 @@
+Problem Link:
+https://codeforces.com/problemset/problem/1744/C
+
+Solution:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    long t;
+    cin >> t;
+    
+    while(t--) {
+        long n;
+        char c;
+        cin >> n >> c;
+
+        string s;
+        cin >> s;
+
+        if(c == 'g') 
+        {
+            cout << 0 << '\n';
+            continue;
+        }
+
+        long nxt = 0;
+        for(long p = 0; !nxt && p < (long)s.size(); p++) 
+        {
+            if(s[p] == 'g') 
+            {
+                nxt = n + p;
+                break;
+            }
+        }
+
+        long res = 0;
+        for(long p = n - 1; p >= 0; p--) 
+        {
+            if(s[p] == 'g') 
+            {
+                nxt = p;
+            } 
+            else if(s[p] == c) 
+            {
+                long cur = nxt - p;
+                res = max(res, cur);
+            }
+        }
+
+        cout << res << '\n';
+    }
+}
