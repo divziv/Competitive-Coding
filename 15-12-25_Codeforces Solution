@@ -1,0 +1,60 @@
+Problem Link:
+https://codeforces.com/problemset/problem/1859/B
+
+Solution:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    long t;
+    cin >> t;
+    
+    while(t--) {
+        long n;
+        cin >> n;
+
+        vector<pair<long, long>> v(n);
+        long i = -1;
+        long gmn = 1e9 + 7, gsmn = 1e9 + 7;
+
+        for(long p = 0; p < n; p++) 
+        {
+            long m;
+            cin >> m;
+
+            long mn = 1e9 + 7, smn = 1e9 + 7;
+            for(long q = 0; q < m; q++) 
+            {
+                long x;
+                cin >> x;
+                if(x <= mn) 
+                {
+                    smn = mn;
+                    mn = x;
+                } 
+                else if(x < smn) 
+                {
+                    smn = x;
+                }
+            }
+
+            v[p] = {mn, smn};
+            gmn = min(gmn, mn);
+            if(smn < gsmn) 
+            {
+                gsmn = smn;
+                i = p;
+            }
+        }
+
+        long long s = 0;
+        for(long p = 0; p < n; p++) 
+        {
+            s += (p != i) ? v[p].second : gmn;
+        }
+
+        cout << s << "\n";
+    }
+
+    return 0;
+}
