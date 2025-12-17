@@ -1,0 +1,55 @@
+Problem Link:
+https://leetcode.com/problems/best-time-to-buy-and-sell-stock-v/?envType=daily-question&envId=2025-12-17
+
+Solution:
+class Solution {
+public:
+    long long maximumProfit(vector<int>& prices, int k) {
+        const long long m = LLONG_MIN / 4;
+        
+        vector<vector<long long>> dp(k + 1, vector<long long>(3, m));
+        dp[0][0] = 0;
+        
+        for(int price : prices) 
+        {
+            vector<vector<long long>> ndp = dp;
+            
+            for(int t = 0; t <= k; ++t) 
+            {
+                if(dp[t][0] != m) 
+                {
+                    ndp[t][0] = max(ndp[t][0], dp[t][0]);
+                    ndp[t][1] = max(ndp[t][1], dp[t][0] - price);
+                    ndp[t][2] = max(ndp[t][2], dp[t][0] + price);
+                }
+                
+                if(dp[t][1] != m) 
+                {
+                    ndp[t][1] = max(ndp[t][1], dp[t][1]);
+                    if(t + 1 <= k) 
+                    {
+                        ndp[t + 1][0] = max(ndp[t + 1][0], dp[t][1] + price);
+                    }
+                }
+                
+                if(dp[t][2] != m) 
+                {
+                    ndp[t][2] = max(ndp[t][2], dp[t][2]);
+                    if(t + 1 <= k) 
+                    {
+                        ndp[t + 1][0] = max(ndp[t + 1][0], dp[t][2] - price);
+                    }
+                }
+            }
+            
+            dp.swap(ndp);
+        }
+        
+        long long s = 0;
+        for(int t = 0; t <= k; ++t) 
+        {
+            s = max(s, dp[t][0]);
+        }
+        return s;
+    }
+};
