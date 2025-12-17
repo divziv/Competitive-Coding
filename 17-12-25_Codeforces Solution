@@ -1,0 +1,23 @@
+Problem Link:
+https://codeforces.com/problemset/problem/1843/C
+
+Solution:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    long t;
+    cin >> t;
+    
+    while(t--) {
+        long long n, s = 0;
+        cin >> n;
+        while(n) 
+        {
+            s += n;
+            n /= 2;
+        }
+        cout << s << "\n";
+    }
+    return 0;
+}
