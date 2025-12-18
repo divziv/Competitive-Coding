@@ -1,0 +1,35 @@
+Problem Link:
+https://codeforces.com/problemset/problem/1692/B
+
+Solution:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    int t;
+    cin >> t;
+    
+    while(t--) {
+        int n;
+        cin >> n;
+
+        vector<int> v(n);
+        for(int &x : v) 
+        {
+            cin >> x;
+        }
+
+        set<int> s(v.begin(), v.end());
+        int d = s.size();
+
+        if((n - d) % 2 == 0) 
+        {
+            cout << d << "\n";
+        } 
+        else 
+        {
+            cout << d - 1 << "\n";
+        }
+    }
+    return 0;
+}
