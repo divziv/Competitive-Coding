@@ -1,0 +1,77 @@
+Problem Link:
+https://leetcode.com/problems/find-all-people-with-secret/?envType=daily-question&envId=2025-12-19
+
+Solution:
+class Solution {
+public:
+    vector<int> findAllPeople(int n, vector<vector<int>>& meetings, int firstPerson) {
+        sort(meetings.begin(), meetings.end(),
+             [](const vector<int>& a, const vector<int>& b) {
+                 return a[2] < b[2];
+             });
+
+        vector<bool> know(n, false);
+        know[0] = true;
+        know[firstPerson] = true;
+
+        int i = 0, m = meetings.size();
+
+        while(i < m) 
+        {
+            int time = meetings[i][2];
+            map<int, vector<int>> adj;
+            int j = i;
+
+            while(j < m && meetings[j][2] == time) 
+            {
+                int x = meetings[j][0];
+                int y = meetings[j][1];
+                adj[x].push_back(y);
+                adj[y].push_back(x);
+                j++;
+            }
+
+            queue<int> q;
+            set<int> vis;
+
+            for(auto& p : adj) 
+            {
+                if(know[p.first]) 
+                {
+                    q.push(p.first);
+                    vis.insert(p.first);
+                }
+            }
+
+            while(!q.empty()) 
+            {
+                int u = q.front();
+                q.pop();
+                for(int v : adj[u]) 
+                {
+                    if(!vis.count(v)) 
+                    {
+                        vis.insert(v);
+                        q.push(v);
+                    }
+                }
+            }
+
+            for(int p : vis) 
+            {
+                know[p] = true;
+            }
+
+            i = j;
+        }
+
+        vector<int> v;
+        for(int i = 0; i < n; i++) 
+        {
+            if(know[i]) 
+                v.push_back(i);
+        }
+
+        return v;
+    }
+};
