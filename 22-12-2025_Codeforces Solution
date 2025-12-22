@@ -1,0 +1,31 @@
+Problem Link:
+https://codeforces.com/problemset/problem/1992/B
+
+Solution:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    long t;
+    cin >> t;
+
+    while(t--) 
+    {
+        long n, k;
+        cin >> n >> k;
+
+        long s = 0, m = 0;
+        for(long p = 0; p < k; p++) 
+        {
+            long x;
+            cin >> x;
+            m = max(m, x);
+            s += (2 * x - 1);
+        }
+
+        s -= (2 * m - 1);
+        cout << s << "\n";
+    }
+
+    return 0;
+}
