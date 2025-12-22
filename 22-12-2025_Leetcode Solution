@@ -1,0 +1,39 @@
+Problem Link:
+https://leetcode.com/problems/delete-columns-to-make-sorted-iii/?envType=daily-question&envId=2025-12-22
+
+Solution:
+class Solution {
+public:
+    int minDeletionSize(vector<string>& strs) {
+        int n = strs.size();
+        int m = strs[0].size();
+        
+        vector<int> dp(m, 1);
+        
+        for(int j = 0; j < m; j++) 
+        {
+            for(int i = 0; i < j; i++) 
+            {
+                bool f = true;
+                for(int k = 0; k < n; k++) 
+                {
+                    if(strs[k][i] > strs[k][j]) 
+                    {
+                        f = false;
+                        break;
+                    }
+                }
+                if(f) 
+                {
+                    dp[j] = max(dp[j], dp[i] + 1);
+                }
+            }
+        }
+        
+        int l = 0;
+        for(int x : dp) 
+            l = max(l, x);
+        
+        return m - l;
+    }
+};
