@@ -1,0 +1,42 @@
+Problem Link:
+https://leetcode.com/problems/two-best-non-overlapping-events/?envType=daily-question&envId=2025-12-23
+
+Solution:
+class Solution {
+public:
+    int maxTwoEvents(vector<vector<int>>& events) {
+        int n = events.size();
+
+        sort(events.begin(), events.end(),
+             [](const vector<int>& x, const vector<int>& y) {
+                 return x[0] < y[0];
+             });
+
+        vector<vector<int>> v = events;
+        sort(v.begin(), v.end(),
+             [](const vector<int>& x, const vector<int>& y) {
+                 return x[1] < y[1];
+             });
+
+        int a = 0;
+        int m = 0;
+        int j = 0;
+
+        for(int i = 0; i < n; i++) 
+        {
+            int f = events[i][0];
+            int s = events[i][2];
+
+            while(j < n && v[j][1] < f) 
+            {
+                m = max(m, v[j][2]);
+                j++;
+            }
+
+            a = max(a, s);
+            a = max(a, s + m);
+        }
+
+        return a;
+    }
+};
