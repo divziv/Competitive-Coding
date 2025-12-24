@@ -1,0 +1,34 @@
+Problem Link:
+https://codeforces.com/problemset/problem/1543/A
+
+Solution:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    long long t;
+    cin >> t;
+    
+    while(t--) {
+        long long a, b;
+        cin >> a >> b;
+
+        long long mn = min(a, b);
+        long long mx = max(a, b);
+        long long g = mx - mn;
+
+        if(g == 0) 
+        {
+            cout << "0 0\n";
+            continue;
+        }
+
+        long long sa = (g + (g - mn) % g) % g;
+        long long sb = mn % g;
+        long long s = min(sa, sb);
+
+        cout << g << " " << s << "\n";
+    }
+
+    return 0;
+}
