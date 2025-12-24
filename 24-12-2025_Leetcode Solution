@@ -1,0 +1,31 @@
+Problem Link:
+https://leetcode.com/problems/apple-redistribution-into-boxes/?envType=daily-question&envId=2025-12-24
+
+Solution:
+class Solution {
+public:
+    int minimumBoxes(vector<int>& apple, vector<int>& capacity) {
+        int s = 0;
+        for(int a : apple) 
+        {
+            s += a;
+        }
+
+        sort(capacity.begin(), capacity.end(), greater<int>());
+
+        int cur = 0;
+        int box = 0;
+
+        for(int c : capacity) 
+        {
+            cur += c;
+            box++;
+            if(cur >= s) 
+            {
+                break;
+            }
+        }
+
+        return box;
+    }
+};
