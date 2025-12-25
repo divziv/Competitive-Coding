@@ -1,0 +1,57 @@
+Problem Link:
+https://codeforces.com/problemset/problem/1474/B
+
+Solution:
+#include <bits/stdc++.h>
+using namespace std;
+
+bool isPrime(long long x) {
+    if(x < 2) 
+        return false;
+    if(x == 2 || x == 3 || x == 5) 
+        return true;
+    if(x % 2 == 0 || x % 3 == 0 || x % 5 == 0) 
+        return false;
+    for(long long p = 7; p * p <= x; p += 2) 
+    {
+        if(x % p == 0) 
+            return false;
+    }
+    return true;
+}
+
+int main() {
+    const long long m = 1000000000000000LL;
+
+    long long t;
+    cin >> t;
+    
+    while(t--) {
+        long long d;
+        cin >> d;
+
+        long long x = 1, y = 1;
+
+        for(long long p = d + 1; p <= m; ++p) 
+        {
+            if(isPrime(p)) 
+            {
+                x = p;
+                break;
+            }
+        }
+
+        for(long long p = x + d; p < x * x; ++p) 
+        {
+            if(isPrime(p)) 
+            {
+                y = p;
+                break;
+            }
+        }
+
+        cout << x * y << "\n";
+    }
+
+    return 0;
+}
