@@ -1,0 +1,40 @@
+Problem Link:
+https://leetcode.com/problems/minimum-penalty-for-a-shop/?envType=daily-question&envId=2025-12-26
+
+Solution:
+class Solution {
+public:
+    int bestClosingTime(string customers) {
+        int n = customers.size();
+        
+        int p = 0;
+        for(char c : customers) 
+        {
+            if(c == 'Y') 
+                p++;
+        }
+        
+        int m = p;
+        int h = 0;
+        
+        for(int j = 0; j < n; j++) 
+        {
+            if(customers[j] == 'N') 
+            {
+                p += 1;
+            } 
+            else 
+            {
+                p -= 1;
+            }
+            
+            if(p < m) 
+            {
+                m = p;
+                h = j + 1;
+            }
+        }
+        
+        return h;
+    }
+};
