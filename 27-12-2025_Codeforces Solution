@@ -1,0 +1,32 @@
+Problem Link:
+https://codeforces.com/problemset/problem/600/B
+
+Solution:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    long n, m;
+    cin >> n >> m;
+
+    vector<long> a(n);
+    for(long i = 0; i < n; i++) 
+    {
+        cin >> a[i];
+    }
+
+    vector<long> b(m);
+    for(long i = 0; i < m; i++) 
+    {
+        cin >> b[i];
+    }
+
+    sort(a.begin(), a.end());
+
+    for(long i = 0; i < m; i++) {
+        long s = upper_bound(a.begin(), a.end(), b[i]) - a.begin();
+        cout << s << " ";
+    }
+
+    return 0;
+}
