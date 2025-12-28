@@ -1,0 +1,50 @@
+Problem Link:
+https://codeforces.com/problemset/problem/1593/B
+
+Solution:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    vector<string> v = {"00", "25", "50", "75"};
+
+    int t;
+    cin >> t;
+    
+    while(t--) {
+        string n;
+        cin >> n;
+
+        int r = n.size() + 1;
+
+        for(int p = 0; p < 4; p++) 
+        {
+            bool f = false, s = false;
+            int c = 0;
+
+            for(int i = (int)n.size() - 1; i >= 0; i--) 
+            {
+                if(!f && n[i] == v[p][1]) 
+                {
+                    f = true;
+                } 
+                else if(f && n[i] == v[p][0]) 
+                {
+                    s = true;
+                    break;
+                } 
+                else 
+                {
+                    c++;
+                }
+            }
+
+            if(!s) 
+                c = n.size();
+            r = min(r, c);
+        }
+
+        cout << r << "\n";
+    }
+    return 0;
+}
