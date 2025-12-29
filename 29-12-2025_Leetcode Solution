@@ -1,0 +1,57 @@
+Problem Link:
+https://leetcode.com/problems/pyramid-transition-matrix/?envType=daily-question&envId=2025-12-29
+
+Solution:
+class Solution {
+public:
+    map<string, vector<char>> mp;
+    set<string> bad;
+
+    bool dfs(string cur) {
+        if(cur.size() == 1) 
+            return true;
+        if(bad.count(cur)) 
+            return false;
+
+        vector<string> nextRows;
+        buildNext(cur, 0, "", nextRows);
+
+        for(auto &row : nextRows) 
+        {
+            if(dfs(row)) 
+                return true;
+        }
+
+        bad.insert(cur);
+        return false;
+    }
+
+    void buildNext(const string &cur, int idx, string temp, vector<string> &res) {
+        if(idx == cur.size() - 1) 
+        {
+            res.push_back(temp);
+            return;
+        }
+
+        string key;
+        key.push_back(cur[idx]);
+        key.push_back(cur[idx + 1]);
+
+        if(!mp.count(key)) 
+            return;
+
+        for(char c : mp[key]) 
+        {
+            buildNext(cur, idx + 1, temp + c, res);
+        }
+    }
+
+    bool pyramidTransition(string bottom, vector<string>& allowed) {
+        for(auto &s : allowed) 
+        {
+            string key = s.substr(0, 2);
+            mp[key].push_back(s[2]);
+        }
+        return dfs(bottom);
+    }
+};
