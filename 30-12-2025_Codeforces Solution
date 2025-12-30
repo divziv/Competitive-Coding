@@ -1,0 +1,46 @@
+Problem Link:
+https://codeforces.com/problemset/problem/276/C
+
+Solution:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    long n = 0, q = 0;
+    cin >> n >> q;
+
+    vector<long long> v(n + 1, 0), t(n + 1, 0);
+
+    for(long k = 1; k <= n; k++) 
+    {
+        cin >> v[k];
+    }
+
+    long l = 0, r = 0;
+    for(long k = 0; k < q; k++) 
+    {
+        cin >> l >> r;
+        ++t[l];
+        if(r < n) 
+        {
+            --t[r + 1];
+        }
+    }
+
+    for(long k = 2; k <= n; k++) 
+    {
+        t[k] += t[k - 1];
+    }
+
+    sort(v.begin(), v.end());
+    sort(t.begin(), t.end());
+
+    long long s = 0;
+    for(long k = 1; k <= n; k++) 
+    {
+        s += t[k] * v[k];
+    }
+
+    cout << s << "\n";
+    return 0;
+}
