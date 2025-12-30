@@ -1,0 +1,56 @@
+Problem Link:
+https://leetcode.com/problems/magic-squares-in-grid/?envType=daily-question&envId=2025-12-30
+
+Solution:
+class Solution {
+public:
+    bool isMagic(vector<vector<int>>& grid, int r, int c) {
+        if(grid[r + 1][c + 1] != 5) 
+            return false;
+
+        vector<bool> f(10, false);
+        for(int i = r; i < r + 3; i++) 
+        {
+            for(int j = c; j < c + 3; j++) 
+            {
+                int v = grid[i][j];
+                if(v < 1 || v > 9 || f[v]) 
+                    return false;
+                f[v] = true;
+            }
+        }
+
+        for(int i = 0; i < 3; i++) 
+        {
+            if(grid[r + i][c] + grid[r + i][c + 1] + grid[r + i][c + 2] != 15)
+                return false;
+            if(grid[r][c + i] + grid[r + 1][c + i] + grid[r + 2][c + i] != 15)
+                return false;
+        }
+
+        if(grid[r][c] + grid[r + 1][c + 1] + grid[r + 2][c + 2] != 15)
+            return false;
+        if(grid[r][c + 2] + grid[r + 1][c + 1] + grid[r + 2][c] != 15)
+            return false;
+
+        return true;
+    }
+
+    int numMagicSquaresInside(vector<vector<int>>& grid) {
+        int rows = grid.size();
+        int cols = grid[0].size();
+        int c = 0;
+
+        for(int i = 0; i + 2 < rows; i++) 
+        {
+            for(int j = 0; j + 2 < cols; j++) 
+            {
+                if(isMagic(grid, i, j)) 
+                {
+                    c++;
+                }
+            }
+        }
+        return c;
+    }
+};
