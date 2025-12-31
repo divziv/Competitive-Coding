@@ -1,0 +1,33 @@
+Problem Link:
+https://codeforces.com/problemset/problem/2117/A
+
+Solution:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    long t;
+    cin >> t;
+    
+    while(t--) 
+    {
+        long n, x;
+        cin >> n >> x;
+
+        long i = -1;
+        bool f = true;
+
+        for(long p = 0; p < n; p++) 
+        {
+            int s;
+            cin >> s;
+            if(i < 0 && s) 
+                i = p;
+            if(s && i + x <= p) 
+                f = false;
+        }
+
+        cout << (f ? "YES\n" : "NO\n");
+    }
+    return 0;
+}
