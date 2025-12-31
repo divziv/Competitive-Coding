@@ -1,0 +1,67 @@
+Problem Link:
+https://leetcode.com/problems/last-day-where-you-can-still-cross/?envType=daily-question&envId=2025-12-31
+
+Solution:
+class Solution {
+public:
+    int latestDayToCross(int row, int col, vector<vector<int>>& cells) {
+        int left = 0, right = row * col;
+        
+        auto canCross = [&](int day) {
+            vector<vector<int>> grid(row, vector<int>(col, 0));
+            
+            for(int i = 0; i < day; i++) 
+            {
+                int r = cells[i][0] - 1;
+                int c = cells[i][1] - 1;
+                grid[r][c] = 1;
+            }
+            
+            queue<pair<int,int>> q;
+            vector<vector<bool>> vis(row, vector<bool>(col, false));
+            
+            for(int c = 0; c < col; c++) 
+            {
+                if(grid[0][c] == 0) 
+                {
+                    q.push({0, c});
+                    vis[0][c] = true;
+                }
+            }
+            
+            int dirs[4][2] = {{1,0},{-1,0},{0,1},{0,-1}};
+            
+            while(!q.empty()) 
+            {
+                auto [r, c] = q.front();
+                q.pop();
+                
+                if(r == row - 1) 
+                    return true;
+                
+                for(auto &d : dirs) 
+                {
+                    int nr = r + d[0];
+                    int nc = c + d[1];
+                    if(nr >= 0 && nr < row && nc >= 0 && nc < col && !vis[nr][nc] && grid[nr][nc] == 0)
+                    {
+                        vis[nr][nc] = true;
+                        q.push({nr, nc});
+                    }
+                }
+            }
+            return false;
+        };
+        
+        while(left < right) 
+        {
+            int mid = left + (right - left + 1) / 2;
+            if(canCross(mid)) 
+                left = mid;
+            else 
+                right = mid - 1;
+        }
+        
+        return left;
+    }
+};
