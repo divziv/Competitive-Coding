@@ -1,0 +1,52 @@
+Problem Link:
+https://codeforces.com/problemset/problem/1669/F
+
+Solution:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    long t;
+    cin >> t;
+    
+    while(t--) {
+        long n;
+        cin >> n;
+
+        vector<long> w(n);
+        for(long i = 0; i < n; i++) 
+        {
+            cin >> w[i];
+        }
+
+        long l = -1, r = n;
+        long ca = 0, cb = 0;
+        long wa = 0, wb = 0;
+        long s = 0;
+
+        while(ca + cb < n) 
+        {
+            if(wa <= wb) 
+            {
+                ++l;
+                ++ca;
+                wa += w[l];
+            } 
+            else 
+            {
+                --r;
+                ++cb;
+                wb += w[r];
+            }
+
+            if(wa == wb) 
+            {
+                s = ca + cb;
+            }
+        }
+
+        cout << s << "\n";
+    }
+
+    return 0;
+}
