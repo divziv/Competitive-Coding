@@ -1,0 +1,19 @@
+Problem Link:
+https://leetcode.com/problems/n-repeated-element-in-size-2n-array/?envType=daily-question&envId=2026-01-02
+
+Solution:
+class Solution {
+public:
+    int repeatedNTimes(vector<int>& nums) {
+        set<int> s;
+        for(int n : nums) 
+        {
+            if(s.count(n)) 
+            {
+                return n;
+            }
+            s.insert(n);
+        }
+        return -1;
+    }
+};
