@@ -1,0 +1,30 @@
+Problem Link:
+https://codeforces.com/problemset/problem/698/A
+
+Solution:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    const int t = 3;
+    const int m = 10000;
+
+    int n;
+    cin >> n;
+
+    vector<vector<int>> dp(t, vector<int>(n + 1, 0));
+
+    for(int i = 1; i <= n; i++) 
+    {
+        int a;
+        cin >> a;
+
+        dp[0][i] = 1 + min({dp[0][i - 1], dp[1][i - 1], dp[2][i - 1]});
+        dp[1][i] = (a == 0 || a == 1) ? m : min(dp[0][i - 1], dp[2][i - 1]);
+        dp[2][i] = (a == 0 || a == 2) ? m : min(dp[0][i - 1], dp[1][i - 1]);
+    }
+
+    cout << min({dp[0][n], dp[1][n], dp[2][n]}) << '\n';
+
+    return 0;
+}
