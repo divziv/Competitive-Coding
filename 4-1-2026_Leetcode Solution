@@ -1,0 +1,46 @@
+Problem Link:
+https://leetcode.com/problems/four-divisors/?envType=daily-question&envId=2026-01-04
+
+Solution:
+class Solution {
+public:
+    bool isPrime(int x) {
+        if(x < 2) 
+            return false;
+        for(int i = 2; i * i <= x; i++) 
+        {
+            if(x % i == 0) 
+                return false;
+        }
+        return true;
+    }
+
+    int sumFourDivisors(vector<int>& nums) {
+        int s = 0;
+
+        for(int n : nums) 
+        {
+            int p = round(cbrt(n));
+            if(p * p * p == n && isPrime(p)) 
+            {
+                s += 1 + p + p * p + n;
+                continue;
+            }
+
+            for(int i = 2; i * i <= n; i++) 
+            {
+                if(n % i == 0) 
+                {
+                    int j = n / i;
+                    if(i != j && isPrime(i) && isPrime(j)) 
+                    {
+                        s += 1 + i + j + n;
+                    }
+                    break;
+                }
+            }
+        }
+
+        return s;
+    }
+};
