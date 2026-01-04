@@ -1,0 +1,29 @@
+Problem Link:
+https://codeforces.com/problemset/problem/1921/B
+
+Solution:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    long t;
+    cin >> t;
+    
+    while(t--) {
+        long n;
+        cin >> n;
+        string x, y;
+        cin >> x >> y;
+
+        long m = 0, p = 0;
+        for(long i = 0; i < (long)x.size(); i++) 
+        {
+            if(x[i] == '1' && y[i] == '0') 
+                ++p;
+            else if(x[i] == '0' && y[i] == '1') 
+                ++m;
+        }
+
+        cout << (p > m ? p : m) << "\n";
+    }
+}
