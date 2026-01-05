@@ -1,0 +1,30 @@
+Problem Link:
+https://leetcode.com/problems/maximum-matrix-sum/?envType=daily-question&envId=2026-01-05
+
+Solution:
+class Solution {
+public:
+    long long maxMatrixSum(vector<vector<int>>& matrix) {
+        long long s = 0;
+        int c = 0;
+        int m = INT_MAX;
+
+        for(auto& r : matrix) 
+        {
+            for(int x : r) 
+            {
+                if(x < 0) 
+                    c++;
+                s += llabs(x);
+                m = min(m, abs(x));
+            }
+        }
+
+        if(c % 2 == 1) 
+        {
+            s -= 2LL * m;
+        }
+
+        return s;
+    }
+};
