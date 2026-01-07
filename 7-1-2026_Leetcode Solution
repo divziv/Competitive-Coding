@@ -1,0 +1,46 @@
+Problem Link:
+https://leetcode.com/problems/maximum-product-of-splitted-binary-tree/?envType=daily-question&envId=2026-01-07
+
+Solution:
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    static constexpr int m = 1e9 + 7;
+    long long s = 0;
+    long long b = 0;
+
+    long long getTotalSum(TreeNode* root) {
+        if(!root) 
+            return 0;
+        return root->val + getTotalSum(root->left) + getTotalSum(root->right);
+    }
+
+    long long dfs(TreeNode* root) {
+        if(!root) 
+            return 0;
+
+        long long l = dfs(root->left);
+        long long r = dfs(root->right);
+        long long ss = root->val + l + r;
+
+        b = max(b, ss * (s - ss));
+
+        return ss;
+    }
+
+    int maxProduct(TreeNode* root) {
+        s = getTotalSum(root);
+        dfs(root);
+        return b % m;
+    }
+};
