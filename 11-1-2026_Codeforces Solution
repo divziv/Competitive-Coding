@@ -1,0 +1,39 @@
+Problem Link:
+https://codeforces.com/problemset/problem/1869/A
+
+Solution:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    long t;
+    cin >> t;
+    
+    while(t--) {
+        long n;
+        cin >> n;
+
+        for(long i = 0; i < n; i++) 
+        {
+            long x;
+            cin >> x;
+        }
+
+        if(n % 2) 
+        {
+            cout << "4\n";
+            cout << "2 " << n << "\n";
+            cout << "2 " << n << "\n";
+            cout << "1 2\n";
+            cout << "1 2\n";
+        } 
+        else 
+        {
+            cout << "2\n";
+            cout << "1 " << n << "\n";
+            cout << "1 " << n << "\n";
+        }
+    }
+
+    return 0;
+}
