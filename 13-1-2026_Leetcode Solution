@@ -1,0 +1,48 @@
+Problem Link:
+https://leetcode.com/problems/separate-squares-i/?envType=daily-question&envId=2026-01-13
+
+Solution:
+class Solution {
+public:
+    double separateSquares(vector<vector<int>>& squares) {
+        vector<pair<long long, long long>> events;
+        long double total = 0.0;
+
+        for(auto &s : squares) 
+        {
+            long long y = s[1];
+            long long l = s[2];
+            total += (long double)l * l;
+            events.push_back({y, l});
+            events.push_back({y + l, -l});
+        }
+
+        sort(events.begin(), events.end());
+
+        long double t = total / 2.0;
+        long double slope = 0.0;
+        long double area = 0.0;
+
+        for(int i = 0; i + 1 < (int)events.size(); i++) 
+        {
+            slope += events[i].second;
+            long long y1 = events[i].first;
+            long long y2 = events[i + 1].first;
+
+            if(slope == 0) 
+                continue;
+
+            long double segment = slope * (y2 - y1);
+
+            if(area + segment >= t) 
+            {
+                long double rem = t - area;
+                return (double)(y1 + rem / slope);
+            }
+
+            area += segment;
+        }
+
+        return (double)events.back().first;
+    }
+};
