@@ -1,0 +1,52 @@
+Problem Link:
+https://codeforces.com/problemset/problem/1904/A
+
+Solution:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    long t;
+    cin >> t;
+    
+    while(t--) {
+        long a, b;
+        cin >> a >> b;
+
+        long xk, yk;
+        cin >> xk >> yk;
+
+        long xq, yq;
+        cin >> xq >> yq;
+
+        set<pair<long, long>> s1, s2;
+
+        s1.insert({xk + a, yk + b});
+        s1.insert({xk - a, yk + b});
+        s1.insert({xk + a, yk - b});
+        s1.insert({xk - a, yk - b});
+        s1.insert({xk + b, yk + a});
+        s1.insert({xk - b, yk + a});
+        s1.insert({xk + b, yk - a});
+        s1.insert({xk - b, yk - a});
+
+        s2.insert({xq + a, yq + b});
+        s2.insert({xq - a, yq + b});
+        s2.insert({xq + a, yq - b});
+        s2.insert({xq - a, yq - b});
+        s2.insert({xq + b, yq + a});
+        s2.insert({xq - b, yq + a});
+        s2.insert({xq + b, yq - a});
+        s2.insert({xq - b, yq - a});
+
+        long c = 0;
+        for(auto &p : s1) 
+        {
+            c += s2.count(p);
+        }
+
+        cout << c << "\n";
+    }
+
+    return 0;
+}
