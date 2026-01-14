@@ -1,0 +1,138 @@
+Problem Link:
+https://leetcode.com/problems/separate-squares-ii/?envType=daily-question&envId=2026-01-14
+
+Solution:
+class Solution {
+public:
+    struct Event {
+        long long y;
+        int x1;
+        int x2;
+        int type;
+    };
+
+    struct SegTree {
+        int n;
+        vector<int> count;
+        vector<long long> length;
+        vector<long long> xs;
+
+        SegTree(const vector<long long>& coords) {
+            xs = coords;
+            n = xs.size() - 1;
+            count.assign(4 * n, 0);
+            length.assign(4 * n, 0);
+        }
+
+        void pushUp(int node, int l, int r) {
+            if(count[node] > 0)
+            {
+                length[node] = xs[r] - xs[l];
+            }
+            else
+            {
+                if(l + 1 == r)
+                {
+                    length[node] = 0;
+                }
+                else
+                {
+                    length[node] = length[node * 2] + length[node * 2 + 1];
+                }
+            }
+        }
+
+        void update(int node, int l, int r, int ql, int qr, int val) {
+            if(qr <= l || r <= ql)
+            {
+                return;
+            }
+            if(ql <= l && r <= qr)
+            {
+                count[node] += val;
+                pushUp(node, l, r);
+                return;
+            }
+            int mid = (l + r) / 2;
+            update(node * 2, l, mid, ql, qr, val);
+            update(node * 2 + 1, mid, r, ql, qr, val);
+            pushUp(node, l, r);
+        }
+
+        long long query() {
+            return length[1];
+        }
+    };
+
+    double separateSquares(vector<vector<int>>& squares) {
+        vector<Event> events;
+        vector<long long> xs;
+
+        for(auto& s : squares)
+        {
+            long long x = s[0];
+            long long y = s[1];
+            long long l = s[2];
+            events.push_back({y, (int)x, (int)(x + l), 1});
+            events.push_back({y + l, (int)x, (int)(x + l), -1});
+            xs.push_back(x);
+            xs.push_back(x + l);
+        }
+
+        sort(xs.begin(), xs.end());
+        xs.erase(unique(xs.begin(), xs.end()), xs.end());
+
+        auto getX = [&](long long v) {
+            return lower_bound(xs.begin(), xs.end(), v) - xs.begin();
+        };
+
+        sort(events.begin(), events.end(),
+             [](const Event& a, const Event& b) {
+                 return a.y < b.y;
+             });
+
+        SegTree st(xs);
+
+        vector<tuple<double, double, double, double>> slabs;
+        double area = 0.0;
+        double prevY = events[0].y;
+        int i = 0;
+
+        while(i < events.size())
+        {
+            double curY = events[i].y;
+            double width = st.query();
+            if(curY > prevY && width > 0)
+            {
+                slabs.emplace_back(prevY, curY, width, area);
+                area += width * (curY - prevY);
+            }
+
+            while(i < events.size() && events[i].y == curY)
+            {
+                int l = getX(events[i].x1);
+                int r = getX(events[i].x2);
+                st.update(1, 0, st.n, l, r, events[i].type);
+                i++;
+            }
+            prevY = curY;
+        }
+
+        double half = area / 2.0;
+
+        for(auto& t : slabs)
+        {
+            double y1 = get<0>(t);
+            double y2 = get<1>(t);
+            double w = get<2>(t);
+            double a0 = get<3>(t);
+            double a1 = a0 + w * (y2 - y1);
+            if(half <= a1 + 1e-12)
+            {
+                return y1 + (half - a0) / w;
+            }
+        }
+
+        return prevY;
+    }
+};
