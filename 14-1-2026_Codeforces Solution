@@ -1,0 +1,51 @@
+Problem Link:
+https://codeforces.com/problemset/problem/1933/B
+
+Solution:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main()
+{
+    long t;
+    cin >> t;
+
+    while(t--)
+    {
+        long n;
+        cin >> n;
+
+        bool f = false;
+        int s = 0;
+
+        for(long i = 0; i < n; i++)
+        {
+            int x;
+            cin >> x;
+            if(x % 3 == 1)
+            {
+                f = true;
+            }
+            s += x;
+            s %= 3;
+        }
+
+        if(!f && s % 3 == 1)
+        {
+            cout << "2\n";
+        }
+        else
+        {
+            if(s % 3)
+            {
+                cout << "1\n";
+            }
+            else
+            {
+                cout << "0\n";
+            }
+        }
+    }
+
+    return 0;
+}
