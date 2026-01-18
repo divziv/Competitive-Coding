@@ -1,0 +1,32 @@
+Problem Link:
+https://codeforces.com/problemset/problem/1872/D
+
+Solution:
+#include <bits/stdc++.h>
+using namespace std;
+
+long long gcd(long long a, long long b) {
+    return (b == 0) ? a : gcd(b, a % b);
+}
+
+int main() {
+    long long t;
+    cin >> t;
+    
+    while(t--) {
+        long long n, x, y;
+        cin >> n >> x >> y;
+
+        long long lcm = (x / gcd(x, y)) * y;
+
+        long long nx = (n / lcm) * (lcm / x - 1) + (n % lcm) / x;
+        long long ny = (n / lcm) * (lcm / y - 1) + (n % lcm) / y;
+
+        long long plus  = nx * (2 * n - nx + 1) / 2;
+        long long minus = ny * (ny + 1) / 2;
+
+        cout << plus - minus << "\n";
+    }
+
+    return 0;
+}
