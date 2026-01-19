@@ -1,0 +1,45 @@
+Problem Link:
+https://codeforces.com/problemset/problem/1526/B
+
+Solution:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    vector<bool> f(1111, false);
+
+    for(int i = 1; i < 1111; i++) 
+    {
+        if(i % 11 == 0 || i % 111 == 0) 
+        {
+            f[i] = true;
+        } 
+        else if(i > 11 && f[i - 11]) 
+        {
+            f[i] = true;
+        } 
+        else if(i > 111 && f[i - 111]) 
+        {
+            f[i] = true;
+        }
+    }
+
+    int t;
+    cin >> t;
+    
+    while(t--) {
+        long x;
+        cin >> x;
+        
+        if(x >= 1111) 
+        {
+            cout << "YES\n";
+        } 
+        else 
+        {
+            cout << (f[x] ? "YES\n" : "NO\n");
+        }
+    }
+
+    return 0;
+}
