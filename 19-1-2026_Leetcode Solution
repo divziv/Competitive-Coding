@@ -1,0 +1,49 @@
+Problem Link:
+https://leetcode.com/problems/maximum-side-length-of-a-square-with-sum-less-than-or-equal-to-threshold/?envType=daily-question&envId=2026-01-19
+
+Solution:
+class Solution {
+public:
+    int maxSideLength(vector<vector<int>>& mat, int t) {
+        int rows = mat.size(), cols = mat[0].size();
+        
+        vector<vector<int>> p(rows + 1, vector<int>(cols + 1, 0));
+        for(int i = 1; i <= rows; i++) 
+        {
+            for(int j = 1; j <= cols; j++) 
+            {
+                p[i][j] = mat[i - 1][j - 1] + p[i - 1][j] + p[i][j - 1] - p[i - 1][j - 1];
+            }
+        }
+        
+        auto f = [&](int k) {
+            for(int i = 0; i + k <= rows; i++) 
+            {
+                for(int j = 0; j + k <= cols; j++) 
+                {
+                    int s = p[i + k][j + k] - p[i][j + k] - p[i + k][j] + p[i][j];
+                    if(s <= t) 
+                        return true;
+                }
+            }
+            return false;
+        };
+        
+        int l = 1, r = min(rows, cols), msl = 0;
+        while(l <= r) 
+        {
+            int m = l + (r - l) / 2;
+            if(f(m)) 
+            {
+                msl = m;
+                l = m + 1;
+            } 
+            else 
+            {
+                r = m - 1;
+            }
+        }
+        
+        return msl;
+    }
+};
