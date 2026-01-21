@@ -1,0 +1,33 @@
+Problem Link:
+https://leetcode.com/problems/construct-the-minimum-bitwise-array-ii/?envType=daily-question&envId=2026-01-21
+
+Solution:
+class Solution {
+public:
+    vector<int> minBitwiseArray(vector<int>& nums) {
+        vector<int> v;
+        
+        for(int n : nums) 
+        {
+            long long b = -1;
+            
+            for(int t = 0; t <= 30; ++t) 
+            {
+                long long m = (1LL << (t + 1)) - 1;
+                
+                if((n & m) == m) 
+                {
+                    long long x = n - (1LL << t);
+                    if(x >= 0) 
+                    {
+                        b = x;
+                    }
+                }
+            }
+            
+            v.push_back((int)b);
+        }
+        
+        return v;
+    }
+};
