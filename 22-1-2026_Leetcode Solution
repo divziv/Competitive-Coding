@@ -1,0 +1,42 @@
+Problem Link:
+https://leetcode.com/problems/minimum-pair-removal-to-sort-array-i/?envType=daily-question&envId=2026-01-22
+
+Solution:
+class Solution {
+public:
+    bool f(const vector<int>& nums) {
+        for(int j = 1; j < nums.size(); j++) 
+        {
+            if(nums[j] < nums[j - 1]) 
+                return false;
+        }
+        return true;
+    }
+
+    int minimumPairRemoval(vector<int>& nums) {
+        int o = 0;
+
+        while(!f(nums)) 
+        {
+            int mn = nums[0] + nums[1];
+            int i = 0;
+
+            for(int j = 1; j < nums.size() - 1; j++) 
+            {
+                int s = nums[j] + nums[j + 1];
+                if(s < mn) 
+                {
+                    mn = s;
+                    i = j;
+                }
+            }
+
+            nums[i] = nums[i] + nums[i + 1];
+            nums.erase(nums.begin() + i + 1);
+
+            o++;
+        }
+
+        return o;
+    }
+};
