@@ -1,0 +1,22 @@
+Problem Link:
+https://leetcode.com/problems/minimize-maximum-pair-sum-in-array/?envType=daily-question&envId=2026-01-24
+
+Solution:
+class Solution {
+public:
+    int minPairSum(vector<int>& nums) {
+        sort(nums.begin(), nums.end());
+        
+        int i = 0, j = nums.size() - 1;
+        int m = 0;
+        
+        while(i < j) 
+        {
+            m = max(m, nums[i] + nums[j]);
+            i++;
+            j--;
+        }
+        
+        return m;
+    }
+};
