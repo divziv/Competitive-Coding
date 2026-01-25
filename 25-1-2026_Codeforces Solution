@@ -1,0 +1,57 @@
+Problem Link:
+https://codeforces.com/problemset/problem/1722/C
+
+Solution:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    const int l = 3;
+    int t;
+    cin >> t;
+
+    while(t--) {
+        int n;
+        cin >> n;
+
+        vector<set<string>> v(l);
+        for(int i = 0; i < l; i++) 
+        {
+            for(int q = 0; q < n; q++) 
+            {
+                string s;
+                cin >> s;
+                v[i].insert(s);
+            }
+        }
+
+        vector<int> s(l, 0);
+
+        for(int i = 0; i < l; i++) 
+        {
+            for(const auto &x : v[i]) 
+            {
+                int c = 0;
+                for(int j = 0; j < l; j++) 
+                {
+                    if(j == i) 
+                        continue;
+                    c += v[j].count(x);
+                }
+
+                if(c == 0) 
+                    s[i] += 3;
+                else if(c == 1) 
+                    s[i] += 1;
+            }
+        }
+
+        for(int i = 0; i < l; i++) 
+        {
+            cout << s[i] << " ";
+        }
+        cout << "\n";
+    }
+
+    return 0;
+}
