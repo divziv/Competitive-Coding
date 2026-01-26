@@ -1,0 +1,63 @@
+Problem Link:
+https://codeforces.com/problemset/problem/1914/D
+
+Solution:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    int t;
+    cin >> t;
+
+    while(t--) {
+        int n;
+        cin >> n;
+
+        vector<long long> a(n), b(n), c(n);
+
+        for(int i = 0; i < n; i++) 
+            cin >> a[i];
+        for(int i = 0; i < n; i++) 
+            cin >> b[i];
+        for(int i = 0; i < n; i++) 
+            cin >> c[i];
+
+        vector<pair<long long, int>> ma, mb, mc;
+
+        for(int i = 0; i < n; i++) 
+        {
+            ma.push_back({a[i], i});
+            mb.push_back({b[i], i});
+            mc.push_back({c[i], i});
+        }
+
+        sort(ma.rbegin(), ma.rend());
+        sort(mb.rbegin(), mb.rend());
+        sort(mc.rbegin(), mc.rend());
+
+        long long m = 0;
+
+        for(int i = 0; i < 3; i++) 
+        {
+            for(int j = 0; j < 3; j++) 
+            {
+                for(int k = 0; k < 3; k++) 
+                {
+                    int da = ma[i].second;
+                    int db = mb[j].second;
+                    int dc = mc[k].second;
+
+                    if(da != db && da != dc && db != dc) 
+                    {
+                        long long s = ma[i].first + mb[j].first + mc[k].first;
+                        m = max(m, s);
+                    }
+                }
+            }
+        }
+
+        cout << m << "\n";
+    }
+
+    return 0;
+}
