@@ -1,0 +1,59 @@
+Problem Link:
+https://leetcode.com/problems/minimum-cost-path-with-edge-reversals/?envType=daily-question&envId=2026-01-27
+
+Solution:
+class Solution {
+public:
+    int minCost(int n, vector<vector<int>>& edges) {
+        const long long m = LLONG_MAX / 4;
+
+        vector<vector<pair<int,int>>> adj(n), radj(n);
+
+        for(auto &e : edges) 
+        {
+            int u = e[0], v = e[1], w = e[2];
+            adj[u].push_back({v, w});
+            radj[v].push_back({u, w});
+        }
+
+        vector<vector<long long>> dist(n, vector<long long>(2, m));
+        priority_queue<array<long long,3>, vector<array<long long,3>>, greater<>> pq;
+
+        dist[0][0] = 0;
+        pq.push({0, 0, 0});
+
+        while(!pq.empty()) 
+        {
+            auto [cost, u, used] = pq.top();
+            pq.pop();
+
+            if(cost > dist[u][used]) 
+                continue;
+
+            for(auto &[v, w] : adj[u]) 
+            {
+                if(dist[v][used] > cost + w) 
+                {
+                    dist[v][used] = cost + w;
+                    pq.push({dist[v][used], v, used});
+                }
+            }
+
+            if(used == 0) 
+            {
+                for(auto &[v, w] : radj[u]) 
+                {
+                    long long ncost = cost + 2LL * w;
+                    if(dist[v][1] > ncost) 
+                    {
+                        dist[v][1] = ncost;
+                        pq.push({ncost, v, 1});
+                    }
+                }
+            }
+        }
+
+        long long s = min(dist[n-1][0], dist[n-1][1]);
+        return s == m ? -1 : (int)s;
+    }
+};
