@@ -1,0 +1,16 @@
+Problem Link:
+https://codeforces.com/problemset/problem/1182/A
+
+Solution:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    int n;
+    cin >> n;
+
+    int s = (n % 2 == 0) ? (1 << (n / 2)) : 0;
+    cout << s << "\n";
+
+    return 0;
+}
