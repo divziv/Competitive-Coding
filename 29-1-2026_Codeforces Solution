@@ -1,0 +1,21 @@
+Problem Link:
+https://codeforces.com/problemset/problem/2185/A
+
+Solution:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    int t;
+    cin >> t;
+    
+    while(t--) {
+        long n;
+        cin >> n;
+        for(long i = 1; i <= n; i++) 
+        {
+            cout << i << (i < n ? " " : "\n");
+        }
+    }
+    return 0;
+}
