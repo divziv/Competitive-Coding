@@ -1,0 +1,77 @@
+Problem Link:
+https://leetcode.com/problems/minimum-cost-to-convert-string-ii/?envType=daily-question&envId=2026-01-30
+
+Solution:
+class Solution {
+public:
+    long long minimumCost(string source, string target, vector<string>& original, vector<string>& changed, vector<int>& cost) {
+        long long m = 1e18;
+        int n = source.size();
+
+        map<string, int> id;
+        vector<string> nodes;
+
+        auto getId = [&](const string& s) {
+            if(!id.count(s)) 
+            {
+                id[s] = nodes.size();
+                nodes.push_back(s);
+            }
+            return id[s];
+        };
+
+        for(int i = 0; i < original.size(); i++) 
+        {
+            getId(original[i]);
+            getId(changed[i]);
+        }
+
+        int sz = nodes.size();
+        vector<vector<long long>> dist(sz, vector<long long>(sz, m));
+
+        for(int i = 0; i < sz; i++) 
+            dist[i][i] = 0;
+
+        for(int i = 0; i < original.size(); i++) 
+        {
+            int u = getId(original[i]);
+            int v = getId(changed[i]);
+            dist[u][v] = min(dist[u][v], (long long)cost[i]);
+        }
+
+        for(int k = 0; k < sz; k++)
+            for(int i = 0; i < sz; i++)
+                for(int j = 0; j < sz; j++)
+                    if(dist[i][k] < m && dist[k][j] < m)
+                        dist[i][j] = min(dist[i][j], dist[i][k] + dist[k][j]);
+
+        vector<long long> dp(n + 1, m);
+        dp[0] = 0;
+
+        for(int i = 0; i < n; i++) 
+        {
+            if(dp[i] == m) 
+                continue;
+
+            if(source[i] == target[i]) 
+            {
+                dp[i + 1] = min(dp[i + 1], dp[i]);
+            }
+
+            for(int j = i; j < n; j++) 
+            {
+                string s = source.substr(i, j - i + 1);
+                string t = target.substr(i, j - i + 1);
+                if (!id.count(s) || !id.count(t)) continue;
+
+                long long c = dist[id[s]][id[t]];
+                if(c < m) 
+                {
+                    dp[j + 1] = min(dp[j + 1], dp[i] + c);
+                }
+            }
+        }
+
+        return dp[n] == m ? -1 : dp[n];
+    }
+};
