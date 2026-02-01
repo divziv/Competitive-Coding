@@ -1,0 +1,30 @@
+Problem Link:
+https://codeforces.com/problemset/problem/540/A
+
+Solution:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    const int n = 10;
+
+    int d;
+    cin >> d;
+
+    string s, t;
+    cin >> s >> t;
+
+    int c = 0;
+    for(int i = 0; i < d; i++) 
+    {
+        int a = abs(s[i] - t[i]);
+        if(a > n / 2) 
+        {
+            a = n - a;
+        }
+        c += a;
+    }
+
+    cout << c << "\n";
+    return 0;
+}
