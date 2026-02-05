@@ -1,0 +1,40 @@
+Problem Link:
+https://codeforces.com/problemset/problem/275/A
+
+Solution:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    const int n = 3;
+    int v[n][n] = {0};
+    int t;
+
+    for(int r = 0; r < n; r++) 
+    {
+        for(int c = 0; c < n; c++) 
+        {
+            cin >> t;
+            v[r][c] += t;
+            if(r > 0) 
+                v[r - 1][c] += t;
+            if(c > 0) 
+                v[r][c - 1] += t;
+            if(r < n - 1) 
+                v[r + 1][c] += t;
+            if(c < n - 1) 
+                v[r][c + 1] += t;
+        }
+    }
+
+    for(int r = 0; r < n; r++) 
+    {
+        for(int c = 0; c < n; c++) 
+        {
+            cout << (1 + v[r][c]) % 2;
+        }
+        cout << "\n";
+    }
+
+    return 0;
+}
