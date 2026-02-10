@@ -1,0 +1,31 @@
+Problem Link:
+https://leetcode.com/problems/longest-balanced-subarray-i/?envType=daily-question&envId=2026-02-10
+
+Solution:
+class Solution {
+public:
+    int longestBalanced(vector<int>& nums) {
+        int n = nums.size();
+        int m = 0;
+
+        for(int i = 0; i < n; i++) 
+        {
+            set<int> e, o;
+
+            for(int j = i; j < n; j++) 
+            {
+                if(nums[j] % 2 == 0)
+                    e.insert(nums[j]);
+                else
+                    o.insert(nums[j]);
+
+                if(e.size() == o.size()) 
+                {
+                    m = max(m, j - i + 1);
+                }
+            }
+        }
+
+        return m;
+    }
+};
