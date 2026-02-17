@@ -1,0 +1,33 @@
+Problem Link:
+https://leetcode.com/problems/binary-watch/?envType=daily-question&envId=2026-02-17
+
+Solution:
+class Solution {
+public:
+    vector<string> readBinaryWatch(int turnedOn) {
+        vector<string> v;
+        
+        for(int h = 0; h < 12; h++) 
+        {
+            for(int m = 0; m < 60; m++) 
+            {
+                
+                int b = __builtin_popcount(h) + __builtin_popcount(m);
+                
+                if(b == turnedOn) 
+                {
+                    string t = to_string(h) + ":";
+                    
+                    if(m < 10)
+                        t += "0";
+                    
+                    t += to_string(m);
+                    
+                    v.push_back(t);
+                }
+            }
+        }
+        
+        return v;
+    }
+};
