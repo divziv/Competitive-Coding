@@ -1,0 +1,42 @@
+Problem Link:
+https://codeforces.com/problemset/problem/2160/C
+
+Solution:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    int t;
+    cin >> t;
+
+    while(t--) {
+        long long n;
+        cin >> n;
+
+        while(n && n % 2 == 0) 
+        {
+            n /= 2;
+        }
+
+        vector<bool> v;
+        while(n) 
+        {
+            v.push_back(n % 2);
+            n /= 2;
+        }
+
+        bool f = (v.size() % 2 ? (!v[v.size() / 2]) : true);
+
+        for(int i = 0; f && i < (int)v.size(); i++) 
+        {
+            if(v[i] != v[v.size() - 1 - i]) 
+            {
+                f = false;
+            }
+        }
+
+        cout << (f ? "YES" : "NO") << "\n";
+    }
+
+    return 0;
+}
