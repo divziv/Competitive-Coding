@@ -1,0 +1,30 @@
+Problem Link:
+https://leetcode.com/problems/prime-number-of-set-bits-in-binary-representation/?envType=daily-question&envId=2026-02-21
+
+Solution:
+class Solution {
+public:
+    bool isPrime(int n) {
+        if(n < 2) 
+            return false;
+        for(int i = 2; i * i <= n; i++) 
+        {
+            if(n % i == 0) 
+                return false;
+        }
+        return true;
+    }
+
+    int countPrimeSetBits(int left, int right) {
+        int c = 0;
+        for(int i = left; i <= right; i++) 
+        {
+            int b = __builtin_popcount(i);
+            if(isPrime(b)) 
+            {
+                c++;
+            }
+        }
+        return c;
+    }
+};
