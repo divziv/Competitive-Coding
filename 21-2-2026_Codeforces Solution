@@ -1,0 +1,19 @@
+Problem Link:
+https://codeforces.com/problemset/problem/1421/A
+
+Solution:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    int t;
+    cin >> t;
+
+    while(t--) {
+        long long a, b;
+        cin >> a >> b;
+        cout << (a ^ b) << "\n";
+    }
+
+    return 0;
+}
