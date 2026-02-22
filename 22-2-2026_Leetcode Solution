@@ -1,0 +1,28 @@
+Problem Link:
+https://leetcode.com/problems/binary-gap/?envType=daily-question&envId=2026-02-22
+
+Solution:
+class Solution {
+public:
+    int binaryGap(int n) {
+        int l = -1;
+        int m = 0;
+        int i = 0;
+        
+        while(n > 0) 
+        {
+            if(n & 1) 
+            {
+                if(l != -1) 
+                {
+                    m = max(m, i - l);
+                }
+                l = i;
+            }
+            n >>= 1;
+            i++;
+        }
+        
+        return m;
+    }
+};
