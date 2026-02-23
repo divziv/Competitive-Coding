@@ -1,0 +1,37 @@
+Problem Link:
+https://leetcode.com/problems/check-if-a-string-contains-all-binary-codes-of-size-k/?envType=daily-question&envId=2026-02-23
+
+Solution:
+class Solution {
+public:
+    bool hasAllCodes(string s, int k) {
+        int n = s.size();
+        if(n < k) 
+            return false;
+        
+        int s2 = 1 << k;
+        vector<bool> v(s2, false);
+        
+        int m = 0;
+        int o = s2 - 1;
+        int c = 0;
+        
+        for(int i = 0; i < n; i++) 
+        {
+            m = ((m << 1) & o) | (s[i] - '0');
+            
+            if(i >= k - 1) 
+            {
+                if(!v[m]) 
+                {
+                    v[m] = true;
+                    c++;
+                    if(c == s2) 
+                        return true;
+                }
+            }
+        }
+        
+        return false;
+    }
+};
