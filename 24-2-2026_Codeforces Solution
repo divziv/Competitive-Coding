@@ -1,0 +1,21 @@
+Problem Link:
+https://codeforces.com/problemset/problem/1761/A
+
+Solution:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    int t;
+    cin >> t;
+
+    while(t--) {
+        int n, a, b;
+        cin >> n >> a >> b;
+
+        bool f = (a == n && b == n) || (a + b + 1 < n);
+        cout << (f ? "Yes" : "No") << "\n";
+    }
+
+    return 0;
+}
