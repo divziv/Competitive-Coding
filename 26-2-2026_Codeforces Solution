@@ -1,0 +1,41 @@
+Problem Link:
+https://codeforces.com/problemset/problem/1696/B
+
+Solution:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    long t;
+    cin >> t;
+
+    while(t--) {
+        long n;
+        cin >> n;
+
+        long c = 0;
+        bool f = false;
+
+        while(n--) {
+            long x;
+            cin >> x;
+
+            if(x) 
+            {
+                f = true;
+            } 
+            else if(f) 
+            {
+                ++c;
+                f = false;
+            }
+        }
+
+        c += f;
+        c = (c < 2) ? c : 2;
+
+        cout << c << "\n";
+    }
+
+    return 0;
+}
