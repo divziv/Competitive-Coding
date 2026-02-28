@@ -1,0 +1,23 @@
+Problem Link:
+https://leetcode.com/problems/concatenation-of-consecutive-binary-numbers/?envType=daily-question&envId=2026-02-28
+
+Solution:
+class Solution {
+public:
+    int concatenatedBinary(int n) {
+        const int m = 1e9 + 7;
+        long long cb = 0;
+        int b = 0;
+        
+        for(int i = 1; i <= n; i++) 
+        {
+            if((i & (i - 1)) == 0) 
+            {
+                b++;
+            }
+            cb = ((cb << b) % m + i) % m;
+        }
+        
+        return cb;
+    }
+};
