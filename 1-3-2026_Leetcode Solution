@@ -1,0 +1,17 @@
+Problem Link:
+https://leetcode.com/problems/partitioning-into-minimum-number-of-deci-binary-numbers/?envType=daily-question&envId=2026-03-01
+
+Solution:
+class Solution {
+public:
+    int minPartitions(string n) {
+        int m = 0;
+        for(char c : n) 
+        {
+            m = max(m, c - '0');
+            if(m == 9) 
+                return 9;
+        }
+        return m;
+    }
+};
