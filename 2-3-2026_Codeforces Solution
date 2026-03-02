@@ -1,0 +1,41 @@
+Problem Link:
+https://codeforces.com/problemset/problem/1811/A
+
+Solution:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    int t;
+    cin >> t;
+
+    while(t--) {
+        int n;
+        char d;
+        cin >> n >> d;
+
+        string s;
+        cin >> s;
+
+        bool f = false;
+
+        for(int i = 0; i < n; i++) 
+        {
+            if(!f && s[i] < d) 
+            {
+                cout << d;
+                f = true;
+            }
+            cout << s[i];
+        }
+
+        if(!f) 
+        {
+            cout << d;
+        }
+
+        cout << "\n";
+    }
+
+    return 0;
+}
