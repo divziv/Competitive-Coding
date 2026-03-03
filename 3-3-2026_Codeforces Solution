@@ -1,0 +1,55 @@
+Problem Link:
+https://codeforces.com/problemset/problem/1520/C
+
+Solution:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    long t;
+    cin >> t;
+
+    while(t--) {
+        long n;
+        cin >> n;
+
+        if(n == 1) 
+        {
+            cout << 1 << "\n";
+            continue;
+        } 
+        else if(n == 2) 
+        {
+            cout << -1 << "\n";
+            continue;
+        }
+
+        vector<vector<long>> v(n, vector<long>(n, 0));
+        long cur = 1;
+
+        for(long par = 0; par <= 1; par++) 
+        {
+            for(long row = 0; row < n; row++) 
+            {
+                for(long col = 0; col < n; col++) 
+                {
+                    if((row + col) % 2 == par) 
+                    {
+                        v[row][col] = cur++;
+                    }
+                }
+            }
+        }
+
+        for(long row = 0; row < n; row++) 
+        {
+            for(long col = 0; col < n; col++) 
+            {
+                cout << v[row][col] << " ";
+            }
+            cout << "\n";
+        }
+    }
+
+    return 0;
+}
