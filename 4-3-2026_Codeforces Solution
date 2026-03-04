@@ -1,0 +1,21 @@
+Problem Link:
+https://codeforces.com/problemset/problem/766/Ac
+
+Solution:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    string s, t;
+    cin >> s >> t;
+
+    if(s == t) {
+        cout << "-1" << "\n";
+    } 
+    else 
+    {
+        cout << ((s.size() > t.size()) ? s.size() : t.size()) << "\n";
+    }
+
+    return 0;
+}
