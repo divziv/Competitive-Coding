@@ -1,0 +1,41 @@
+Problem Link:
+https://codeforces.com/problemset/problem/1807/C
+
+Solution:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    int t;
+    cin >> t;
+
+    while(t--) {
+        int n;
+        cin >> n;
+
+        string s;
+        cin >> s;
+
+        vector<int> v(26, -1);
+        bool f = true;
+
+        for(int i = 0; i < n; i++) 
+        {
+            int c = s[i] - 'a';
+
+            if(v[c] == -1) 
+            {
+                v[c] = i % 2;
+            } 
+            else if(v[c] != i % 2) 
+            {
+                f = false;
+                break;
+            }
+        }
+
+        cout << (f ? "YES" : "NO") << "\n";
+    }
+
+    return 0;
+}
