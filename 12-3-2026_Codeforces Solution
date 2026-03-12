@@ -1,0 +1,65 @@
+Problem Link:
+https://codeforces.com/problemset/problem/1691/B
+
+Solution:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    int t;
+    cin >> t;
+
+    while(t--) {
+        int n;
+        cin >> n;
+
+        vector<long long> v(n);
+        for(int i = 0; i < n; i++) 
+        {
+            cin >> v[i];
+        }
+
+        v.push_back(1e9 + 7);
+
+        int sz = 1, start = 0;
+        bool f = true;
+        vector<int> w;
+
+        for(int i = 1; i <= n; i++) 
+        {
+            if(v[i] == v[i - 1]) 
+            {
+                sz++;
+                continue;
+            }
+
+            if(sz == 1) 
+            {
+                f = false;
+                break;
+            }
+
+            w.push_back(i);
+            for(int j = start; j < i - 1; j++) 
+            {
+                w.push_back(j + 1);
+            }
+
+            start = i;
+            sz = 1;
+        }
+
+        if(f) 
+        {
+            for(int x : w) 
+                cout << x << " ";
+            cout << "\n";
+        } 
+        else 
+        {
+            cout << -1 << "\n";
+        }
+    }
+
+    return 0;
+}
