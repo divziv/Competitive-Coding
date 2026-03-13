@@ -1,0 +1,39 @@
+Problem Link:
+https://leetcode.com/problems/minimum-number-of-seconds-to-make-mountain-height-zero/?envType=daily-question&envId=2026-03-13
+
+Solution:
+class Solution {
+public:
+    long long minNumberOfSeconds(int mountainHeight, vector<int>& workerTimes) {
+        long long l = 0, r = 1e18;
+        long long s = r;
+
+        while(l <= r) 
+        {
+            long long m = (l + r) / 2;
+            long long t = 0;
+
+            for(long long w : workerTimes) 
+            {
+                long long v = (2 * m) / w;
+                long long x = (sqrt(1 + 4 * v) - 1) / 2;
+                t += x;
+
+                if(t >= mountainHeight) 
+                    break;
+            }
+
+            if(t >= mountainHeight) 
+            {
+                s = m;
+                r = m - 1;
+            } 
+            else 
+            {
+                l = m + 1;
+            }
+        }
+
+        return s;
+    }
+};
