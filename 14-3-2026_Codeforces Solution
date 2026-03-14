@@ -1,0 +1,34 @@
+Problem Link:
+https://codeforces.com/problemset/problem/1195/C
+
+Solution:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    long long n;
+    cin >> n;
+
+    vector<long long> h1(n), h2(n);
+    for(long long i = 0; i < n; i++) 
+        cin >> h1[i];
+    for(long long i = 0; i < n; i++) 
+        cin >> h2[i];
+
+    vector<long long> fa(n), fb(n), fc(n);
+
+    fa[0] = h1[0];
+    fb[0] = h2[0];
+    fc[0] = 0;
+
+    for(long long i = 1; i < n; i++) 
+    {
+        fa[i] = h1[i] + max(fb[i-1], fc[i-1]);
+        fb[i] = h2[i] + max(fa[i-1], fc[i-1]);
+        fc[i] = max(fa[i-1], fb[i-1]);
+    }
+
+    cout << max(fa[n-1], fb[n-1]) << "\n";
+
+    return 0;
+}
