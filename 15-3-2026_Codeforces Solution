@@ -1,0 +1,19 @@
+Problem Link:
+https://codeforces.com/problemset/problem/1553/A
+
+Solution:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    int t;
+    cin >> t;
+
+    while(t--) {
+        long n;
+        cin >> n;
+        cout << (n + 1) / 10 << "\n";
+    }
+
+    return 0;
+}
