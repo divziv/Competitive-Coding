@@ -1,0 +1,60 @@
+Problem Link:
+https://leetcode.com/problems/fancy-sequence/?envType=daily-question&envId=2026-03-15
+
+Solution:
+class Fancy {
+public:
+    const long long m = 1e9 + 7;
+    vector<long long> v;
+    long long mul = 1;
+    long long add = 0;
+
+    long long modPow(long long a, long long b) {
+        long long s = 1;
+        a %= m;
+        while(b) 
+        {
+            if(b & 1) 
+                s = (s * a) % m;
+            a = (a * a) % m;
+            b >>= 1;
+        }
+        return s;
+    }
+
+    long long modInv(long long x) {
+        return modPow(x, m - 2);
+    }
+
+    Fancy() {}
+
+    void append(int val) {
+        long long n = ((val - add) % m + m) % m;
+        n = (n * modInv(mul)) % m;
+        v.push_back(n);
+    }
+
+    void addAll(int inc) {
+        add = (add + inc) % m;
+    }
+
+    void multAll(int x) {
+        mul = (mul * x) % m;
+        add = (add * x) % m;
+    }
+
+    int getIndex(int idx) {
+        if(idx >= v.size()) 
+            return -1;
+        return (v[idx] * mul + add) % m;
+    }
+};
+
+/**
+ * Your Fancy object will be instantiated and called as such:
+ * Fancy* obj = new Fancy();
+ * obj->append(val);
+ * obj->addAll(inc);
+ * obj->multAll(m);
+ * int param_4 = obj->getIndex(idx);
+ */
