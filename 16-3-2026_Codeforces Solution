@@ -1,0 +1,51 @@
+Problem Link:
+https://codeforces.com/problemset/problem/1850/E
+
+Solution:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    long long t;
+    cin >> t;
+
+    while(t--) {
+        long long n, c;
+        cin >> n >> c;
+
+        vector<long long> v(n);
+        for(long long i = 0; i < n; i++) 
+            cin >> v[i];
+
+        long long l = 0, r = 1e9;
+
+        while(l <= r) 
+        {
+            long long m = (l + r) / 2;
+
+            long long a = 0;
+
+            for(long long x : v) 
+            {
+                long long s = x + 2 * m;
+                a += s * s;
+                if(a > c) 
+                    break;
+            }
+
+            if(a == c) 
+            {
+                cout << m << "\n";
+                break;
+            }
+            else if(a < c) 
+            {
+                l = m + 1;
+            }
+            else 
+            {
+                r = m - 1;
+            }
+        }
+    }
+}
