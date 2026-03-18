@@ -1,0 +1,75 @@
+Problem Link:
+https://codeforces.com/problemset/problem/1831/B
+
+Solution:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    int t;
+    cin >> t;
+
+    while(t--) {
+        int n;
+        cin >> n;
+
+        map<int, int> a, b;
+
+        int p = -1, c = 0;
+
+        for(int i = 0; i < n; i++) 
+        {
+            int x;
+            cin >> x;
+
+            if(x != p) 
+            {
+                if(p != -1)
+                    a[p] = max(a[p], c);
+                c = 0;
+            }
+            c++;
+            p = x;
+        }
+        if(p != -1)
+            a[p] = max(a[p], c);
+
+        p = -1;
+        c = 0;
+
+        for(int i = 0; i < n; i++) 
+        {
+            int x;
+            cin >> x;
+
+            if(x != p) 
+            {
+                if(p != -1)
+                    b[p] = max(b[p], c);
+                c = 0;
+            }
+            c++;
+            p = x;
+        }
+        if(p != -1)
+            b[p] = max(b[p], c);
+
+        int s = 0;
+
+        for(auto &[key, val] : a) 
+        {
+            int total = val + b[key];
+            s = max(s, total);
+        }
+
+        for(auto &[key, val] : b) 
+        {
+            int total = val + a[key];
+            s = max(s, total);
+        }
+
+        cout << s << "\n";
+    }
+
+    return 0;
+}
