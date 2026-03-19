@@ -1,0 +1,60 @@
+Problem Link:
+https://leetcode.com/problems/count-submatrices-with-equal-frequency-of-x-and-y/?envType=daily-question&envId=2026-03-19
+
+Solution:
+class Solution {
+public:
+    int numberOfSubmatrices(vector<vector<char>>& grid) {
+        int m = grid.size();
+        int n = grid[0].size();
+        
+        vector<vector<int>> px(m, vector<int>(n, 0));
+        vector<vector<int>> py(m, vector<int>(n, 0));
+        
+        for(int i = 0; i < m; i++) 
+        {
+            for(int j = 0; j < n; j++) 
+            {
+                int isX = (grid[i][j] == 'X');
+                int isY = (grid[i][j] == 'Y');
+                
+                px[i][j] = isX;
+                py[i][j] = isY;
+                
+                if(i > 0) 
+                {
+                    px[i][j] += px[i-1][j];
+                    py[i][j] += py[i-1][j];
+                }
+                if(j > 0) 
+                {
+                    px[i][j] += px[i][j-1];
+                    py[i][j] += py[i][j-1];
+                }
+                if(i > 0 && j > 0) 
+                {
+                    px[i][j] -= px[i-1][j-1];
+                    py[i][j] -= py[i-1][j-1];
+                }
+            }
+        }
+        
+        int s = 0;
+        
+        for(int i = 0; i < m; i++) 
+        {
+            for(int j = 0; j < n; j++) 
+            {
+                int cx = px[i][j];
+                int cy = py[i][j];
+                
+                if(cx == cy && cx > 0) 
+                {
+                    s++;
+                }
+            }
+        }
+        
+        return s;
+    }
+};
