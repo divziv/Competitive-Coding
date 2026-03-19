@@ -1,0 +1,37 @@
+Problem Link:
+https://codeforces.com/problemset/problem/1899/C
+
+Solution:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    int t;
+    cin >> t;
+
+    while (t--) {
+        long n;
+        cin >> n;
+
+        long p = 0, c = 0, m = -1007;
+
+        for(long i = 0; i < n; i++) 
+        {
+            long x;
+            cin >> x;
+
+            if((p + x) % 2 == 0 || c < 0) 
+            {
+                c = 0;
+            }
+
+            c += x;
+            m = max(m, c);
+            p = x % 2;
+        }
+
+        cout << m << "\n";
+    }
+
+    return 0;
+}
