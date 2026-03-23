@@ -1,0 +1,65 @@
+Problem Link:
+https://codeforces.com/problemset/problem/371/C
+
+Solution:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main()
+{
+    string burger;
+    getline(cin, burger);
+
+    long long cb = 0, cs = 0, cc = 0;
+
+    for(char ch: burger)
+    {
+        if(ch == 'B')
+        {
+            cb++;
+        }
+        else if(ch == 'S')
+        {
+            cs++;
+        }
+        else if(ch == 'C')
+        {
+            cc++;
+        }
+    }
+
+    long long fb, fs, fc;
+    cin >> fb >> fs >> fc;
+
+    long long pb, ps, pc;
+    cin >> pb >> ps >> pc;
+
+    long long budget;
+    cin >> budget;
+
+    long long mn = 0, mx = 1e13;
+
+    while(mn + 1 < mx)
+    {
+        long long m = (mn + mx) / 2;
+
+        long long nb = max(0LL, cb * m - fb);
+        long long ns = max(0LL, cs * m - fs);
+        long long nc = max(0LL, cc * m - fc);
+
+        long long cost = nb * pb + ns * ps + nc * pc;
+
+        if(cost <= budget)
+        {
+            mn = m;
+        }
+        else
+        {
+            mx = m;
+        }
+    }
+
+    cout << mn << "\n";
+
+    return 0;
+}
