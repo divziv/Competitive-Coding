@@ -1,0 +1,53 @@
+Problem Link:
+https://codeforces.com/problemset/problem/1876/A
+
+Solution:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main()
+{
+    long long t;
+    cin >> t;
+
+    while(t--)
+    {
+        long long n, r;
+        cin >> n >> r;
+
+        vector<pair<long long, long long>> v(n);
+
+        for(long long i = 0; i < n; i++)
+        {
+            cin >> v[i].second;
+        }
+
+        for(long long i = 0; i < n; i++)
+        {
+            cin >> v[i].first;
+        }
+
+        sort(v.begin(), v.end());
+
+        long long rem = n - 1;
+        long long total = r;
+
+        for(long long i = 0; i < n; i++)
+        {
+            if(v[i].first >= r)
+            {
+                break;
+            }
+
+            long long cnt = min(rem, v[i].second);
+            total += cnt * v[i].first;
+            rem -= cnt;
+        }
+
+        total += r * rem;
+
+        cout << total << "\n";
+    }
+
+    return 0;
+}
