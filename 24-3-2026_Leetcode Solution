@@ -1,0 +1,52 @@
+Problem Link:
+https://leetcode.com/problems/construct-product-matrix/?envType=daily-question&envId=2026-03-24
+
+Solution:
+class Solution {
+public:
+    vector<vector<int>> constructProductMatrix(vector<vector<int>>& grid)
+    {
+        const int m = 12345;
+        
+        int n = grid.size();
+        int cols = grid[0].size();
+        int size = n * cols;
+        
+        vector<long long> arr(size);
+        int idx = 0;
+        
+        for(int i = 0; i < n; i++)
+        {
+            for(int j = 0; j < cols; j++)
+            {
+                arr[idx++] = grid[i][j] % m;
+            }
+        }
+        
+        vector<long long> prefix(size, 1), suffix(size, 1);
+        
+        for(int i = 1; i < size; i++)
+        {
+            prefix[i] = (prefix[i - 1] * arr[i - 1]) % m;
+        }
+        
+        for(int i = size - 2; i >= 0; i--)
+        {
+            suffix[i] = (suffix[i + 1] * arr[i + 1]) % m;
+        }
+        
+        vector<vector<int>> result(n, vector<int>(cols));
+        idx = 0;
+        
+        for(int i = 0; i < n; i++)
+        {
+            for(int j = 0; j < cols; j++)
+            {
+                result[i][j] = (prefix[idx] * suffix[idx]) % m;
+                idx++;
+            }
+        }
+        
+        return result;
+    }
+};
