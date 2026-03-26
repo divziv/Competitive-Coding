@@ -1,0 +1,58 @@
+Problem Link:
+https://codeforces.com/problemset/problem/1324/D
+
+Solution:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    int n;
+    cin >> n;
+
+    vector<int> a(n), b(n);
+
+    for(int i = 0; i < n; i++) 
+    {
+        cin >> a[i];
+    }
+
+    for(int i = 0; i < n; i++) 
+    {
+        cin >> b[i];
+    }
+
+    vector<int> dp, dn;
+
+    for(int i = 0; i < n; i++) 
+    {
+        int diff = a[i] - b[i];
+        if(diff > 0) 
+            dp.push_back(diff);
+        else 
+            dn.push_back(diff);
+    }
+
+    sort(dp.rbegin(), dp.rend());
+    sort(dn.begin(), dn.end());
+
+    long long cnt = 0;
+
+    int lenpos = dp.size();
+    cnt = (long long)lenpos * (lenpos - 1) / 2;
+
+    int idx = 0;
+
+    for(int i = 0; i < (int)dn.size(); i++) 
+    {
+        int cur = dn[i];
+        while(idx < (int)dp.size() && cur + dp[idx] > 0) 
+        {
+            idx++;
+        }
+        cnt += idx;
+    }
+
+    cout << cnt << "\n";
+
+    return 0;
+}
