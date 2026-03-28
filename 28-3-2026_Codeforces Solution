@@ -1,0 +1,48 @@
+Problem Link:
+https://codeforces.com/problemset/problem/1931/C
+
+Solution:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main()
+{
+    int t;
+    cin >> t;
+
+    while(t--)
+    {
+        int n;
+        cin >> n;
+
+        vector<int> a(n);
+        for(int i = 0; i < n; i++)
+        {
+            cin >> a[i];
+        }
+
+        int l = 1;
+        while(l < n && a[l] == a[0])
+        {
+            l++;
+        }
+
+        int r = 1;
+        while(r + 1 <= n && a[n - 1 - r] == a.back())
+        {
+            r++;
+        }
+
+        int s = max(l, r);
+        if(a[0] == a.back())
+        {
+            s = l + r;
+        }
+
+        s = min(s, n);
+
+        cout << (n - s) << "\n";
+    }
+
+    return 0;
+}
