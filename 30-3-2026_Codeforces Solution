@@ -1,0 +1,61 @@
+Problem Link:
+https://codeforces.com/problemset/problem/349/A
+
+Solution:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main()
+{
+    long n;
+    cin >> n;
+
+    long bills[3] = {0};
+    bool f = true;
+
+    for(int k = 0; k < n; k++)
+    {
+        int t;
+        cin >> t;
+
+        if(t == 25)
+        {
+            bills[0]++;
+        }
+        else if(t == 50)
+        {
+            bills[0]--;
+            bills[1]++;
+        }
+        else if(t == 100)
+        {
+            bills[2]++;
+            if(bills[1] > 0)
+            {
+                bills[1]--;
+                bills[0]--;
+            }
+            else
+            {
+                bills[0] -= 3;
+            }
+        }
+
+        if(bills[0] < 0)
+        {
+            f = false;
+            break;
+        }
+    }
+
+    if(f)
+    {
+        cout << "YES\n";
+    }
+    else
+    {
+        cout << "NO\n";
+    }
+
+    return 0;
+}
