@@ -1,0 +1,31 @@
+Problem Link:
+https://leetcode.com/problems/check-if-strings-can-be-made-equal-with-operations-ii/?envType=daily-question&envId=2026-03-30
+
+Solution:
+class Solution
+{
+public:
+    bool checkStrings(string s1, string s2)
+    {
+        int n = s1.length();
+        
+        vector<int> e1(26, 0), o1(26, 0);
+        vector<int> e2(26, 0), o2(26, 0);
+        
+        for(int i = 0; i < n; i++)
+        {
+            if(i % 2 == 0)
+            {
+                e1[s1[i] - 'a']++;
+                e2[s2[i] - 'a']++;
+            }
+            else
+            {
+                o1[s1[i] - 'a']++;
+                o2[s2[i] - 'a']++;
+            }
+        }
+        
+        return (e1 == e2) && (o1 == o2);
+    }
+};
