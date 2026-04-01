@@ -1,0 +1,86 @@
+Problem Link:
+https://leetcode.com/problems/robot-collisions/?envType=daily-question&envId=2026-04-01
+
+Solution:
+class Solution
+{
+public:
+    vector<int> survivedRobotsHealths(vector<int>& positions, vector<int>& healths, string directions)
+    {
+        int n = positions.size();
+        
+        vector<tuple<int, int, char, int>> robots;
+        for(int i = 0; i < n; i++)
+        {
+            robots.push_back({positions[i], healths[i], directions[i], i});
+        }
+        
+        sort(robots.begin(), robots.end());
+        
+        stack<int> st;
+        vector<int> health(n);
+        
+        for(int i = 0; i < n; i++)
+        {
+            health[i] = get<1>(robots[i]);
+        }
+        
+        for(int i = 0; i < n; i++)
+        {
+            char dir = get<2>(robots[i]);
+            
+            if(dir == 'R')
+            {
+                st.push(i);
+            }
+            else
+            {
+                while(!st.empty() && health[i] > 0)
+                {
+                    int j = st.top();
+                    
+                    if(health[j] < health[i])
+                    {
+                        st.pop();
+                        health[i] -= 1;
+                        health[j] = 0;
+                    }
+                    else if(health[j] > health[i])
+                    {
+                        health[j] -= 1;
+                        health[i] = 0;
+                        break;
+                    }
+                    else
+                    {
+                        health[j] = 0;
+                        health[i] = 0;
+                        st.pop();
+                        break;
+                    }
+                }
+            }
+        }
+        
+        vector<int> v(n, 0);
+        for(int i = 0; i < n; i++)
+        {
+            int idx = get<3>(robots[i]);
+            if(health[i] > 0)
+            {
+                v[idx] = health[i];
+            }
+        }
+        
+        vector<int> s;
+        for(int i = 0; i < n; i++)
+        {
+            if(v[i] > 0)
+            {
+                s.push_back(v[i]);
+            }
+        }
+        
+        return s;
+    }
+};
