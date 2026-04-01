@@ -1,0 +1,46 @@
+Problem Link:
+https://codeforces.com/problemset/problem/1832/C
+
+Solution:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main()
+{
+    long long t;
+    cin >> t;
+
+    while(t--)
+    {
+        long long n;
+        cin >> n;
+
+        vector<long long> a;
+        long long p = -1;
+
+        for(long long i = 0; i < n; i++)
+        {
+            long long x;
+            cin >> x;
+            if(x == p)
+                continue;
+
+            a.push_back(x);
+            p = x;
+        }
+
+        long long c = 0;
+
+        for(long long i = 1; i + 1 < (long long)a.size(); i++)
+        {
+            if((a[i - 1] < a[i] && a[i] > a[i + 1]) || (a[i - 1] > a[i] && a[i] < a[i + 1]))
+            {
+                c++;
+            }
+        }
+
+        cout << c + 1 + (a.size() > 1) << "\n";
+    }
+
+    return 0;
+}
