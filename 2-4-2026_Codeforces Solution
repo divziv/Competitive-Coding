@@ -1,0 +1,65 @@
+Problem Link:
+https://codeforces.com/problemset/problem/1742/D
+
+Solution:
+#include <bits/stdc++.h>
+using namespace std;
+
+long gcd(long a, long b)
+{
+    return (b == 0) ? a : gcd(b, a % b);
+}
+
+int main()
+{
+    const int d = 1001;
+
+    vector<vector<int>> m(d);
+    for(int p = 1; p < d; p++)
+    {
+        for(int q = 1; q < d; q++)
+        {
+            if(gcd(p, q) == 1)
+            {
+                m[p].push_back(q);
+                m[q].push_back(p);
+            }
+        }
+    }
+
+    int t;
+    cin >> t;
+    while(t--)
+    {
+        int n;
+        cin >> n;
+
+        vector<int> where(d, -1);
+
+        for(int i = 0; i < n; i++)
+        {
+            int x;
+            cin >> x;
+            where[x] = i + 1;
+        }
+
+        int s = -1;
+
+        for(int p = 1; p < d; p++)
+        {
+            if(where[p] == -1) 
+                continue;
+
+            for(int q : m[p])
+            {
+                if(where[q] == -1) 
+                    continue;
+                s = max(s, where[p] + where[q]);
+            }
+        }
+
+        cout << s << "\n";
+    }
+
+    return 0;
+}
