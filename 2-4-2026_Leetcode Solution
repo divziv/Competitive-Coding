@@ -1,0 +1,60 @@
+Problem Link:
+https://leetcode.com/problems/maximum-amount-of-money-robot-can-earn/?envType=daily-question&envId=2026-04-02
+
+Solution:
+class Solution {
+public:
+    int maximumAmount(vector<vector<int>>& coins) {
+        int m = coins.size(), n = coins[0].size();
+        vector<vector<vector<int>>> dp(m, vector<vector<int>>(n, vector<int>(3, INT_MIN)));
+        
+        for(int k = 0; k <= 2; k++)
+        {
+            if(coins[0][0] >= 0)
+                dp[0][0][k] = coins[0][0];
+            else
+            {
+                dp[0][0][0] = coins[0][0];
+                if(k > 0)
+                    dp[0][0][k] = 0;
+            }
+        }
+
+        for(int i = 0; i < m; i++)
+        {
+            for(int j = 0; j < n; j++)
+            {
+                if(i == 0 && j == 0) 
+                    continue;
+                
+                for(int k = 0; k <= 2; k++)
+                {
+                    int val = coins[i][j];
+                    int p = INT_MIN;
+                    
+                    if(i > 0) 
+                        p = max(p, dp[i-1][j][k]);
+                    if(j > 0) 
+                        p = max(p, dp[i][j-1][k]);
+                    
+                    if(p != INT_MIN)
+                        dp[i][j][k] = max(dp[i][j][k], p + val);
+                    
+                    if(val < 0 && k > 0)
+                    {
+                        int pn = INT_MIN;
+                        if(i > 0) 
+                            pn = max(pn, dp[i-1][j][k-1]);
+                        if(j > 0) 
+                            pn = max(pn, dp[i][j-1][k-1]);
+                        
+                        if(pn != INT_MIN)
+                            dp[i][j][k] = max(dp[i][j][k], pn);
+                    }
+                }
+            }
+        }
+
+        return max({dp[m-1][n-1][0], dp[m-1][n-1][1], dp[m-1][n-1][2]});
+    }
+};
