@@ -1,0 +1,69 @@
+Problem Link:
+https://leetcode.com/problems/maximum-walls-destroyed-by-robots/?envType=daily-question&envId=2026-04-03
+
+Solution:
+class Solution
+{
+public:
+    int maxWalls(vector<int>& robots, vector<int>& distance, vector<int>& walls)
+    {
+        int n = robots.size();
+        vector<pair<int,int>> r(n);
+        
+        for(int i = 0; i < n; i++)
+        {
+            r[i] = {robots[i], distance[i]};
+        }
+        
+        ranges::sort(r, {}, &pair<int,int>::first);
+        ranges::sort(walls);
+
+        vector dp(n, vector<int>(2, -1));
+
+        auto dfs = [&](this auto&& dfs, int idx, int dir) -> int
+        {
+            if(idx < 0)
+            {
+                return 0;
+            }
+            
+            if(dp[idx][dir] != -1)
+            {
+                return dp[idx][dir];
+            }
+
+            int lb = r[idx].first - r[idx].second;
+            if(idx > 0)
+            {
+                lb = max(lb, r[idx - 1].first + 1);
+            }
+            
+            int li = ranges::lower_bound(walls, lb) - walls.begin();
+            int ri = ranges::lower_bound(walls, r[idx].first + 1) - walls.begin();
+            
+            int m = dfs(idx - 1, 0) + (ri - li);
+
+            int rb = r[idx].first + r[idx].second;
+            if(idx + 1 < n)
+            {
+                if(dir == 0)
+                {
+                    rb = min(rb, r[idx + 1].first - r[idx + 1].second - 1);
+                }
+                else
+                {
+                    rb = min(rb, r[idx + 1].first - 1);
+                }
+            }
+            
+            li = ranges::lower_bound(walls, r[idx].first) - walls.begin();
+            ri = ranges::lower_bound(walls, rb + 1) - walls.begin();
+            
+            m = max(m, dfs(idx - 1, 1) + (ri - li));
+
+            return dp[idx][dir] = m;
+        };
+
+        return dfs(n - 1, 1);
+    }
+};
