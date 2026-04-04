@@ -1,0 +1,45 @@
+Problem Link:
+https://leetcode.com/problems/decode-the-slanted-ciphertext/?envType=daily-question&envId=2026-04-04
+
+Solution:
+class Solution
+{
+public:
+    string decodeCiphertext(string encodedText, int rows)
+    {
+        if(rows == 1) 
+            return encodedText;
+
+        int n = encodedText.size();
+        int cols = n / rows;
+
+        vector<vector<char>> mat(rows, vector<char>(cols));
+        int idx = 0;
+        for(int i = 0; i < rows; i++)
+        {
+            for(int j = 0; j < cols; j++)
+            {
+                mat[i][j] = encodedText[idx++];
+            }
+        }
+
+        string s;
+        for(int ic = 0; ic < cols; ic++)
+        {
+            int i = 0, j = ic;
+            while(i < rows && j < cols)
+            {
+                s.push_back(mat[i][j]);
+                i++;
+                j++;
+            }
+        }
+
+        while(!s.empty() && s.back() == ' ')
+        {
+            s.pop_back();
+        }
+
+        return s;
+    }
+};
