@@ -1,0 +1,34 @@
+Problem Link:
+https://leetcode.com/problems/minimum-distance-between-three-equal-elements-i/?envType=daily-question&envId=2026-04-10
+
+Solution:
+class Solution {
+public:
+    int minimumDistance(vector<int>& nums) {
+        int n = nums.size();
+        map<int, vector<int>> mp;
+        
+        for(int i = 0; i < n; i++) 
+        {
+            mp[nums[i]].push_back(i);
+        }
+        
+        int m = INT_MAX;
+        
+        for(auto &p : mp) 
+        {
+            vector<int> &v = p.second;
+            
+            if(v.size() < 3) 
+                continue;
+            
+            for(int i = 0; i + 2 < v.size(); i++) 
+            {
+                int d = 2 * (v[i + 2] - v[i]);
+                m = min(m, d);
+            }
+        }
+        
+        return m == INT_MAX ? -1 : m;
+    }
+};
