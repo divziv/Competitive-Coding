@@ -1,0 +1,21 @@
+Problem Link:
+https://codeforces.com/problemset/problem/1418/A
+
+Solution:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    int t;
+    cin >> t;
+
+    while(t--) {
+        long long x, y, k;
+        cin >> x >> y >> k;
+
+        long long a = (k * (y + 1) - 1 + (x - 2)) / (x - 1);
+        cout << a + k << "\n";
+    }
+
+    return 0;
+}
