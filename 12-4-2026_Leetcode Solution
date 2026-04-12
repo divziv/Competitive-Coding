@@ -1,0 +1,64 @@
+Problem Link:
+https://leetcode.com/problems/minimum-distance-to-type-a-word-using-two-fingers/?envType=daily-question&envId=2026-04-12
+
+Solution:
+class Solution{
+public:
+    int minimumDistance(string word){
+        vector<pair<int,int>> pos(27);
+
+        for(int i=0;i<26;i++)
+        {
+            pos[i]={i/6,i%6};
+        }
+
+        auto dist=[&](int a,int b)
+        {
+            if(a==26||b==26)
+            {
+                return 0;
+            }
+            return abs(pos[a].first-pos[b].first)+abs(pos[a].second-pos[b].second);
+        };
+
+        int n=word.size();
+        const int INF=1e9;
+
+        vector<vector<vector<int>>> dp(
+            n+1,vector<vector<int>>(27,vector<int>(27,INF))
+        );
+
+        dp[0][26][26]=0;
+
+        for(int i=0;i<n;i++)
+        {
+            int c=word[i]-'A';
+
+            for(int a=0;a<27;a++)
+            {
+                for(int b=0;b<27;b++)
+                {
+                    if(dp[i][a][b]==INF)
+                    {
+                        continue;
+                    }
+
+                    dp[i+1][c][b]=min(dp[i+1][c][b],dp[i][a][b]+dist(a,c));
+                    dp[i+1][a][c]=min(dp[i+1][a][c],dp[i][a][b]+dist(b,c));
+                }
+            }
+        }
+
+        int m=INF;
+
+        for(int a=0;a<27;a++)
+        {
+            for(int b=0;b<27;b++)
+            {
+                m=min(m,dp[n][a][b]);
+            }
+        }
+
+        return m;
+    }
+};
