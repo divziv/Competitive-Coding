@@ -1,0 +1,33 @@
+Problem Link:
+https://codeforces.com/problemset/problem/1714/C
+
+Solution:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    int t;
+    cin >> t;
+
+    while (t--) {
+        int s;
+        cin >> s;
+
+        long long m = 0;
+        long long p = 1;
+
+        for(int i = 9; i > 0; i--) 
+        {
+            if(i > s) 
+                continue;
+
+            m += p * i;
+            p *= 10;
+            s -= i;
+        }
+
+        cout << m << "\n";
+    }
+
+    return 0;
+}
