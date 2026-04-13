@@ -1,0 +1,49 @@
+Problem Link:
+https://codeforces.com/problemset/problem/1611/A
+
+Solution:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    long t;
+    cin >> t;
+
+    while(t--) {
+        string s;
+        cin >> s;
+
+        string m = "2";
+        bool f = false;
+
+        for(long i = 0; i < (long)s.size(); i++) 
+        {
+            if((s[i] - '0') % 2 == 0) 
+            {
+                f = true;
+                break;
+            }
+        }
+
+        if(!f) 
+        {
+            m = "-1";
+        } 
+        else if((s.back() - '0') % 2 == 0) 
+        {
+            m = "0";
+        } 
+        else if((s[0] - '0') % 2 == 0) 
+        {
+            m = "1";
+        } 
+        else 
+        {
+            m = "2";
+        }
+
+        cout << m << "\n";
+    }
+
+    return 0;
+}
