@@ -1,0 +1,38 @@
+Problem Link:
+https://leetcode.com/problems/closest-equal-element-queries/?envType=daily-question&envId=2026-04-16
+
+Solution:
+class Solution {
+public:
+    vector<int> solveQueries(vector<int>& nums, vector<int>& queries) {
+        int n = nums.size();
+        map<int, vector<int>> mp;
+        for(int i = 0; i < n; i++) 
+            mp[nums[i]].push_back(i);
+        
+        vector<int> s;
+        for(int q : queries) 
+        {
+            int val = nums[q];
+            auto &v = mp[val];
+            if(v.size() == 1) 
+            {
+                s.push_back(-1);
+                continue;
+            }
+            int p = lower_bound(v.begin(), v.end(), q) - v.begin();
+            int m = v.size();
+            int l = v[(p - 1 + m) % m];
+            int r = v[(p + 1) % m];
+            
+            int d1 = abs(q - l);
+            int d2 = abs(q - r);
+            
+            d1 = min(d1, n - d1);
+            d2 = min(d2, n - d2);
+            
+            s.push_back(min(d1, d2));
+        }
+        return s;
+    }
+};
