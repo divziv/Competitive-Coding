@@ -1,0 +1,42 @@
+Problem Link:
+https://codeforces.com/problemset/problem/1715/B
+
+Solution:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    int t;
+    cin >> t;
+
+    while(t--) {
+        long long n, k, b, s;
+        cin >> n >> k >> b >> s;
+
+        long long mn = (s - (n - 1) * (k - 1)) / k;
+        long long mx = s / k;
+
+        if(b < mn || b > mx) 
+        {
+            cout << -1 << '\n';
+            continue;
+        }
+
+        long long c = b * k + (k - 1);
+        c = min(c, s);
+
+        cout << c << " ";
+        long long r = s - c;
+
+        for(long long i = 1; i < n; i++) 
+        {
+            c = min(r, k - 1);
+            r -= c;
+            cout << c << " ";
+        }
+
+        cout << "\n";
+    }
+
+    return 0;
+}
