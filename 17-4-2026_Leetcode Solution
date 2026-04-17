@@ -1,0 +1,35 @@
+Problem Link:
+https://leetcode.com/problems/minimum-absolute-distance-between-mirror-pairs/?envType=daily-question&envId=2026-04-17
+
+Solution:
+class Solution {
+public:
+    int reverseNum(int x) {
+        int r = 0;
+        while(x > 0) 
+        {
+            r = r * 10 + (x % 10);
+            x /= 10;
+        }
+        return r;
+    }
+
+    int minMirrorPairDistance(vector<int>& nums) {
+        map<int, int> s;
+        int m = INT_MAX;
+
+        for(int j = 0; j < nums.size(); j++) 
+        {
+            if(s.count(nums[j])) 
+            {
+                int i = s[nums[j]];
+                m = min(m, j - i);
+            }
+
+            int r = reverseNum(nums[j]);
+            s[r] = j;
+        }
+
+        return (m == INT_MAX) ? -1 : m;
+    }
+};
