@@ -1,0 +1,17 @@
+Problem Link:
+https://leetcode.com/problems/mirror-distance-of-an-integer/?envType=daily-question&envId=2026-04-18
+
+Solution:
+class Solution {
+public:
+    int mirrorDistance(int n) {
+        int o = n;
+        int r = 0;
+        while(n > 0) 
+        {
+            r = r * 10 + n % 10;
+            n /= 10;
+        }
+        return abs(o - r);
+    }
+};
