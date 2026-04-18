@@ -1,0 +1,32 @@
+Problem Link:
+https://codeforces.com/problemset/problem/1992/C
+
+Solution:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main()
+{
+    int t;
+    cin >> t;
+    
+    while(t--)
+    {
+        long long n, m, k;
+        cin >> n >> m >> k;
+
+        for(long long i = n; i > m; i--)
+        {
+            cout << i << " ";
+        }
+
+        for(long long i = 1; i <= m; i++)
+        {
+            cout << i << " ";
+        }
+
+        cout << "\n";
+    }
+
+    return 0;
+}
