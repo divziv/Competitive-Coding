@@ -1,0 +1,20 @@
+Problem Link:
+https://leetcode.com/problems/two-furthest-houses-with-different-colors/?envType=daily-question&envId=2026-04-20
+
+Solution:
+class Solution {
+public:
+    int maxDistance(vector<int>& colors) {
+        int n = colors.size();
+        int m = 0;
+        for (int i = 0; i < n; i++) {
+            if (colors[i] != colors[0]) {
+                m = max(m, i);
+            }
+            if (colors[i] != colors[n - 1]) {
+                m = max(m, n - 1 - i);
+            }
+        }
+        return m;
+    }
+};
