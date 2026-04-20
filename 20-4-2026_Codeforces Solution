@@ -1,0 +1,71 @@
+Problem Link:
+https://codeforces.com/problemset/problem/1899/B
+
+Solution:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main()
+{
+    long long t;
+    cin >> t;
+
+    while(t--)
+    {
+        long long n;
+        cin >> n;
+
+        vector<long long> a(n + 1, 0);
+
+        long long mn = 1e17 + 7, mx = 0;
+
+        for(long long i = 1; i <= n; i++)
+        {
+            long long x;
+            cin >> x;
+            mn = min(mn, x);
+            mx = max(mx, x);
+            a[i] = a[i - 1] + x;
+        }
+
+        long long m = mx - mn;
+
+        for(long long r = 2; r * r <= n; r++)
+        {
+            if(n % r)
+            {
+                continue;
+            }
+
+            long long step = r;
+            mn = 1e17 + 7;
+            mx = 0;
+
+            for(long long i = step; i <= n; i += step)
+            {
+                long long c = a[i] - a[i - step];
+                mn = min(mn, c);
+                mx = max(mx, c);
+            }
+
+            m = max(m, mx - mn);
+
+            step = n / r;
+            mn = 1e17 + 7;
+            mx = 0;
+
+            for(long long i = step; i <= n; i += step)
+            {
+                long long c = a[i] - a[i - step];
+                mn = min(mn, c);
+                mx = max(mx, c);
+            }
+
+            m = max(m, mx - mn);
+        }
+
+        cout << m << "\n";
+    }
+
+    return 0;
+}
