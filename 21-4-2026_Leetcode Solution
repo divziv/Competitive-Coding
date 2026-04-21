@@ -1,0 +1,68 @@
+Problem Link:
+https://leetcode.com/problems/minimize-hamming-distance-after-swap-operations/?envType=daily-question&envId=2026-04-21
+
+Solution:
+class Solution {
+public:
+    vector<int> parent, rankv;
+
+    int find(int x) {
+        if(parent[x] != x) 
+            parent[x] = find(parent[x]);
+        return parent[x];
+    }
+
+    void unite(int a, int b) {
+        int pa = find(a), pb = find(b);
+        if(pa == pb) 
+            return;
+        if(rankv[pa] < rankv[pb]) 
+            parent[pa] = pb;
+        else if(rankv[pa] > rankv[pb]) 
+            parent[pb] = pa;
+        else 
+        {
+            parent[pb] = pa;
+            rankv[pa]++;
+        }
+    }
+
+    int minimumHammingDistance(vector<int>& source, vector<int>& target, vector<vector<int>>& allowedSwaps) {
+        int n = source.size();
+        parent.resize(n);
+        rankv.resize(n, 0);
+
+        for(int i = 0; i < n; i++) 
+            parent[i] = i;
+
+        for(auto &e : allowedSwaps) 
+        {
+            unite(e[0], e[1]);
+        }
+
+        map<int, unordered_map<int, int>> mp;
+
+        for(int i = 0; i < n; i++) 
+        {
+            int p = find(i);
+            mp[p][source[i]]++;
+        }
+
+        int m = 0;
+
+        for(int i = 0; i < n; i++) 
+        {
+            int p = find(i);
+            if(mp[p][target[i]] > 0) 
+            {
+                mp[p][target[i]]--;
+            } 
+            else 
+            {
+                m++;
+            }
+        }
+
+        return m;
+    }
+};
