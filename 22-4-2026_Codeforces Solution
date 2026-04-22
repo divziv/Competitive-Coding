@@ -1,0 +1,25 @@
+Problem Link:
+https://codeforces.com/problemset/problem/2014/B
+
+Solution:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    long long t;
+    cin >> t;
+
+    while(t--) {
+        long long n, k;
+        cin >> n >> k;
+
+        long long o = ((k + (n % 2)) / 2) % 2;
+
+        if(o)
+            cout << "NO\n";
+        else
+            cout << "YES\n";
+    }
+
+    return 0;
+}
