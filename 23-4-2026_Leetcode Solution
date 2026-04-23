@@ -1,0 +1,34 @@
+Problem Link:
+https://leetcode.com/problems/sum-of-distances/?envType=daily-question&envId=2026-04-23
+
+Solution:
+class Solution {
+public:
+    vector<long long> distance(vector<int>& nums) {
+        int n = nums.size();
+        map<int, vector<int>> mp;
+        for(int i = 0; i < n; i++) 
+            mp[nums[i]].push_back(i);
+        
+        vector<long long> d(n, 0);
+        
+        for(auto &p : mp) 
+        {
+            auto &v = p.second;
+            int m = v.size();
+            vector<long long> pfx(m + 1, 0);
+            
+            for(int i = 0; i < m; i++) 
+                pfx[i + 1] = pfx[i] + v[i];
+            
+            for(int i = 0; i < m; i++) 
+            {
+                long long l = (long long)v[i] * i - pfx[i];
+                long long r = (pfx[m] - pfx[i + 1]) - (long long)v[i] * (m - i - 1);
+                d[v[i]] = l + r;
+            }
+        }
+        
+        return d;
+    }
+};
