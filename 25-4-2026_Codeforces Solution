@@ -1,0 +1,65 @@
+Problem Link:
+https://codeforces.com/problemset/problem/1676/E
+
+Solution:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main()
+{
+    int t;
+    cin >> t;
+
+    while(t--)
+    {
+        long n, q;
+        cin >> n >> q;
+
+        vector<long> v(n);
+
+        for(long i = 0; i < n; i++)
+        {
+            cin >> v[i];
+        }
+
+        sort(v.rbegin(), v.rend());
+
+        for(long i = 1; i < n; i++)
+        {
+            v[i] += v[i - 1];
+        }
+
+        while(q--)
+        {
+            long x;
+            cin >> x;
+
+            if(x > v[n - 1])
+            {
+                cout << -1 << "\n";
+                continue;
+            }
+
+            long l = 0, r = n - 1, s = n - 1;
+
+            while(l <= r)
+            {
+                long mid = (l + r) / 2;
+
+                if(v[mid] >= x)
+                {
+                    s = mid;
+                    r = mid - 1;
+                }
+                else
+                {
+                    l = mid + 1;
+                }
+            }
+
+            cout << s + 1 << "\n";
+        }
+    }
+
+    return 0;
+}
