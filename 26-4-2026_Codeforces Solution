@@ -1,0 +1,39 @@
+Problem Link:
+https://codeforces.com/problemset/problem/1366/A
+
+Solution:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    int t;
+    cin >> t;
+
+    while(t--) {
+        long long a, b;
+        cin >> a >> b;
+
+        long long s = 0;
+
+        if(a < b)
+            swap(a, b);
+
+        if(a > 2 * b) 
+        {
+            s = b;
+        } 
+        else 
+        {
+            long long diff = a - b;
+
+            a -= 2 * diff;
+            b -= diff;
+
+            s = diff + (2 * b / 3);
+        }
+
+        cout << s << "\n";
+    }
+
+    return 0;
+}
