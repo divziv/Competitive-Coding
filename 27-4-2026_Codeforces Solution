@@ -1,0 +1,23 @@
+Problem Link:
+https://codeforces.com/problemset/problem/2009/C
+
+Solution:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    long long t;
+    cin >> t;
+
+    while (t--) {
+        long long x, y, k;
+        cin >> x >> y >> k;
+
+        x = (x + k - 1) / k;
+        y = (y + k - 1) / k;
+
+        cout << 2 * max(x, y) - (x > y) << "\n";
+    }
+
+    return 0;
+}
