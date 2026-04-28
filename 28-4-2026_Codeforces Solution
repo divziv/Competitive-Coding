@@ -1,0 +1,34 @@
+Problem Link:
+https://codeforces.com/problemset/problem/2149/B
+
+Solution:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    long t;
+    cin >> t;
+    while(t--) {
+        long n;
+        cin >> n;
+
+        vector<long> a(n);
+        for(long i = 0; i < n; i++) 
+        {
+            cin >> a[i];
+        }
+
+        sort(a.begin(), a.end());
+
+        long m = a[1] - a[0];
+        for(long i = 3; i < n; i += 2) 
+        {
+            long d = a[i] - a[i - 1];
+            m = max(m, d);
+        }
+
+        cout << m << "\n";
+    }
+
+    return 0;
+}
