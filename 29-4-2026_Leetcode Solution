@@ -1,0 +1,46 @@
+Problem Link:
+https://leetcode.com/problems/maximum-score-from-grid-operations/?envType=daily-question&envId=2026-04-29
+
+Solution:
+#include <bits/stdc++.h>
+using namespace std;
+
+class Solution {
+ public:
+  long long maximumScore(vector<vector<int>>& grid) {
+    const int n = grid.size();
+    vector<vector<long>> prefix(n, vector<long>(n + 1));
+    vector<long> pp(n + 1);
+    vector<long> ps(n + 1);
+
+    for(int j = 0; j < n; ++j)
+        for(int i = 0; i < n; ++i)
+            prefix[j][i + 1] = prefix[j][i] + grid[i][j];
+
+    for(int j = 1; j < n; ++j) 
+    {
+        vector<long> cp(n + 1);
+        vector<long> cs(n + 1);
+
+        for(int c = 0; c <= n; ++c)
+            for (int p = 0; p <= n; ++p)
+                if(c > p) 
+                { 
+                    const long score = prefix[j - 1][c] - prefix[j - 1][p];
+                    cp[c] = max(cp[c], ps[p] + score);
+                    cs[c] = max(cs[c], ps[p] + score);
+                } 
+                else 
+                {
+                    const long score = prefix[j][p] - prefix[j][c];
+                    cp[c] = max(cp[c], pp[p] + score);
+                    cs[c] = max(cs[c], pp[p]);
+                }
+
+        pp = move(cp);
+        ps = move(cs);
+    }
+
+    return *max_element(pp.begin(), pp.end());
+  }
+};
