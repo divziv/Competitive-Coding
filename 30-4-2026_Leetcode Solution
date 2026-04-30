@@ -1,0 +1,56 @@
+Problem Link:
+https://leetcode.com/problems/maximum-path-score-in-a-grid/?envType=daily-question&envId=2026-04-30
+
+Solution:
+class Solution
+{
+public:
+    int maxPathScore(vector<vector<int>>& grid, int k)
+    {
+        int m = grid.size(), n = grid[0].size();
+        const int neg = -1e9;
+        vector<vector<vector<int>>> dp(m, vector<vector<int>>(n, vector<int>(k + 1, neg)));
+        
+        dp[0][0][0] = 0;
+        
+        for(int i = 0; i < m; i++)
+        {
+            for(int j = 0; j < n; j++)
+            {
+                for(int c = 0; c <= k; c++)
+                {
+                    if(dp[i][j][c] == neg) 
+                        continue;
+                    
+                    if(i + 1 < m)
+                    {
+                        int cost = (grid[i + 1][j] == 0 ? 0 : 1);
+                        int score = grid[i + 1][j];
+                        if(c + cost <= k)
+                        {
+                            dp[i + 1][j][c + cost] = max(dp[i + 1][j][c + cost], dp[i][j][c] + score);
+                        }
+                    }
+                    
+                    if(j + 1 < n)
+                    {
+                        int cost = (grid[i][j + 1] == 0 ? 0 : 1);
+                        int score = grid[i][j + 1];
+                        if(c + cost <= k)
+                        {
+                            dp[i][j + 1][c + cost] = max(dp[i][j + 1][c + cost], dp[i][j][c] + score);
+                        }
+                    }
+                }
+            }
+        }
+        
+        int mps = -1;
+        for(int c = 0; c <= k; c++)
+        {
+            mps = max(mps, dp[m - 1][n - 1][c]);
+        }
+        
+        return mps < 0 ? -1 : mps;
+    }
+};
