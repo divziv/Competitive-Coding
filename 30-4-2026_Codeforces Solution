@@ -1,0 +1,38 @@
+Problem Link:
+https://codeforces.com/problemset/problem/1485/A
+
+Solution:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    long t;
+    cin >> t;
+
+    while(t--) {
+        long a, b;
+        cin >> a >> b;
+
+        long s = 1 + a / b;
+
+        for(long i = b; i <= b + 100; i++) 
+        {
+            if(i == 1) 
+                continue;
+
+            long d = 0, c = a;
+            while(c) 
+            {
+                c /= i;
+                ++d;
+            }
+
+            long c2 = (i - b) + d;
+            s = min(s, c2);
+        }
+
+        cout << s << "\n";
+    }
+
+    return 0;
+}
