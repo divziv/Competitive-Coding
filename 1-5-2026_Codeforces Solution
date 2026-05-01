@@ -1,0 +1,42 @@
+Problem Link:
+https://codeforces.com/problemset/problem/1490/A
+
+Solution:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    int t;
+    cin >> t;
+
+    while(t--) {
+        int n;
+        cin >> n;
+
+        int p;
+        cin >> p;
+
+        int c = 0;
+
+        for(int i = 1; i < n; i++) 
+        {
+            int x;
+            cin >> x;
+
+            int a = min(x, p);
+            int b = max(x, p);
+
+            while(2 * a < b) 
+            {
+                a *= 2;
+                c++;
+            }
+
+            p = x;
+        }
+
+        cout << c << "\n";
+    }
+
+    return 0;
+}
