@@ -1,0 +1,26 @@
+Problem Link:
+https://codeforces.com/problemset/problem/1619/B
+
+Solution:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    set<long long> s;
+
+    for(long long i = 1; i * i <= 1000000000; i++) 
+        s.insert(i * i);
+    for(long long i = 1; i * i * i <= 1000000000; i++) 
+        s.insert(i * i * i);
+
+    int t;
+    cin >> t;
+
+    while(t--) {
+        long long n;
+        cin >> n;
+        cout << distance(s.begin(), s.upper_bound(n)) << "\n";
+    }
+
+    return 0;
+}
