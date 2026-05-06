@@ -1,0 +1,40 @@
+Problem Link:
+https://codeforces.com/problemset/problem/1665/B
+
+Solution:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    long t;
+    cin >> t;
+
+    while(t--) {
+        long n;
+        cin >> n;
+
+        map<long, long> m;
+        long c = 0;
+
+        for(long i = 0; i < n; i++) 
+        {
+            long x;
+            cin >> x;
+            m[x]++;
+            c = max(c, m[x]);
+        }
+
+        long s = 0;
+
+        while(c < n) 
+        {
+            long d = min(c, n - c);
+            s += 1 + d;
+            c *= 2;
+        }
+
+        cout << s << "\n";
+    }
+
+    return 0;
+}
