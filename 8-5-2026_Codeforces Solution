@@ -1,0 +1,39 @@
+Problem Link:
+https://codeforces.com/problemset/problem/545/C
+
+Solution:
+#include<bits/stdc++.h>
+using namespace std;
+
+int main(){
+    long long t, x, h, n, a[100005], c=-1000000030, tree=0;
+    cin >> t;
+
+    while(t--)
+    {
+        cin >> x >> h;
+
+        if(x - h > c)
+        {
+            c = x;
+            tree++;
+        }
+        else if(x > c)
+        {
+            c = x + h;
+            tree++;
+        }
+        else if(x - h > n)
+        {
+            c = x;
+        }
+        else
+        {
+            c = x + h;
+        }
+
+        n = x;
+    }
+
+    cout << tree << "\n";
+}
