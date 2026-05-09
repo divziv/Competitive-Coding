@@ -1,0 +1,36 @@
+Problem Link:
+https://codeforces.com/problemset/problem/1220/A
+
+Solution:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    long n;
+    cin >> n;
+
+    string s;
+    cin >> s;
+
+    long z = 0, a = 0;
+
+    for(long i = 0; i < s.size(); i++) 
+    {
+        a += (s[i] == 'n');
+        z += (s[i] == 'z');
+    }
+
+    for(long i = 0; i < a; i++) 
+    {
+        cout << "1 ";
+    }
+
+    for(long i = 0; i < z; i++) 
+    {
+        cout << "0 ";
+    }
+
+    cout << "\n";
+
+    return 0;
+}
