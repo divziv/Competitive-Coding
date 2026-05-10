@@ -1,0 +1,37 @@
+Problem Link:
+https://codeforces.com/problemset/problem/1926/C
+
+Solution:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    const int N = 200007;
+
+    vector<long long> v(N, 0);
+
+    for(int i = 1; i < N; i++) 
+    {
+        int x = i;
+        int sum = 0;
+
+        while(x) 
+        {
+            sum += (x % 10);
+            x /= 10;
+        }
+
+        v[i] = v[i - 1] + sum;
+    }
+
+    int t;
+    cin >> t;
+
+    while(t--) {
+        int n;
+        cin >> n;
+        cout << v[n] << "\n";
+    }
+
+    return 0;
+}
