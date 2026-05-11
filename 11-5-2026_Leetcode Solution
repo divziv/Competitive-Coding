@@ -1,0 +1,21 @@
+Problem Link:
+https://leetcode.com/problems/separate-the-digits-in-an-array/?envType=daily-question&envId=2026-05-11
+
+Solution:
+class Solution {
+public:
+    vector<int> separateDigits(vector<int>& nums) {
+        vector<int> v;
+        
+        for(int num : nums) 
+        {
+            string s = to_string(num);
+            for(char c : s) 
+            {
+                v.push_back(c - '0');
+            }
+        }
+        
+        return v;
+    }
+};
