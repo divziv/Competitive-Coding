@@ -1,0 +1,58 @@
+Problem Link:
+https://codeforces.com/problemset/problem/1399/C
+
+Solution:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    long t;
+    cin >> t;
+
+    while(t--) {
+        long n;
+        cin >> n;
+
+        vector<long> w(n + 1, 0);
+
+        for(long i = 0; i < n; i++) 
+        {
+            long x;
+            cin >> x;
+            ++w[x];
+        }
+
+        long m = 0;
+
+        for(long s = 0; s <= 2 * n; s++) 
+        {
+            long c = 0;
+
+            for(long i = 1; i <= n; i++) 
+            {
+                if(i > s - i) 
+                {
+                    continue;
+                }
+                else if(s - i > n) 
+                {
+                    continue;
+                }
+                else if(2 * i == s) 
+                {
+                    c += w[i] / 2;
+                }
+                else 
+                {
+                    c += min(w[i], w[s - i]);
+                }
+            }
+
+            m = max(m, c);
+        }
+
+        cout << m << "\n";
+    }
+
+    return 0;
+}
