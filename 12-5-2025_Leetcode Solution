@@ -1,0 +1,30 @@
+Problem Link:
+https://leetcode.com/problems/minimum-initial-energy-to-finish-tasks/?envType=daily-question&envId=2026-05-12
+
+Solution:
+class Solution {
+public:
+    int minimumEffort(vector<vector<int>>& tasks) {
+        sort(tasks.begin(), tasks.end(), [](vector<int>& a, vector<int>& b) {
+            return (a[1] - a[0]) > (b[1] - b[0]);
+        });
+
+        int e = 0, c = 0;
+
+        for(auto& t : tasks) 
+        {
+            int a = t[0];
+            int m = t[1];
+
+            if(c < m) 
+            {
+                e += (m - c);
+                c = m;
+            }
+
+            c -= a;
+        }
+
+        return e;
+    }
+};
