@@ -1,0 +1,38 @@
+Problem Link:
+https://leetcode.com/problems/minimum-moves-to-make-array-complementary/?envType=daily-question&envId=2026-05-13
+
+Solution:
+class Solution {
+public:
+    int minMoves(vector<int>& nums, int limit) {
+        int n = nums.size();
+        vector<int> v(2 * limit + 2);
+
+        for(int i = 0; i < n / 2; ++i) 
+        {
+            int a = nums[i];
+            int b = nums[n - 1 - i];
+
+            int l = min(a, b) + 1;
+            int h = max(a, b) + limit;
+            int s = a + b;
+
+            v[2] += 2;
+            v[l] -= 1;
+            v[s] -= 1;
+            v[s + 1] += 1;
+            v[h + 1] += 1;
+        }
+
+        int m = INT_MAX;
+        int c = 0;
+
+        for(int s = 2; s <= 2 * limit; ++s) 
+        {
+            c += v[s];
+            m = min(m, c);
+        }
+
+        return m;
+    }
+};
