@@ -1,0 +1,44 @@
+Problem Link:
+https://codeforces.com/problemset/problem/1759/A
+
+Solution:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    string y = "Yes";
+
+    int t;
+    cin >> t;
+
+    while(t--) {
+        string s;
+        cin >> s;
+
+        int shift = -1;
+
+        for(int i = 0; i < 3; i++) 
+        {
+            if(y[i] == s[0]) 
+            {
+                shift = i;
+                break;
+            }
+        }
+
+        bool f = true;
+
+        for(int i = 0; i < (int)s.size(); i++) 
+        {
+            if(s[i] != y[(i + shift) % 3]) 
+            {
+                f = false;
+                break;
+            }
+        }
+
+        cout << (f ? "YES" : "NO") << "\n";
+    }
+
+    return 0;
+}
