@@ -1,0 +1,60 @@
+Problem Link:
+https://codeforces.com/problemset/problem/1999/D
+
+Solution:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main()
+{
+    int t;
+    cin >> t;
+
+    while(t--)
+    {
+        string s, u;
+        cin >> s >> u;
+
+        int idx = 0;
+
+        for(int i = 0; i < (int)s.size(); i++)
+        {
+            if(idx < (int)u.size() && s[i] == u[idx])
+            {
+                idx++;
+            }
+            else if(s[i] == '?')
+            {
+                if(idx < (int)u.size())
+                {
+                    s[i] = u[idx];
+                    idx++;
+                }
+                else
+                {
+                    s[i] = 'a';
+                }
+            }
+        }
+
+        if(idx == (int)u.size())
+        {
+            for(char &c : s)
+            {
+                if (c == '?')
+                {
+                    c = 'a';
+                }
+            }
+
+            cout << "YES\n";
+            cout << s << "\n";
+        }
+        else
+        {
+            cout << "NO\n";
+        }
+    }
+
+    return 0;
+}
