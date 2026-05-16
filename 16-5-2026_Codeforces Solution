@@ -1,0 +1,37 @@
+Problem Link:
+https://codeforces.com/problemset/problem/1921/C
+
+Solution:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main()
+{
+    int t;
+    cin >> t;
+
+    while(t--)
+    {
+        int n;
+        long long f, a, b;
+
+        cin >> n >> f >> a >> b;
+
+        long long prev = 0, used = 0;
+
+        for(int i = 0; i < n; i++)
+        {
+            long long m;
+            cin >> m;
+
+            long long dur = m - prev;
+            prev = m;
+
+            used += min(a * dur, b);
+        }
+
+        cout << (used < f ? "YES" : "NO") << "\n";
+    }
+
+    return 0;
+}
