@@ -1,0 +1,39 @@
+Problem Link:
+https://codeforces.com/problemset/problem/227/B
+
+Solution:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main()
+{
+    int n;
+    cin >> n;
+
+    vector<int> position(n + 1);
+
+    for(int i = 1; i <= n; i++)
+    {
+        int x;
+        cin >> x;
+        position[x] = i;
+    }
+
+    int m;
+    cin >> m;
+
+    long long vasya = 0, petya = 0;
+
+    while(m--)
+    {
+        int x;
+        cin >> x;
+
+        vasya += position[x];
+        petya += (n + 1 - position[x]);
+    }
+
+    cout << vasya << " " << petya << "\n";
+
+    return 0;
+}
