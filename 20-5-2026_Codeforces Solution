@@ -1,0 +1,64 @@
+Problem Link:
+https://codeforces.com/problemset/problem/1976/A
+
+Solution:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main()
+{
+    int t;
+    cin >> t;
+
+    while(t--)
+    {
+        int n;
+        cin >> n;
+
+        string s;
+        cin >> s;
+
+        vector<char> digits, letters;
+        bool v = true;
+
+        bool f = false;
+
+        for(char c : s)
+        {
+            if(isdigit(c))
+            {
+                if(f)
+                {
+                    v = false;
+                    break;
+                }
+                digits.push_back(c);
+            }
+            else
+            {
+                f = true;
+                letters.push_back(c);
+            }
+        }
+
+        for(int i = 1; i < (int)digits.size(); i++)
+        {
+            if(digits[i] < digits[i - 1])
+            {
+                v = false;
+            }
+        }
+
+        for(int i = 1; i < (int)letters.size(); i++)
+        {
+            if(letters[i] < letters[i - 1])
+            {
+                v = false;
+            }
+        }
+
+        cout << (v ? "YES" : "NO") << "\n";
+    }
+
+    return 0;
+}
