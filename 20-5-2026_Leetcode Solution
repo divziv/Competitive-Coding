@@ -1,0 +1,27 @@
+Problem Link:
+https://leetcode.com/problems/find-the-prefix-common-array-of-two-arrays/?envType=daily-question&envId=2026-05-20
+
+Solution:
+class Solution {
+public:
+    vector<int> findThePrefixCommonArray(vector<int>& A, vector<int>& B) {
+        int n = A.size();
+        vector<int> f(n + 1, 0), v(n);
+        int c = 0;
+
+        for (int i = 0; i < n; i++) 
+        {
+            f[A[i]]++;
+            if(f[A[i]] == 2) 
+                c++;
+
+            f[B[i]]++;
+            if(f[B[i]] == 2) 
+                c++;
+
+            v[i] = c;
+        }
+
+        return v;
+    }
+};
