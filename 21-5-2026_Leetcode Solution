@@ -1,0 +1,42 @@
+Problem Link:
+https://leetcode.com/problems/find-the-length-of-the-longest-common-prefix/?envType=daily-question&envId=2026-05-21
+
+Solution:
+class Solution {
+public:
+    int longestCommonPrefix(vector<int>& arr1, vector<int>& arr2) {
+        set<string> st;
+
+        for(int x : arr1)
+        {
+            string s = to_string(x);
+            string pref = "";
+
+            for(char c : s)
+            {
+                pref += c;
+                st.insert(pref);
+            }
+        }
+
+        int l = 0;
+
+        for(int x : arr2)
+        {
+            string s = to_string(x);
+            string pref = "";
+
+            for(char c : s)
+            {
+                pref += c;
+
+                if(st.count(pref))
+                {
+                    l = max(l, (int)pref.size());
+                }
+            }
+        }
+
+        return l;
+    }
+};
