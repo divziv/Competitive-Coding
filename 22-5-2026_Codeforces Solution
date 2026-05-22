@@ -1,0 +1,40 @@
+Problem Link:
+https://codeforces.com/problemset/problem/1714/A
+
+Solution:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    int t;
+    cin >> t;
+
+    while(t--)
+    {
+        int n, H, M;
+        cin >> n >> H >> M;
+
+        int bed = H * 60 + M;
+        int s = 24 * 60;
+
+        for(int i = 0; i < n; i++)
+        {
+            int h, m;
+            cin >> h >> m;
+
+            int alarm = h * 60 + m;
+            int d = alarm - bed;
+
+            if(d < 0)
+            {
+                d += 24 * 60;
+            }
+
+            s = min(s, d);
+        }
+
+        cout << s / 60 << " " << s % 60 << "\n";
+    }
+
+    return 0;
+}
