@@ -1,0 +1,74 @@
+Problem Link:
+https://codeforces.com/problemset/problem/1618/C
+
+Solution:
+#include <bits/stdc++.h>
+using namespace std;
+
+long long gcd(long long a, long long b)
+{
+    return (b == 0) ? a : gcd(b, a % b);
+}
+
+int main()
+{
+    int t;
+    cin >> t;
+
+    while(t--)
+    {
+        int n;
+        cin >> n;
+
+        vector<long long> a(n);
+
+        for(int i = 0; i < n; i++)
+        {
+            cin >> a[i];
+        }
+
+        long long x = 0, y = 0;
+
+        for(int i = 0; i < n; i++)
+        {
+            if(i % 2 == 0)
+            {
+                x = gcd(x, a[i]);
+            }
+            else
+            {
+                y = gcd(y, a[i]);
+            }
+        }
+
+        bool gx = true, gy = true;
+
+        for(int i = 0; i < n; i++)
+        {
+            if(i % 2 == 0 && a[i] % y == 0)
+            {
+                gy = false;
+            }
+
+            if(i % 2 == 1 && a[i] % x == 0)
+            {
+                gx = false;
+            }
+        }
+
+        if(gx)
+        {
+            cout << x << "\n";
+        }
+        else if(gy)
+        {
+            cout << y << "\n";
+        }
+        else
+        {
+            cout << 0 << "\n";
+        }
+    }
+
+    return 0;
+}
