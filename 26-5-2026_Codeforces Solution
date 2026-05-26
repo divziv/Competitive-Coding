@@ -1,0 +1,26 @@
+Problem Link:
+https://codeforces.com/problemset/problem/1506/A
+
+Solution:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    int t;
+    cin >> t;
+
+    while(t--) {
+        long long n, m, x;
+        cin >> n >> m >> x;
+
+        x--;
+
+        long long r = x % n;
+        long long c = x / n;
+
+        long long s = r * m + c + 1;
+
+        cout << s << "\n";
+    }
+    return 0;
+}
