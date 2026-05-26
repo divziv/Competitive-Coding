@@ -1,0 +1,28 @@
+Problem Link:
+https://leetcode.com/problems/count-the-number-of-special-characters-i/?envType=daily-question&envId=2026-05-26
+
+Solution:
+class Solution {
+public:
+    int numberOfSpecialChars(string word) {
+        vector<int> lower(26, 0), upper(26, 0);
+
+        for(char c : word) 
+        {
+            if(islower(c))
+                lower[c - 'a'] = 1;
+            else
+                upper[c - 'A'] = 1;
+        }
+
+        int count = 0;
+
+        for(int i = 0; i < 26; i++) 
+        {
+            if(lower[i] && upper[i])
+                count++;
+        }
+
+        return count;
+    }
+};
