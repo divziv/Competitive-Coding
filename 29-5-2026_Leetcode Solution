@@ -1,0 +1,23 @@
+Problem Link:
+https://leetcode.com/problems/minimum-element-after-replacement-with-digit-sum/?envType=daily-question&envId=2026-05-29
+
+Solution:
+class Solution {
+public:
+    int minElement(vector<int>& nums) {
+        int m = INT_MAX;
+        
+        for(int x : nums) 
+        {
+            int s = 0;
+            while(x > 0) 
+            {
+                s += x % 10;
+                x /= 10;
+            }
+            m = min(m, s);
+        }
+        
+        return m;
+    }
+};
