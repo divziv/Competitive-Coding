@@ -1,0 +1,58 @@
+Problem Link:
+https://codeforces.com/problemset/problem/1829/C
+
+Solution:
+#include<bits/stdc++.h>
+using namespace std;
+
+int main()
+{
+    int t;
+    cin >> t;
+
+    while(t--)
+    {
+        int n;
+        cin >> n;
+
+        int both = INT_MAX;
+        int first = INT_MAX;
+        int second = INT_MAX;
+
+        for(int i = 0; i < n; i++)
+        {
+            int cost;
+            string s;
+            cin >> cost >> s;
+
+            if(s == "11")
+            {
+                both = min(both, cost);
+            }
+            else if(s == "10")
+            {
+                first = min(first, cost);
+            }
+            else if(s == "01")
+            {
+                second = min(second, cost);
+            }
+        }
+
+        int m = INT_MAX;
+
+        if(both != INT_MAX)
+        {
+            m = min(m, both);
+        }
+
+        if(first != INT_MAX && second != INT_MAX)
+        {
+            m = min(m, first + second);
+        }
+
+        cout << (m == INT_MAX ? -1 : m) << "\n";
+    }
+
+    return 0;
+}
