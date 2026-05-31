@@ -1,0 +1,21 @@
+Problem Link:
+https://leetcode.com/problems/destroying-asteroids/?envType=daily-question&envId=2026-05-31
+
+Solution:
+class Solution {
+public:
+    bool asteroidsDestroyed(int mass, vector<int>& asteroids) {
+        sort(asteroids.begin(), asteroids.end());
+        
+        long long c = mass;
+        
+        for(int a : asteroids) 
+        {
+            if(c < a) 
+                return false;
+            c += a;
+        }
+        
+        return true;
+    }
+};
