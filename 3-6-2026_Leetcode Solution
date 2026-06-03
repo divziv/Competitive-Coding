@@ -1,0 +1,104 @@
+Problem Link:
+https://leetcode.com/problems/earliest-finish-time-for-land-and-water-rides-ii/?envType=daily-question&envId=2026-06-03
+
+Solution:
+class Solution
+{
+public:
+	long long solve(vector<int>& start, vector<int>& dur, vector<int>& finishTimes)
+	{
+		int n = start.size();
+
+		vector<pair<int, int>> rides(n);
+
+		for(int i = 0; i < n; i++)
+		{
+			rides[i] = {start[i], dur[i]};
+		}
+
+		sort(rides.begin(), rides.end());
+
+		vector<int> starts(n);
+		vector<int> minDuration(n);
+		vector<long long> minFinish(n);
+
+		for(int i = 0; i < n; i++)
+		{
+			starts[i] = rides[i].first;
+
+			if(i == 0)
+			{
+				minDuration[i] = rides[i].second;
+			}
+			else
+			{
+				minDuration[i] = min(minDuration[i - 1], rides[i].second);
+			}
+		}
+
+		for(int i = n - 1; i >= 0; i--)
+		{
+			long long cur = 1LL * rides[i].first + rides[i].second;
+
+			if(i == n - 1)
+			{
+				minFinish[i] = cur;
+			}
+			else
+			{
+				minFinish[i] = min(minFinish[i + 1], cur);
+			}
+		}
+
+		long long m = LLONG_MAX;
+
+		for(int finishTime : finishTimes)
+		{
+			int pos = upper_bound(starts.begin(), starts.end(), finishTime) - starts.begin() - 1;
+
+			long long best = LLONG_MAX;
+
+			if(pos >= 0)
+			{
+				best = min(best, 1LL * finishTime + minDuration[pos]);
+			}
+
+			int nextPos = pos + 1;
+
+			if(nextPos < n)
+			{
+				best = min(best, minFinish[nextPos]);
+			}
+
+			m = min(m, best);
+		}
+
+		return m;
+	}
+
+	int earliestFinishTime(vector<int>& landStartTime,
+						   vector<int>& landDuration,
+						   vector<int>& waterStartTime,
+						   vector<int>& waterDuration)
+	{
+		vector<int> landFinish(landStartTime.size());
+		vector<int> waterFinish(waterStartTime.size());
+
+		for(int i = 0; i < (int)landStartTime.size(); i++)
+		{
+			landFinish[i] = landStartTime[i] + landDuration[i];
+		}
+
+		for(int i = 0; i < (int)waterStartTime.size(); i++)
+		{
+			waterFinish[i] = waterStartTime[i] + waterDuration[i];
+		}
+
+		long long m = min(
+			solve(waterStartTime, waterDuration, landFinish),
+			solve(landStartTime, landDuration, waterFinish)
+		);
+
+		return (int)m;
+	}
+};
