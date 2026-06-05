@@ -1,0 +1,87 @@
+Problem Link:
+https://leetcode.com/problems/total-waviness-of-numbers-in-range-ii/?envType=daily-question&envId=2026-06-05
+
+Solution:
+class Solution {
+public:
+    struct Node {
+        long long c;
+        long long w;
+    };
+
+    string s;
+    Node dp[20][2][3][11][11];
+    bool v[20][2][3][11][11];
+
+    Node dfs(int pos, int tight, int started, int lenc, int last1, int last2)
+    {
+        if(pos == (int)s.size())
+            return {1, 0};
+
+        if(!tight && v[pos][started][lenc][last1][last2])
+            return dp[pos][started][lenc][last1][last2];
+
+        int l = tight ? s[pos] - '0' : 9;
+        Node res = {0, 0};
+
+        for(int d = 0; d <= l; d++)
+        {
+            int nt = tight && (d == l);
+
+            if(!started)
+            {
+                if(d == 0)
+                {
+                    Node next = dfs(pos + 1, nt, 0, 0, 10, 10);
+                    res.c += next.c;
+                    res.w += next.w;
+                }
+                else
+                {
+                    Node next = dfs(pos + 1, nt, 1, 1, d, 10);
+                    res.c += next.c;
+                    res.w += next.w;
+                }
+            }
+            else
+            {
+                long long add = 0;
+
+                if(lenc >= 2)
+                {
+                    if((last1 > last2 && last1 > d) || (last1 < last2 && last1 < d))
+                        add = 1;
+                }
+
+                int nlen = min(2, lenc + 1);
+                Node next = dfs(pos + 1, nt, 1, nlen, d, last1);
+
+                res.c += next.c;
+                res.w += next.w + add * next.c;
+            }
+        }
+
+        if(!tight)
+        {
+            v[pos][started][lenc][last1][last2] = true;
+            dp[pos][started][lenc][last1][last2] = res;
+        }
+
+        return res;
+    }
+
+    long long solve(long long n)
+    {
+        if(n < 0)
+            return 0;
+
+        s = to_string(n);
+        memset(v, 0, sizeof(v));
+        return dfs(0, 1, 0, 0, 10, 10).w;
+    }
+
+    long long totalWaviness(long long num1, long long num2)
+    {
+        return solve(num2) - solve(num1 - 1);
+    }
+};
