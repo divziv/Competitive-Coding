@@ -1,0 +1,40 @@
+Problem Link:
+https://codeforces.com/problemset/problem/1328/B
+
+Solution:
+#include<bits/stdc++.h>
+using namespace std;
+
+long long Nsum(long long n)
+{
+    return n * (n + 1) / 2;
+}
+
+int main()
+{
+    int t;
+    cin >> t;
+
+    while(t--)
+    {
+        long long n, k;
+        cin >> n >> k;
+
+        string s(n, 'a');
+
+        for(long long i = 1; i <= n; ++i)
+        {
+            if(k <= Nsum(i))
+            {
+                s[n - i - 1] = 'b';
+                long long d = llabs(k - Nsum(i));
+                s[n - i + d] = 'b';
+                break;
+            }
+        }
+
+        cout << s << "\n";
+    }
+
+    return 0;
+}
