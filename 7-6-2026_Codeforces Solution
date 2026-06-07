@@ -1,0 +1,38 @@
+Problem Link:
+https://codeforces.com/problemset/problem/1919/B
+
+Solution:
+#include<bits/stdc++.h>
+using namespace std;
+
+int main()
+{
+    int t;
+    cin >> t;
+
+    while(t--)
+    {
+        int n;
+        string s;
+
+        cin >> n >> s;
+
+        int plus = 0, minus = 0;
+
+        for(int i = 0; i < n; i++)
+        {
+            if(s[i] == '+')
+            {
+                plus++;
+            }
+            else
+            {
+                minus++;
+            }
+        }
+
+        cout << abs(plus - minus) << '\n';
+    }
+
+    return 0;
+}
