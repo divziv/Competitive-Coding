@@ -1,0 +1,42 @@
+Problem Link:
+https://codeforces.com/problemset/problem/2/A
+
+Solution:
+#include<bits/stdc++.h>
+using namespace std;
+
+int main()
+{
+    int n;
+    cin >> n;
+
+    map<string, int> total, cur;
+    vector<string> name(n);
+    vector<int> score(n);
+
+    for(int i = 0; i < n; ++i)
+    {
+        cin >> name[i] >> score[i];
+        total[name[i]] += score[i];
+    }
+
+    int mx = INT_MIN;
+
+    for(auto &p : total)
+    {
+        mx = max(mx, p.second);
+    }
+
+    for(int i = 0; i < n; ++i)
+    {
+        cur[name[i]] += score[i];
+
+        if(cur[name[i]] >= mx && total[name[i]] == mx)
+        {
+            cout << name[i] << '\n';
+            break;
+        }
+    }
+
+    return 0;
+}
