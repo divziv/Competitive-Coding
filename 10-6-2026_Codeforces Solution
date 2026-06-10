@@ -1,0 +1,36 @@
+Problem Link:
+https://codeforces.com/problemset/problem/255/A
+
+Solution:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main()
+{
+    int n;
+    cin >> n;
+
+    int exercise[3] = {0};
+    int temp;
+
+    for(int k = 0; k < n; k++)
+    {
+        cin >> temp;
+        exercise[k % 3] += temp;
+    }
+
+    if(exercise[0] > exercise[1] && exercise[0] > exercise[2])
+    {
+        cout << "chest\n";
+    }
+    else if(exercise[1] > exercise[2])
+    {
+        cout << "biceps\n";
+    }
+    else
+    {
+        cout << "back\n";
+    }
+
+    return 0;
+}
