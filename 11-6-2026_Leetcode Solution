@@ -1,0 +1,60 @@
+Problem Link:
+https://leetcode.com/problems/number-of-ways-to-assign-edge-weights-i/?envType=daily-question&envId=2026-06-11
+
+Solution:
+class Solution
+{
+public:
+    static const int mod = 1000000007;
+
+    long long modPow(long long a, long long b)
+    {
+        long long r = 1;
+        while(b)
+        {
+            if(b & 1) r = r * a % mod;
+            a = a * a % mod;
+            b >>= 1;
+        }
+        return r;
+    }
+
+    int assignEdgeWeights(vector<vector<int>>& edges)
+    {
+        int n = edges.size() + 1;
+        vector<vector<int>> adj(n + 1);
+
+        for(auto &e : edges)
+        {
+            int u = e[0], v = e[1];
+            adj[u].push_back(v);
+            adj[v].push_back(u);
+        }
+
+        vector<int> d(n + 1, -1);
+        queue<int> q;
+        q.push(1);
+        d[1] = 0;
+
+        int m = 0;
+
+        while(!q.empty())
+        {
+            int u = q.front();
+            q.pop();
+
+            m = max(m, d[u]);
+
+            for(int v : adj[u])
+            {
+                if(d[v] == -1)
+                {
+                    d[v] = d[u] + 1;
+                    q.push(v);
+                }
+            }
+        }
+
+        return (int)modPow(2, m - 1);
+    }
+};
