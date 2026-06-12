@@ -1,0 +1,44 @@
+Problem Link:
+https://codeforces.com/problemset/problem/474/D
+
+Solution:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main()
+{
+    const long long m = 1000000007;
+    const long long l = 100001;
+
+    long t, k;
+    cin >> t >> k;
+
+    vector<long long> array(l + 1, 0);
+
+    for(long i = 0; i < k; i++)
+    {
+        array[i] = 1;
+    }
+
+    for(long i = k; i <= l; i++)
+    {
+        array[i] = (array[i - 1] + array[i - k]) % m;
+    }
+
+    vector<long long> cumulative(l + 1, 0);
+    cumulative[0] = 1;
+
+    for(long i = 1; i <= l; i++)
+    {
+        cumulative[i] = (cumulative[i - 1] + array[i]) % m;
+    }
+
+    while(t--)
+    {
+        long a, b;
+        cin >> a >> b;
+        cout << (2 * m + cumulative[b] - cumulative[a - 1]) % m << "\n";
+    }
+
+    return 0;
+}
