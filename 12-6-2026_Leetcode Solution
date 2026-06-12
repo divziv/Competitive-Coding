@@ -1,0 +1,125 @@
+Problem Link:
+https://leetcode.com/problems/number-of-ways-to-assign-edge-weights-ii/?envType=daily-question&envId=2026-06-12
+
+Solution:
+class Solution
+{
+public:
+    static const int mod = 1000000007;
+    vector<vector<int>> g;
+    vector<int> depth;
+    vector<vector<int>> up;
+    int l;
+
+    void dfs(int u,int p)
+    {
+        up[0][u] = p;
+        for(int v : g[u])
+        {
+            if(v == p)
+            {
+                continue;
+            }
+            depth[v] = depth[u] + 1;
+            dfs(v,u);
+        }
+    }
+
+    int lca(int a,int b)
+    {
+        if(depth[a] < depth[b])
+        {
+            swap(a,b);
+        }
+
+        int diff = depth[a] - depth[b];
+
+        for(int i = 0;i < l;i++)
+        {
+            if(diff & (1 << i))
+            {
+                a = up[i][a];
+            }
+        }
+
+        if(a == b)
+        {
+            return a;
+        }
+
+        for(int i = l - 1;i >= 0;i--)
+        {
+            if(up[i][a] != up[i][b])
+            {
+                a = up[i][a];
+                b = up[i][b];
+            }
+        }
+
+        return up[0][a];
+    }
+
+    vector<int> assignEdgeWeights(vector<vector<int>>& edges, vector<vector<int>>& queries)
+    {
+        int n = edges.size() + 1;
+
+        g.assign(n + 1,{});
+
+        for(auto &e : edges)
+        {
+            int u = e[0];
+            int v = e[1];
+            g[u].push_back(v);
+            g[v].push_back(u);
+        }
+
+        l = 1;
+
+        while((1 << l) <= n)
+        {
+            l++;
+        }
+
+        depth.assign(n + 1,0);
+        up.assign(l,vector<int>(n + 1));
+
+        dfs(1,1);
+
+        for(int i = 1;i < l;i++)
+        {
+            for(int v = 1;v <= n;v++)
+            {
+                up[i][v] = up[i - 1][up[i - 1][v]];
+            }
+        }
+
+        vector<long long> pw(n + 1,1);
+
+        for(int i = 1;i <= n;i++)
+        {
+            pw[i] = (pw[i - 1] * 2) % mod;
+        }
+
+        vector<int> s;
+
+        for(auto &q : queries)
+        {
+            int u = q[0];
+            int v = q[1];
+
+            int w = lca(u,v);
+            int dist = depth[u] + depth[v] - 2 * depth[w];
+
+            if(dist == 0)
+            {
+                s.push_back(0);
+            }
+            else
+            {
+                s.push_back((int)pw[dist - 1]);
+            }
+        }
+
+        return s;
+    }
+};
