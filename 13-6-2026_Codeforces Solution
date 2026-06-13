@@ -1,0 +1,27 @@
+Problem Link:
+https://codeforces.com/problemset/problem/1359/A
+
+Solution:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main()
+{
+    long t;
+    cin >> t;
+    
+    while(t--)
+    {
+        long n, m, k;
+        cin >> n >> m >> k;
+
+        long x = n / k;
+        long a = min(x, m);
+        long b = ((m - a) + (k - 2)) / (k - 1);
+        long s = a - b;
+
+        cout << s << "\n";
+    }
+
+    return 0;
+}
