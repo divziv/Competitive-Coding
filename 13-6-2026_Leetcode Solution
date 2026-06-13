@@ -1,0 +1,26 @@
+Problem Link:
+https://leetcode.com/problems/weighted-word-mapping/?envType=daily-question&envId=2026-06-13
+
+Solution:
+class Solution {
+public:
+    string mapWordWeights(vector<string>& words, vector<int>& weights)
+    {
+        string m;
+
+        for(string &word : words)
+        {
+            int s = 0;
+
+            for(char c : word)
+            {
+                s += weights[c - 'a'];
+            }
+
+            int r = s % 26;
+            m.push_back('z' - r);
+        }
+
+        return m;
+    }
+};
