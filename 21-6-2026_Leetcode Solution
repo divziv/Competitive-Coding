@@ -1,0 +1,42 @@
+Problem Link:
+https://leetcode.com/problems/maximum-ice-cream-bars/?envType=daily-question&envId=2026-06-21
+
+Solution:
+class Solution {
+public:
+    int maxIceCream(vector<int>& costs, int coins) {
+        int mx = 0;
+        for(int c : costs)
+        {
+            mx = max(mx, c);
+        }
+
+        vector<int> f(mx + 1, 0);
+
+        for(int c : costs)
+        {
+            f[c]++;
+        }
+
+        int m = 0;
+
+        for(int price = 1; price <= mx; price++)
+        {
+            if(f[price] == 0)
+            {
+                continue;
+            }
+
+            int canBuy = min(f[price], coins / price);
+            m += canBuy;
+            coins -= canBuy * price;
+
+            if(coins < price)
+            {
+                break;
+            }
+        }
+
+        return m;
+    }
+};
