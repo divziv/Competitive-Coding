@@ -1,0 +1,32 @@
+Problem Link:
+https://codeforces.com/problemset/problem/1296/B
+
+Solution:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main()
+{
+    int t;
+    cin >> t;
+
+    while(t--)
+    {
+        long long n;
+        cin >> n;
+
+        long long s = 0;
+
+        while(n >= 10)
+        {
+            long long r = n;
+            s += 10 * (r / 10);
+            n = (r / 10) + (r % 10);
+        }
+
+        s += n;
+        cout << s << "\n";
+    }
+
+    return 0;
+}
