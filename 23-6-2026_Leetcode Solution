@@ -1,0 +1,58 @@
+Problem Link:
+https://leetcode.com/problems/number-of-zigzag-arrays-i/?envType=daily-question&envId=2026-06-23
+
+Solution:
+class Solution
+{
+public:
+    int zigZagArrays(int n, int l, int r)
+    {
+        const int MOD = 1000000007;
+        int m = r - l + 1;
+
+        vector<int> up(m + 2), down(m + 2);
+
+        for(int i = 1; i <= m; i++)
+        {
+            up[i] = i - 1;
+            down[i] = m - i;
+        }
+
+        for(int len = 3; len <= n; len++)
+        {
+            vector<int> nup(m + 2), ndown(m + 2);
+            vector<int> prefDown(m + 2), suffUp(m + 3);
+
+            for(int i = 1; i <= m; i++)
+            {
+                prefDown[i] = prefDown[i - 1] + down[i];
+                if(prefDown[i] >= MOD) prefDown[i] -= MOD;
+            }
+
+            for(int i = m; i >= 1; i--)
+            {
+                suffUp[i] = suffUp[i + 1] + up[i];
+                if(suffUp[i] >= MOD) suffUp[i] -= MOD;
+            }
+
+            for(int i = 1; i <= m; i++)
+            {
+                nup[i] = prefDown[i - 1];
+                ndown[i] = suffUp[i + 1];
+            }
+
+            up.swap(nup);
+            down.swap(ndown);
+        }
+
+        long long ans = 0;
+
+        for(int i = 1; i <= m; i++)
+        {
+            ans += up[i];
+            ans += down[i];
+        }
+
+        return (int)(ans % MOD);
+    }
+};
