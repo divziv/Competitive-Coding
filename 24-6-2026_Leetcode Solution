@@ -1,0 +1,119 @@
+Problem Link:
+https://leetcode.com/problems/number-of-zigzag-arrays-ii/?envType=daily-question&envId=2026-06-24
+
+Solution:
+class Solution
+{
+public:
+    static const long long m = 1000000007;
+
+    int zigZagArrays(int n, int l, int r)
+    {
+        int mm = r - l + 1;
+        int s = 2 * mm;
+
+        vector<vector<long long>> v(s, vector<long long>(s));
+
+        for(int x = 0; x < mm; x++)
+        {
+            for(int y = 0; y < x; y++)
+            {
+                v[x][mm + y] = 1;
+            }
+        }
+
+        for(int x = 0; x < mm; x++)
+        {
+            for(int y = x + 1; y < mm; y++)
+            {
+                v[mm + x][y] = 1;
+            }
+        }
+
+        auto mul = [&](const vector<vector<long long>> &a, const vector<vector<long long>> &b)
+        {
+            vector<vector<long long>> c(s, vector<long long>(s));
+
+            for(int i = 0; i < s; i++)
+            {
+                for(int k = 0; k < s; k++)
+                {
+                    if(!a[i][k])
+                    {
+                        continue;
+                    }
+
+                    long long x = a[i][k];
+
+                    for(int j = 0; j < s; j++)
+                    {
+                        if(b[k][j])
+                        {
+                            c[i][j] = (c[i][j] + x * b[k][j]) % m;
+                        }
+                    }
+                }
+            }
+
+            return c;
+        };
+
+        auto mpow = [&](long long e)
+        {
+            vector<vector<long long>> r(s, vector<long long>(s));
+
+            for(int i = 0; i < s; i++)
+            {
+                r[i][i] = 1;
+            }
+
+            vector<vector<long long>> a = v;
+
+            while(e)
+            {
+                if(e & 1)
+                {
+                    r = mul(r, a);
+                }
+
+                a = mul(a, a);
+                e >>= 1;
+            }
+
+            return r;
+        };
+
+        vector<long long> base(s);
+
+        for(int x = 0; x < mm; x++)
+        {
+            base[x] = x;
+            base[mm + x] = mm - 1 - x;
+        }
+
+        vector<vector<long long>> p = mpow(n - 2);
+
+        vector<long long> res(s);
+
+        for(int i = 0; i < s; i++)
+        {
+            long long cur = 0;
+
+            for(int j = 0; j < s; j++)
+            {
+                cur = (cur + p[i][j] * base[j]) % m;
+            }
+
+            res[i] = cur;
+        }
+
+        long long ans = 0;
+
+        for(int i = 0; i < s; i++)
+        {
+            ans = (ans + res[i]) % m;
+        }
+
+        return (int)ans;
+    }
+};
