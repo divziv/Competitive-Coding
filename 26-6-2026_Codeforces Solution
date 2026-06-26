@@ -1,0 +1,38 @@
+Problem Link:
+https://codeforces.com/problemset/problem/1632/B
+
+Solution:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main()
+{
+    long t;
+    cin >> t;
+
+    while(t--)
+    {
+        long n;
+        cin >> n;
+
+        long k = 0;
+        while((1 << (k + 1)) <= n - 1)
+        {
+            ++k;
+        }
+
+        for(long i = (1 << k) - 1; i >= 0; i--)
+        {
+            cout << i << " ";
+        }
+
+        for(long i = (1 << k); i < n; i++)
+        {
+            cout << i << " ";
+        }
+
+        cout << "\n";
+    }
+
+    return 0;
+}
