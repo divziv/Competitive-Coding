@@ -1,0 +1,52 @@
+Problem Link:
+https://leetcode.com/problems/count-subarrays-with-majority-element-ii/?envType=daily-question&envId=2026-06-26
+
+Solution:
+class Solution
+{
+public:
+    long long countMajoritySubarrays(vector<int>& nums, int target)
+    {
+        int n = nums.size();
+        vector<int> pre(n + 1);
+        for(int i = 0; i < n; i++)
+        {
+            pre[i + 1] = pre[i] + (nums[i] == target ? 1 : -1);
+        }
+
+        vector<int> vals = pre;
+        sort(vals.begin(), vals.end());
+        vals.erase(unique(vals.begin(), vals.end()), vals.end());
+        int m = vals.size();
+        vector<int> bit(m + 2);
+
+        auto add = [&](int idx)
+        {
+            while(idx <= m)
+            {
+                bit[idx]++;
+                idx += idx & -idx;
+            }
+        };
+
+        auto query = [&](int idx)
+        {
+            long long res = 0;
+            while(idx > 0)
+            {
+                res += bit[idx];
+                idx -= idx & -idx;
+            }
+            return res;
+        };
+
+        long long ans = 0;
+        for(int x : pre)
+        {
+            int id = lower_bound(vals.begin(), vals.end(), x) - vals.begin() + 1;
+            ans += query(id - 1);
+            add(id);
+        }
+        return ans;
+    }
+};
