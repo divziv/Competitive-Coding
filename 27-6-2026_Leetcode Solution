@@ -1,0 +1,55 @@
+Problem Link:
+https://leetcode.com/problems/find-the-maximum-number-of-elements-in-subset/?envType=daily-question&envId=2026-06-27
+
+Solution:
+class Solution {
+public:
+    int maximumLength(vector<int>& nums)
+    {
+        map<long long, int> cnt;
+
+        for(auto x : nums)
+            cnt[x]++;
+
+        int m = 1;
+
+        if(cnt.count(1))
+        {
+            int c = cnt[1];
+
+            if(c % 2 == 0)
+                c--;
+
+            m = max(m, c);
+        }
+
+        for(auto &p : cnt)
+        {
+            long long x = p.first;
+
+            if(x == 1)
+                continue;
+
+            long long cur = x;
+            int len = 1;
+
+            while(cnt.count(cur) && cnt[cur] >= 2)
+            {
+                if(cur > 1000000000LL / cur)
+                    break;
+
+                long long nxt = cur * cur;
+
+                if(!cnt.count(nxt))
+                    break;
+
+                len += 2;
+                cur = nxt;
+            }
+
+            m = max(m, len);
+        }
+
+        return m;
+    }
+};
