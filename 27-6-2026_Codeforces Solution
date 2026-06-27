@@ -1,0 +1,47 @@
+Problem Link:
+https://codeforces.com/problemset/problem/1909/B
+
+Solution:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main()
+{
+    long long t;
+    cin >> t;
+
+    while(t--)
+    {
+        long long n;
+        cin >> n;
+
+        vector<long long> a(n);
+
+        for(long long i = 0; i < n; i++)
+        {
+            cin >> a[i];
+        }
+
+        long long mod = 0;
+
+        for(long long x = 2; !mod && x < 3e18; x *= 2)
+        {
+            set<long long> s;
+
+            for(long long i = 0; s.size() < 3 && i < n; i++)
+            {
+                s.insert(a[i] % x);
+            }
+
+            if(s.size() == 2)
+            {
+                mod = x;
+                break;
+            }
+        }
+
+        cout << mod << "\n";
+    }
+
+    return 0;
+}
