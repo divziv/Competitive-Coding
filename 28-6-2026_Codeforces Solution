@@ -1,0 +1,55 @@
+Problem Link:
+https://codeforces.com/problemset/problem/1538/C
+
+Solution:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main()
+{
+    long long t;
+    cin >> t;
+
+    while(t--)
+    {
+        long long n, l, u;
+        cin >> n >> l >> u;
+
+        vector<long long> a(n);
+
+        for(long long i = 0; i < n; i++)
+        {
+            cin >> a[i];
+        }
+
+        sort(a.begin(), a.end());
+
+        auto calc = [&](long long s)
+        {
+            long long i = 0;
+            long long j = n - 1;
+            long long res = 0;
+
+            while(i < j)
+            {
+                if(a[i] + a[j] > s)
+                {
+                    j--;
+                }
+                else
+                {
+                    res += j - i;
+                    i++;
+                }
+            }
+
+            return res;
+        };
+
+        long long c = calc(u) - calc(l - 1);
+
+        cout << c << "\n";
+    }
+
+    return 0;
+}
