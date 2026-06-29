@@ -1,0 +1,53 @@
+Problem Link:
+https://codeforces.com/problemset/problem/1539/C
+
+Solution:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main()
+{
+    long long n, k, x;
+    cin >> n >> k >> x;
+
+    vector<long long> a(n);
+    for(int i=0;i<n;i++)
+    {
+        cin >> a[i];
+    }
+
+    sort(a.begin(), a.end());
+
+    vector<long long> d;
+
+    for(int i=1;i<n;i++)
+    {
+        long long diff = a[i] - a[i-1];
+
+        if(diff > x)
+        {
+            d.push_back((diff - 1) / x);
+        }
+    }
+
+    sort(d.begin(), d.end());
+
+    long long s = d.size() + 1;
+
+    for(int i=0;i<d.size();i++)
+    {
+        if(k >= d[i])
+        {
+            k -= d[i];
+            s--;
+        }
+        else
+        {
+            break;
+        }
+    }
+
+    cout << s << "\n";
+
+    return 0;
+}
