@@ -1,0 +1,53 @@
+Problem Link:
+https://codeforces.com/problemset/problem/1955/B
+
+Solution:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main()
+{
+    long t;
+    cin >> t;
+
+    while(t--)
+    {
+        long n, c, d;
+        cin >> n >> c >> d;
+
+        vector<long> b(n * n);
+
+        for(int i = 0; i < b.size(); i++)
+        {
+            cin >> b[i];
+        }
+
+        sort(b.begin(), b.end());
+
+        vector<long> v;
+
+        for(int i = 0; i < n; i++)
+        {
+            for(int j = 0; j < n; j++)
+            {
+                v.push_back(i * c + j * d);
+            }
+        }
+
+        sort(v.begin(), v.end());
+
+        bool f = true;
+
+        for(int i = 0; f && i < n * n; i++)
+        {
+            if(b[0] + v[i] != b[i])
+            {
+                f = false;
+            }
+        }
+
+        cout << (f ? "YES" : "NO") << "\n";
+    }
+
+    return 0;
+}
