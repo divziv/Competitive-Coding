@@ -1,0 +1,38 @@
+Problem Link:
+https://codeforces.com/problemset/problem/1659/A
+
+Solution:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main()
+{
+    long t;
+    cin >> t;
+
+    while(t--)
+    {
+        long n, r, b;
+        cin >> n >> r >> b;
+
+        long d = r / (b + 1);
+        long m = r % (b + 1);
+
+        for(long p = 0; p <= b; p++)
+        {
+            for(long u = 0; u < d + (p < m); u++)
+            {
+                cout << "R";
+            }
+
+            if(p < b)
+            {
+                cout << "B";
+            }
+        }
+
+        cout << "\n";
+    }
+
+    return 0;
+}
