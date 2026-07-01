@@ -1,0 +1,107 @@
+Problem Link:
+https://leetcode.com/problems/find-the-safest-path-in-a-grid/?envType=daily-question&envId=2026-07-01
+
+Solution:
+class Solution {
+public:
+    int maximumSafenessFactor(vector<vector<int>>& grid)
+    {
+        int n = grid.size();
+
+        vector<vector<int>> dist(n, vector<int>(n, 1e9));
+        queue<pair<int,int>> q;
+
+        for(int i=0; i<n; i++)
+        {
+            for(int j=0; j<n; j++)
+            {
+                if(grid[i][j])
+                {
+                    dist[i][j] = 0;
+                    q.push({i, j});
+                }
+            }
+        }
+
+        int dx[4] = {1, -1, 0, 0};
+        int dy[4] = {0, 0, 1, -1};
+
+        while(!q.empty())
+        {
+            auto [x, y] = q.front();
+            q.pop();
+
+            for(int k=0; k<4; k++)
+            {
+                int nx = x + dx[k];
+                int ny = y + dy[k];
+
+                if(nx>=0 && ny>=0 && nx<n && ny<n && dist[nx][ny]>dist[x][y]+1)
+                {
+                    dist[nx][ny] = dist[x][y] + 1;
+                    q.push({nx, ny});
+                }
+            }
+        }
+
+        auto check = [&](int val)
+        {
+            if(dist[0][0]<val || dist[n-1][n-1]<val)
+            {
+                return false;
+            }
+
+            vector<vector<int>> vis(n, vector<int>(n));
+            queue<pair<int,int>> q;
+
+            q.push({0, 0});
+            vis[0][0] = 1;
+
+            while(!q.empty())
+            {
+                auto [x, y] = q.front();
+                q.pop();
+
+                if(x==n-1 && y==n-1)
+                {
+                    return true;
+                }
+
+                for(int k=0; k<4; k++)
+                {
+                    int nx = x + dx[k];
+                    int ny = y + dy[k];
+
+                    if(nx>=0 && ny>=0 && nx<n && ny<n && !vis[nx][ny] && dist[nx][ny]>=val)
+                    {
+                        vis[nx][ny] = 1;
+                        q.push({nx, ny});
+                    }
+                }
+            }
+
+            return false;
+        };
+
+        int l = 0;
+        int h = 2 * n;
+        int m = 0;
+
+        while(l<=h)
+        {
+            int mid = (l + h) / 2;
+
+            if(check(mid))
+            {
+                m = mid;
+                l = mid + 1;
+            }
+            else
+            {
+                h = mid - 1;
+            }
+        }
+
+        return m;
+    }
+};
