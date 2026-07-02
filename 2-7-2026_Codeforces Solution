@@ -1,0 +1,36 @@
+Problem Link:
+https://codeforces.com/problemset/problem/1547/A
+
+Solution:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main()
+{
+    long t;
+    cin >> t;
+    while(t--)
+    {
+        long xa, ya, xb, yb, xf, yf;
+        cin >> xa >> ya;
+        cin >> xb >> yb;
+        cin >> xf >> yf;
+
+        long dx = abs(xa - xb);
+        long dy = abs(ya - yb);
+        long s = dx + dy;
+
+        if(ya == yb && ya == yf && ((xa < xf && xf < xb) || (xb < xf && xf < xa)))
+        {
+            s += 2;
+        }
+        else if(xa == xb && xa == xf && ((ya < yf && yf < yb) || (yb < yf && yf < ya)))
+        {
+            s += 2;
+        }
+
+        cout << s << "\n";
+    }
+
+    return 0;
+}
