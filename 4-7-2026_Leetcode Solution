@@ -1,0 +1,44 @@
+Problem Link:
+https://leetcode.com/problems/minimum-score-of-a-path-between-two-cities/?envType=daily-question&envId=2026-07-04
+
+Solution:
+class Solution {
+public:
+    int minScore(int n, vector<vector<int>>& roads)
+    {
+        vector<vector<pair<int,int>>> adj(n + 1);
+
+        for(auto &e: roads)
+        {
+            adj[e[0]].push_back({e[1], e[2]});
+            adj[e[1]].push_back({e[0], e[2]});
+        }
+
+        vector<int> vis(n + 1, 0);
+        queue<int> q;
+
+        q.push(1);
+        vis[1] = 1;
+
+        int ans = INT_MAX;
+
+        while(!q.empty())
+        {
+            int u = q.front();
+            q.pop();
+
+            for(auto &p: adj[u])
+            {
+                ans = min(ans, p.second);
+
+                if(!vis[p.first])
+                {
+                    vis[p.first] = 1;
+                    q.push(p.first);
+                }
+            }
+        }
+
+        return ans;
+    }
+};
