@@ -1,0 +1,47 @@
+Problem Link:
+https://codeforces.com/problemset/problem/1843/B
+
+Solution:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main()
+{
+    long t;
+    cin >> t;
+
+    while(t--)
+    {
+        long n;
+        cin >> n;
+
+        bool f = true;
+        long c = 0;
+        long long s = 0;
+
+        for(long p = 0; p < n; p++)
+        {
+            long x;
+            cin >> x;
+
+            if(x > 0)
+            {
+                f = true;
+                s += x;
+            }
+            else if(x < 0)
+            {
+                if(f)
+                {
+                    c++;
+                    f = false;
+                }
+                s -= x;
+            }
+        }
+
+        cout << s << " " << c << "\n";
+    }
+
+    return 0;
+}
