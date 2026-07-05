@@ -1,0 +1,35 @@
+Problem Link:
+https://codeforces.com/problemset/problem/1849/A
+
+Solution:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main()
+{
+    long t;
+    cin >> t;
+
+    while(t--)
+    {
+        long b, c, h;
+        cin >> b >> c >> h;
+
+        c += h;
+
+        long s = 0;
+
+        if(b >= c + 1)
+        {
+            s = 2 * c + 1;
+        }
+        else
+        {
+            s = 2 * b - 1;
+        }
+
+        cout << s << "\n";
+    }
+
+    return 0;
+}
