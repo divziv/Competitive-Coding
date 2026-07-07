@@ -1,0 +1,16 @@
+Problem LinkL
+https://codeforces.com/problemset/problem/2218/A
+
+Solution:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    int t, a;
+    cin >> t;
+    while(t--) {
+        cin >> a;
+        cout << min(a + 1, 67) << "\n";
+    }
+    return 0;
+}
