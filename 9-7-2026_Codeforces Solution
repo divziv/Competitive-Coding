@@ -1,0 +1,47 @@
+Problem Link:
+https://codeforces.com/problemset/problem/1692/E
+
+Solution:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    int t;
+    cin >> t;
+
+    while(t--) {
+        int n, s;
+        cin >> n >> s;
+
+        vector<int> nums(n);
+        for(int i = 0; i < n; i++)
+            cin >> nums[i];
+
+        for(int i = 1; i < n; i++)
+            nums[i] += nums[i - 1];
+
+        int i = 0, l = 0, m = -1;
+
+        while(i < n) 
+        {
+            int c = nums[i] - (l ? nums[l - 1] : 0);
+
+            if(c < s)
+                i++;
+            else if(c == s) 
+            {
+                m = max(m, i - l + 1);
+                i++;
+            }
+            else
+                l++;
+        }
+
+        if(m == -1)
+            cout << -1 << "\n";
+        else
+            cout << n - m << "\n";
+    }
+
+    return 0;
+}
