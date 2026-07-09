@@ -1,0 +1,29 @@
+Problem Link:
+https://leetcode.com/problems/path-existence-queries-in-a-graph-i/?envType=daily-question&envId=2026-07-09
+
+Solution:
+class Solution {
+public:
+    vector<bool> pathExistenceQueries(int n, vector<int>& nums, int maxDiff, vector<vector<int>>& queries) {
+        vector<int> c(n);
+        int id = 0;
+        c[0] = 0;
+
+        for(int i = 1; i < n; i++) 
+        {
+            if(nums[i] - nums[i - 1] > maxDiff)
+                id++;
+            c[i] = id;
+        }
+
+        vector<bool> v;
+        v.reserve(queries.size());
+
+        for(auto &q : queries) 
+        {
+            v.push_back(c[q[0]] == c[q[1]]);
+        }
+
+        return v;
+    }
+};
