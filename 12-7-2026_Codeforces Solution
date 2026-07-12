@@ -1,0 +1,48 @@
+Problem Link:
+https://codeforces.com/problemset/problem/1729/D
+
+Solution:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    int t;
+    cin >> t;
+
+    while (t--) {
+        int n;
+        cin >> n;
+
+        vector<int> x(n), y(n), d(n);
+
+        for(int i = 0; i < n; i++) 
+            cin >> x[i];
+        for(int i = 0; i < n; i++) 
+            cin >> y[i];
+
+        for(int i = 0; i < n; i++) 
+            d[i] = y[i] - x[i];
+
+        sort(d.begin(), d.end());
+
+        int i = 0, j = n - 1, s = 0;
+
+        while(i < j) 
+        {
+            if(d[i] + d[j] >= 0) 
+            {
+                s++;
+                i++;
+                j--;
+            } 
+            else 
+            {
+                i++;
+            }
+        }
+
+        cout << s << "\n";
+    }
+
+    return 0;
+}
