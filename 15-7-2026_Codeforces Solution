@@ -1,0 +1,44 @@
+Problem Link:
+https://codeforces.com/problemset/problem/1374/D
+
+Solution:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    int t;
+    cin >> t;
+
+    while(t--) {
+        int n;
+        long long k;
+        cin >> n >> k;
+
+        map<long long, long long> m;
+
+        for(int i = 0; i < n; i++) 
+        {
+            long long x;
+            cin >> x;
+            long long r = x % k;
+            if(r != 0) 
+            {
+                m[k - r]++;
+            }
+        }
+
+        long long s = 0;
+
+        for(auto it : m) 
+        {
+            s = max(s, (it.second - 1) * k + it.first);
+        }
+
+        if(s > 0) 
+            s++;
+
+        cout << s << "\n";
+    }
+
+    return 0;
+}
