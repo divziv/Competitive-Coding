@@ -1,0 +1,10 @@
+Problem Link:
+https://leetcode.com/problems/gcd-of-odd-and-even-sums/?envType=daily-question&envId=2026-07-15
+
+Solution:
+class Solution {
+public:
+    int gcdOfOddEvenSums(int n) {
+        return n;
+    }
+};
