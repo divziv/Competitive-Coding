@@ -1,0 +1,32 @@
+Problem Link:
+https://leetcode.com/problems/sum-of-gcd-of-formed-pairs/?envType=daily-question&envId=2026-07-16
+
+Solution:
+class Solution {
+public:
+    long long gcdSum(vector<int>& nums) {
+        int n = nums.size();
+        vector<int> v;
+        v.reserve(n);
+
+        int m = 0;
+        for(int x : nums) 
+        {
+            m = max(m, x);
+            v.push_back(std::gcd(x, m));
+        }
+
+        sort(v.begin(), v.end());
+
+        long long g = 0;
+        int l = 0, r = n - 1;
+        while(l < r) 
+        {
+            g += std::gcd(v[l], v[r]);
+            ++l;
+            --r;
+        }
+
+        return g;
+    }
+};
