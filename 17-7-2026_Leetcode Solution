@@ -1,0 +1,55 @@
+Problem Link:
+https://leetcode.com/problems/sorted-gcd-pair-queries/?envType=daily-question&envId=2026-07-17
+
+Solution:
+class Solution {
+public:
+    vector<int> gcdValues(vector<int>& nums, vector<long long>& queries)
+    {
+        int mx = *max_element(nums.begin(), nums.end());
+
+        vector<int> freq(mx + 1, 0);
+        for(int x : nums)
+        {
+            freq[x]++;
+        }
+
+        vector<long long> cnt(mx + 1, 0);
+        for(int d = 1; d <= mx; d++)
+        {
+            for(int m = d; m <= mx; m += d)
+            {
+                cnt[d] += freq[m];
+            }
+        }
+
+        vector<long long> exact(mx + 1, 0);
+
+        for(int d = mx; d >= 1; d--)
+        {
+            long long c = cnt[d];
+            exact[d] = c * (c - 1) / 2;
+            for(int m = d + d; m <= mx; m += d)
+            {
+                exact[d] -= exact[m];
+            }
+        }
+
+        vector<long long> pref(mx + 1, 0);
+        for(int d = 1; d <= mx; d++)
+        {
+            pref[d] = pref[d - 1] + exact[d];
+        }
+
+        vector<int> v;
+        v.reserve(queries.size());
+
+        for(long long k : queries)
+        {
+            int g = lower_bound(pref.begin() + 1, pref.end(), k + 1) - pref.begin();
+            v.push_back(g);
+        }
+
+        return v;
+    }
+};
