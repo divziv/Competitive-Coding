@@ -1,0 +1,37 @@
+Problem Link:
+https://codeforces.com/problemset/problem/919/B
+
+Solution:
+#include <iostream>
+using namespace std;
+
+int main() {
+    int k;
+    cin >> k;
+
+    int num = 19, count = 0;
+
+    while(true) {
+        int temp = num, sum = 0;
+
+        while(temp) 
+        {
+            sum += temp % 10;
+            temp /= 10;
+        }
+
+        if(sum == 10) 
+        {
+            count++;
+            if(count == k) 
+            {
+                cout << num;
+                break;
+            }
+        }
+
+        num += 9;
+    }
+
+    return 0;
+}
