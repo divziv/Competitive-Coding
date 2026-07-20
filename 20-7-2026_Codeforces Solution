@@ -1,0 +1,66 @@
+Problem Link:
+https://codeforces.com/problemset/problem/2000/C
+
+Solution:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main()
+{
+    int t;
+    cin >> t;
+
+    while(t--)
+    {
+        int n;
+        cin >> n;
+
+        vector<int> a(n);
+
+        for(int i = 0; i < n; i++)
+        {
+            cin >> a[i];
+        }
+
+        int m;
+        cin >> m;
+
+        while(m--)
+        {
+            string s;
+            cin >> s;
+
+            if(s.size() != n)
+            {
+                cout << "NO\n";
+                continue;
+            }
+
+            map<int, char> m1;
+            map<char, int> m2;
+            bool f = true;
+
+            for(int i = 0; i < n; i++)
+            {
+                if(m1.count(a[i]) && m1[a[i]] != s[i])
+                {
+                    f = false;
+                    break;
+                }
+
+                if(m2.count(s[i]) && m2[s[i]] != a[i])
+                {
+                    f = false;
+                    break;
+                }
+
+                m1[a[i]] = s[i];
+                m2[s[i]] = a[i];
+            }
+
+            cout << (f ? "YES\n" : "NO\n");
+        }
+    }
+
+    return 0;
+}
