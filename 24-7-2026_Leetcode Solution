@@ -1,0 +1,40 @@
+Problem Link:
+https://leetcode.com/problems/number-of-unique-xor-triplets-ii/?envType=daily-question&envId=2026-07-24
+
+Solution:
+class Solution {
+public:
+    int uniqueXorTriplets(vector<int>& nums) {
+        const int m = 2048;
+
+        vector<vector<char>> dp(4, vector<char>(m, 0));
+        dp[0][0] = 1;
+
+        for(int v : nums) 
+        {
+            for(int k = 3; k >= 1; --k) 
+            {
+                for(int x = 0; x < m; ++x) 
+                {
+                    if(dp[k - 1][x])
+                        dp[k][x ^ v] = 1;
+                }
+            }
+        }
+
+        vector<char> s(m, 0);
+
+        for(int v : nums) 
+            s[v] = 1;
+
+        for(int x = 0; x < m; ++x)
+            if(dp[3][x]) 
+                s[x] = 1;
+
+        int c = 0;
+        for(char b : s) 
+            c += b;
+        
+        return c;
+    }
+};
