@@ -1,0 +1,31 @@
+Problem Link:
+https://codeforces.com/problemset/problem/2133/A
+
+Solution:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main()
+{
+    int t;
+    cin >> t;
+    while(t--)
+    {
+        int n;
+        cin >> n;
+        vector<int> v(101, 0);
+        bool f = false;
+        for(int i = 0; i < n; i++)
+        {
+            int x;
+            cin >> x;
+            v[x]++;
+            if(v[x] >= 2)
+            {
+                f = true;
+            }
+        }
+        cout << (f ? "YES" : "NO") << "\n";
+    }
+    return 0;
+}
