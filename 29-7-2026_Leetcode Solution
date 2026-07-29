@@ -1,0 +1,90 @@
+Problem Link:
+https://leetcode.com/problems/smallest-palindromic-rearrangement-ii/?envType=daily-question&envId=2026-07-29
+
+Solution:
+class Solution {
+public:
+    static const int LIM = 1000001;
+
+    string smallestPalindrome(string s, int k) {
+        vector<int> cnt(26, 0);
+        for (char c : s) cnt[c - 'a']++;
+
+        string mid = "";
+        vector<int> half(26, 0);
+        int m = 0;
+
+        for(int i = 0; i < 26; i++) 
+        {
+            half[i] = cnt[i] / 2;
+            m += half[i];
+            if(cnt[i] & 1) 
+                mid.push_back(char('a' + i));
+        }
+
+        vector<vector<int>> C(m + 1);
+        for(int i = 0; i <= m; i++) 
+        {
+            C[i].resize(i + 1);
+            C[i][0] = C[i][i] = 1;
+            for(int j = 1; j < i; j++) 
+            {
+                long long v = (long long)C[i - 1][j - 1] + C[i - 1][j];
+                if(v > LIM) 
+                    v = LIM;
+                C[i][j] = (int)v;
+            }
+        }
+
+        auto ways = [&](const vector<int>& f) {
+            long long ans = 1;
+            int rem = 0;
+            for(int x : f) 
+                rem += x;
+
+            int left = rem;
+            for(int x : f) 
+            {
+                if(x == 0) 
+                    continue;
+                ans *= C[left][x];
+                if(ans > LIM) 
+                    ans = LIM;
+                left -= x;
+            }
+            return (int)ans;
+        };
+
+        if(ways(half) < k) 
+            return "";
+
+        string first = "";
+
+        for(int pos = 0; pos < m; pos++) 
+        {
+            for(int c = 0; c < 26; c++) 
+            {
+                if(half[c] == 0) 
+                    continue;
+
+                half[c]--;
+                int cntWays = ways(half);
+
+                if(cntWays >= k) 
+                {
+                    first.push_back(char('a' + c));
+                    break;
+                } 
+                else 
+                {
+                    k -= cntWays;
+                    half[c]++;
+                }
+            }
+        }
+
+        string second = first;
+        reverse(second.begin(), second.end());
+        return first + mid + second;
+    }
+};
