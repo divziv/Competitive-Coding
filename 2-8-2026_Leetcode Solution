@@ -1,0 +1,10 @@
+Problem Link:
+https://leetcode.com/problems/stone-game/?envType=daily-question&envId=2026-08-02
+
+Solution:
+class Solution {
+public:
+    bool stoneGame(vector<int>& piles) {
+        return true;
+    }
+};
