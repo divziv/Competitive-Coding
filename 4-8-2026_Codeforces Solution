@@ -1,0 +1,35 @@
+Problem Link:
+https://codeforces.com/problemset/problem/1851/A
+
+Solution:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    int t;
+    cin >> t;
+
+    while(t--) {
+        int n, m;
+        long long k, h;
+        cin >> n >> m >> k >> h;
+        int s = 0;
+        
+        for(int i = 0; i < n; i++) 
+        {
+            long long x;
+            cin >> x;
+            long long d = llabs(x - h);
+            if(d > 0 && d % k == 0)
+            
+            {
+                long long steps = d / k;
+                if(steps >= 1 && steps <= m - 1) 
+                    s++;
+            }
+        }
+        cout << s << "\n";
+    }
+
+    return 0;
+}
