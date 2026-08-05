@@ -1,0 +1,48 @@
+Problem Link:
+https://leetcode.com/problems/remove-methods-from-project/?envType=daily-question&envId=2026-08-05
+
+Solution:
+class Solution {
+public:
+    vector<int> remainingMethods(int n, int k, vector<vector<int>>& invocations) {
+        vector<vector<int>> graph(n);
+        for(auto &e : invocations) 
+        {
+            graph[e[0]].push_back(e[1]);
+        }
+
+        vector<int> vis(n, 0);
+
+        function<void(int)> dfs = [&](int u) {
+            vis[u] = 1;
+            for(int x : graph[u]) 
+            {
+                if(!vis[x]) 
+                    dfs(x);
+            }
+        };
+
+        dfs(k);
+
+        for(auto &e : invocations) 
+        {
+            int u = e[0], x = e[1];
+            if(!vis[u] && vis[x]) 
+            {
+                vector<int> v;
+                for(int i = 0; i < n; i++) 
+                    v.push_back(i);
+                return v;
+            }
+        }
+
+        vector<int> v;
+        for(int i = 0; i < n; i++) 
+        {
+            if(!vis[i]) 
+                v.push_back(i);
+        }
+
+        return v;
+    }
+};
