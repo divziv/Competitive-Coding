@@ -1,0 +1,42 @@
+Problem Link:
+https://codeforces.com/problemset/problem/1338/A
+
+Solution:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    int t;
+    cin >> t;
+
+    while(t--) 
+    {
+        int n;
+        cin >> n;
+        vector<long long> a(n);
+        for(int i = 0; i < n; i++) 
+            cin >> a[i];
+
+        long long m = 0;
+        long long p = a[0];
+
+        for(int i = 1; i < n; i++) 
+        {
+            if(a[i] < p) 
+            {
+                m = max(m, p - a[i]);
+            } 
+            else 
+            {
+                p = a[i];
+            }
+        }
+
+        int s = 0;
+        while(((1LL << s) - 1) < m) 
+            s++;
+        cout << s << "\n";
+    }
+
+    return 0;
+}
