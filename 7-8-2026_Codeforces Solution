@@ -1,0 +1,32 @@
+Problem Link:
+https://codeforces.com/problemset/problem/2114/C
+
+Solution:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    int t;
+    cin >> t;
+
+    while(t--) 
+    {
+        int n;
+        cin >> n;
+        int last = -1000000000;
+        int c = 0;
+        for(int i = 0; i < n; i++) 
+        {
+            int x;
+            cin >> x;
+            if(x > last + 1) 
+            {
+                c++;
+                last = x;
+            }
+        }
+        cout << c << "\n";
+    }
+
+    return 0;
+}
