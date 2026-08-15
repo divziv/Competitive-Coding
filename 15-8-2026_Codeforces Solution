@@ -1,0 +1,35 @@
+Problem Link:
+https://codeforces.com/problemset/problem/1551/B1
+
+Solution:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    int t;
+    cin >> t;
+
+    while(t--) 
+    {
+        string s;
+        cin >> s;
+
+        vector<int> freq(26);
+        for(char c : s)
+            freq[c - 'a']++;
+
+        int distinct = 0;
+        int pairs = 0;
+
+        for(int x : freq) 
+        {
+            if(x > 0) 
+                distinct++;
+            pairs += x / 2;
+        }
+
+        cout << min(distinct, (int)s.size() / 2) << '\n';
+    }
+
+    return 0;
+}
