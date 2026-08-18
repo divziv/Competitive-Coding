@@ -1,0 +1,33 @@
+Problem Link:
+https://codeforces.com/problemset/problem/2072/B
+
+Solution:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    int t;
+    cin >> t;
+
+    while(t--) {
+        int n;
+        string s;
+        cin >> n >> s;
+
+        long long dash = count(s.begin(), s.end(), '-');
+        long long under = n - dash;
+
+        if(dash < 2 || under == 0) 
+        {
+            cout << 0 << '\n';
+            continue;
+        }
+
+        long long left = dash / 2;
+        long long right = dash - left;
+
+        cout << left * right * under << '\n';
+    }
+
+    return 0;
+}
