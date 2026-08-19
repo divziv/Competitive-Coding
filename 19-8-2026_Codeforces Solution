@@ -1,0 +1,39 @@
+Problem Link:
+https://codeforces.com/problemset/problem/2200/A
+
+Solution:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    int t;
+    cin >> t;
+
+    while(t--) {
+        int n;
+        cin >> n;
+
+        vector<int> a(n);
+        int m = 0;
+
+        for(int &x : a) 
+        {
+            cin >> x;
+            m = max(m, x);
+        }
+
+        int c = 0;
+
+        for(int i = 0; i < n; ++i) 
+        {
+            if(a[i] == m) 
+            {
+                ++c;
+            }
+        }
+
+        cout << c << '\n';
+    }
+
+    return 0;
+}
