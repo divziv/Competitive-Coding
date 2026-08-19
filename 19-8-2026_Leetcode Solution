@@ -1,0 +1,35 @@
+Problem Link:
+https://leetcode.com/problems/cinema-seat-allocation/?envType=daily-question&envId=2026-08-19
+
+Solution:
+class Solution {
+public:
+    int maxNumberOfFamilies(int n, vector<vector<int>>& reservedSeats) {
+        map<int, int> reserved;
+
+        for(auto &seat : reservedSeats) 
+        {
+            int row = seat[0];
+            int col = seat[1];
+
+            if(col >= 2 && col <= 9)
+                reserved[row] |= (1 << col);
+        }
+
+        long long m = 2LL * (n - reserved.size());
+
+        for(auto &[row, mask] : reserved) 
+        {
+            bool left = (mask & ((1 << 2) | (1 << 3) | (1 << 4) | (1 << 5))) == 0;
+            bool mid = (mask & ((1 << 4) | (1 << 5) | (1 << 6) | (1 << 7))) == 0;
+            bool right = (mask & ((1 << 6) | (1 << 7) | (1 << 8) | (1 << 9))) == 0;
+
+            if(left && right)
+                m += 2;
+            else if (left || mid || right)
+                m += 1;
+        }
+
+        return (int)m;
+    }
+};
