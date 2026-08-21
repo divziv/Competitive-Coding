@@ -1,0 +1,50 @@
+Problem Link:
+https://codeforces.com/problemset/problem/1669/H
+
+Solution:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    int t;
+    cin >> t;
+
+    while(t--) {
+        int n;
+        long long k;
+        cin >> n >> k;
+
+        vector<long long> a(n);
+        for(auto &x : a) 
+            cin >> x;
+
+        long long ans = 0;
+
+        for(int b = 30; b >= 0; --b) 
+        {
+            long long mask = 1LL << b;
+            long long need = 0;
+
+            for(long long x : a) 
+            {
+                if((x & mask) == 0) 
+                    ++need;
+            }
+
+            if(need <= k) 
+            {
+                k -= need;
+                ans |= mask;
+                for(auto &x : a) 
+                {
+                    if((x & mask) == 0) 
+                        x |= mask;
+                }
+            }
+        }
+
+        cout << ans << '\n';
+    }
+
+    return 0;
+}
