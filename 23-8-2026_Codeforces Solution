@@ -1,0 +1,37 @@
+Problem Link:
+https://codeforces.com/problemset/problem/1725/B
+
+Solution:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    int n;
+    long long d;
+    cin >> n >> d;
+
+    vector<long long> p(n);
+    for(auto &x : p) 
+        cin >> x;
+
+    sort(p.begin(), p.end());
+
+    int l = 0, r = n - 1, s = 0;
+
+    while(l <= r) 
+    {
+        long long m = p[r];
+        long long need = d / m + 1;
+
+        if(r - l + 1 < need) 
+            break;
+
+        l += need - 1;
+        r--;
+        s++;
+    }
+
+    cout << s << '\n';
+
+    return 0;
+}
