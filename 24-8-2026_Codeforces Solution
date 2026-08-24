@@ -1,0 +1,33 @@
+Problem Link:
+https://codeforces.com/problemset/problem/978/A
+
+Solution:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    int n;
+    cin >> n;
+    vector<int> a(n), v;
+    set<int> s;
+
+    for(int &x : a) 
+        cin >> x;
+
+    for(int i = n - 1; i >= 0; --i) 
+    {
+        if(!s.count(a[i])) 
+        {
+            s.insert(a[i]);
+            v.push_back(a[i]);
+        }
+    }
+
+    reverse(v.begin(), v.end());
+
+    cout << v.size() << '\n';
+    for(int x : v) 
+        cout << x << ' ';
+
+    return 0;
+}
