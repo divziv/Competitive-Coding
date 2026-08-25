@@ -1,0 +1,45 @@
+Problem Link:
+https://codeforces.com/problemset/problem/1469/B
+
+Solution:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    int t;
+    cin >> t;
+
+    while(t--) {
+        int n, m;
+        cin >> n;
+
+        vector<int> r(n);
+        for(int &x : r) 
+            cin >> x;
+
+        cin >> m;
+
+        vector<int> b(m);
+        for(int &x : b) 
+            cin >> x;
+
+        int sr = 0, sb = 0;
+        int mr = 0, mb = 0;
+
+        for(int x : r) 
+        {
+            sr += x;
+            mr = max(mr, sr);
+        }
+
+        for(int x : b) 
+        {
+            sb += x;
+            mb = max(mb, sb);
+        }
+
+        cout << max(0, mr + mb) << '\n';
+    }
+
+    return 0;
+}
