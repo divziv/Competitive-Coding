@@ -1,0 +1,33 @@
+Problem Link:
+https://codeforces.com/problemset/problem/2218/C
+
+Solution:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main()
+{
+    int t;
+    cin >> t;
+
+    while(t--)
+    {
+        int n;
+        cin >> n;
+
+        vector<int> v;
+
+        for(int i = 1; i <= n; ++i)
+        {
+            v.push_back(i);
+            v.push_back(n + 2 * i - 1);
+            v.push_back(n + 2 * i);
+        }
+
+        for(int x : v)
+            cout << x << ' ';
+        cout << '\n';
+    }
+
+    return 0;
+}
