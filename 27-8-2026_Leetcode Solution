@@ -1,0 +1,66 @@
+Problem Link:
+https://leetcode.com/problems/lexicographically-smallest-permutation-greater-than-target/?envType=daily-question&envId=2026-08-27
+
+Solution:
+class Solution {
+public:
+    string lexGreaterPermutation(string s, string target)
+    {
+        int cnt[26] = {};
+        for(char c : s)
+            cnt[c - 'a']++;
+
+        string prefix;
+
+        for(int i = 0; i < target.size(); i++) {
+            int x = target[i] - 'a';
+
+            if(cnt[x] == 0) {
+                for(int c = x + 1; c < 26; c++) {
+                    if(cnt[c]) {
+                        string ans = prefix + char('a' + c);
+                        cnt[c]--;
+
+                        for(int k = 0; k < 26; k++) {
+                            while(cnt[k]) {
+                                ans += char('a' + k);
+                                cnt[k]--;
+                            }
+                        }
+
+                        return ans;
+                    }
+                }
+
+                break;
+            }
+
+            prefix += target[i];
+            cnt[x]--;
+        }
+
+        for(int i = (int)prefix.size() - 1; i >= 0; i--) {
+            int x = prefix[i] - 'a';
+            cnt[x]++;
+
+            for(int c = x + 1; c < 26; c++) {
+                if(cnt[c]) {
+                    string ans = prefix.substr(0, i);
+                    ans += char('a' + c);
+                    cnt[c]--;
+
+                    for(int k = 0; k < 26; k++) {
+                        while(cnt[k]) {
+                            ans += char('a' + k);
+                            cnt[k]--;
+                        }
+                    }
+
+                    return ans;
+                }
+            }
+        }
+
+        return "";
+    }
+};
