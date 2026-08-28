@@ -1,0 +1,203 @@
+Problem Link:
+https://leetcode.com/problems/lexicographically-smallest-palindromic-permutation-greater-than-target/?envType=daily-question&envId=2026-08-28
+
+Solution:
+class Solution {
+public:
+    string lexPalindromicPermutation(string s, string target)
+    {
+        int n = s.size();
+
+        vector<int> v(26, 0);
+        for(char c : s)
+            v[c - 'a']++;
+
+        int odd = 0;
+        char mid = 0;
+
+        for(int i = 0; i < 26; i++)
+        {
+            if(v[i] % 2)
+            {
+                odd++;
+                mid = char('a' + i);
+            }
+        }
+
+        if(odd > 1)
+            return "";
+
+        vector<int> half(26);
+        for(int i = 0; i < 26; i++)
+            half[i] = v[i] / 2;
+
+        int m = n / 2;
+
+        auto makePalindrome = [&](const string& left)
+        {
+            string res = left;
+
+            if(n % 2)
+                res += mid;
+
+            string rev = left;
+            reverse(rev.begin(), rev.end());
+            res += rev;
+
+            return res;
+        };
+
+        string best = "";
+
+        for(int pos = 0; pos < m; pos++)
+        {
+            vector<int> rem = half;
+            string cur;
+            bool f = true;
+
+            for(int i = 0; i < pos; i++)
+            {
+                int x = target[i] - 'a';
+
+                if(rem[x] == 0)
+                {
+                    f = false;
+                    break;
+                }
+
+                rem[x]--;
+                cur.push_back(target[i]);
+            }
+
+            if(!f)
+                continue;
+
+            int chosen = -1;
+
+            for(int c = target[pos] - 'a' + 1; c < 26; c++)
+            {
+                if(rem[c] > 0)
+                {
+                    chosen = c;
+                    break;
+                }
+            }
+
+            if(chosen == -1)
+                continue;
+
+            cur.push_back(char('a' + chosen));
+            rem[chosen]--;
+
+            for(int c = 0; c < 26; c++)
+            {
+                while(rem[c] > 0)
+                {
+                    cur.push_back(char('a' + c));
+                    rem[c]--;
+                }
+            }
+
+            string candidate = makePalindrome(cur);
+
+            if(candidate > target &&
+                (best.empty() || candidate < best))
+            {
+                best = candidate;
+            }
+        }
+
+        {
+            vector<int> rem = half;
+            string cur;
+            bool f = true;
+
+            for(int i = 0; i < m; i++)
+            {
+                int x = target[i] - 'a';
+
+                if(rem[x] == 0)
+                {
+                    f = false;
+                    break;
+                }
+
+                rem[x]--;
+                cur.push_back(target[i]);
+            }
+
+            if(f)
+            {
+                for(int c = 0; c < 26; c++)
+                {
+                    while(rem[c] > 0)
+                    {
+                        cur.push_back(char('a' + c));
+                        rem[c]--;
+                    }
+                }
+
+                string candidate = makePalindrome(cur);
+
+                if(candidate > target &&
+                    (best.empty() || candidate < best))
+                {
+                    best = candidate;
+                }
+            }
+        }
+
+        if(n % 2)
+        {
+            vector<int> rem = half;
+            string cur;
+            bool f = true;
+
+            for(int i = 0; i < m; i++)
+            {
+                int x = target[i] - 'a';
+
+                if(rem[x] == 0)
+                {
+                    f = false;
+                    break;
+                }
+
+                rem[x]--;
+                cur.push_back(target[i]);
+            }
+
+            if(f)
+            {
+                int chosen = -1;
+
+                for(int c = target[m] - 'a' + 1; c < 26; c++)
+                {
+                    if(c == mid - 'a')
+                    {
+                        chosen = c;
+                        break;
+                    }
+                }
+
+                if(chosen != -1)
+                {
+                    string candidate = cur;
+                    candidate += char('a' + chosen);
+
+                    string rev = cur;
+                    reverse(rev.begin(), rev.end());
+                    candidate += rev;
+
+                    if(candidate > target &&
+                        (best.empty() || candidate < best))
+                    {
+                        best = candidate;
+                    }
+                }
+            }
+        }
+
+        return best;
+    }
+};
