@@ -1,0 +1,41 @@
+Problem Link:
+https://codeforces.com/problemset/problem/1272/C
+
+Solution:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    int n, k;
+    cin >> n >> k;
+
+    string s;
+    cin >> s;
+
+    bool f[26] = {};
+    for(int i = 0; i < k; ++i) 
+    {
+        char c;
+        cin >> c;
+        f[c - 'a'] = true;
+    }
+
+    long long m = 0, l = 0;
+
+    for(char c : s) 
+    {
+        if(f[c - 'a']) 
+        {
+            ++l;
+            m += l;
+        } 
+        else 
+        {
+            l = 0;
+        }
+    }
+
+    cout << m << '\n';
+
+    return 0;
+}
