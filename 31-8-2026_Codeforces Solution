@@ -1,0 +1,44 @@
+Problem Link:
+https://codeforces.com/problemset/problem/1857/D
+
+Solution:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    int t;
+    cin >> t;
+
+    while(t--) 
+    {
+        int n;
+        cin >> n;
+
+        vector<long long> a(n), b(n), c(n);
+        for(auto &x : a) 
+            cin >> x;
+        for(auto &x : b) 
+            cin >> x;
+
+        long long mx = LLONG_MIN;
+        for(int i = 0; i < n; ++i) 
+        {
+            c[i] = a[i] - b[i];
+            mx = max(mx, c[i]);
+        }
+
+        vector<int> v;
+        for(int i = 0; i < n; ++i) 
+        {
+            if(c[i] == mx)
+                v.push_back(i + 1);
+        }
+
+        cout << v.size() << '\n';
+        for(int i : v)
+            cout << i << ' ';
+        cout << '\n';
+    }
+
+    return 0;
+}
