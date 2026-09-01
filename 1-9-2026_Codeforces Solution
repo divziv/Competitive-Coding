@@ -1,0 +1,41 @@
+Problem Link:
+https://codeforces.com/problemset/problem/2193/B
+
+Solution:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    int t;
+    cin >> t;
+
+    while(t--) {
+        int n;
+        cin >> n;
+
+        vector<int> p(n);
+        for(int &x : p) 
+            cin >> x;
+
+        int l = 0;
+        while(l < n && p[l] == n - l) 
+            l++;
+
+        if(l < n) 
+        {
+            int r = l;
+            for(int i = l + 1; i < n; i++) 
+            {
+                if(p[i] > p[r])
+                    r = i;
+            }
+            reverse(p.begin() + l, p.begin() + r + 1);
+        }
+
+        for(int x : p)
+            cout << x << ' ';
+        cout << '\n';
+    }
+
+    return 0;
+}
