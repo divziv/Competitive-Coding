@@ -1,0 +1,32 @@
+Problem Link:
+https://leetcode.com/problems/construct-uniform-parity-array-ii/?envType=daily-question&envId=2026-09-03
+
+Solution:
+class Solution
+{
+public:
+    bool uniformArray(vector<int>& nums1)
+    {
+        int m = INT_MAX;
+
+        for(int x : nums1)
+        {
+            if(x & 1)
+                m = min(m, x);
+        }
+
+        if(m == INT_MAX)
+            return true;
+
+        for(int x : nums1)
+        {
+            if(x & 1)
+                continue;
+
+            if(m >= x)
+                return false;
+        }
+
+        return true;
+    }
+};
