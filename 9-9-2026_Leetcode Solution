@@ -1,0 +1,19 @@
+Problem Link:
+https://leetcode.com/problems/count-commas-in-range-ii/?envType=daily-question&envId=2026-09-09
+
+Solution:
+class Solution {
+public:
+    long long countCommas(long long n) {
+        long long c = 0;
+        
+        for(long long i = 1000; i <= n; i *= 1000) 
+        {
+            c += n - i + 1;
+            if(i > n / 1000) 
+                break;
+        }
+        
+        return c;
+    }
+};
