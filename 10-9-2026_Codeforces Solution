@@ -1,0 +1,51 @@
+Problem Link:
+https://codeforces.com/problemset/problem/1613/C
+
+Solution:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main()
+{
+    int t;
+    cin >> t;
+
+    while(t--)
+    {
+        int n;
+        long long h;
+        cin >> n >> h;
+
+        vector<long long> a(n);
+        for(auto &x : a)
+        {
+            cin >> x;
+        }
+
+        long long low = 1, high = h;
+
+        while(low < high)
+        {
+            long long k = low + (high - low) / 2;
+            long long damage = k;
+
+            for(int i = 0; i + 1 < n; ++i)
+            {
+                damage += min(k, a[i + 1] - a[i]);
+            }
+
+            if(damage >= h)
+            {
+                high = k;
+            }
+            else
+            {
+                low = k + 1;
+            }
+        }
+
+        cout << low << '\n';
+    }
+
+    return 0;
+}
