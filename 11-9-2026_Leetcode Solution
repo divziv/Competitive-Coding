@@ -1,0 +1,46 @@
+Problem Link:
+https://leetcode.com/problems/unique-3-digit-even-numbers/?envType=daily-question&envId=2026-09-11
+
+Solution:
+class Solution {
+public:
+    int totalNumbers(vector<int>& digits) {
+        int freq[10] = {};
+        
+        for(int i : digits)
+            freq[i]++;
+        
+        int t = 0;
+        
+        for(int i = 100; i <= 999; i++) 
+        {
+            if(i % 2 != 0)
+                continue;
+            
+            int x = i;
+            int c[10] = {};
+            
+            c[x % 10]++;
+            x /= 10;
+            c[x % 10]++;
+            x /= 10;
+            c[x % 10]++;
+            
+            bool f = true;
+            
+            for(int j = 0; j <= 9; j++) 
+            {
+                if(c[j] > freq[j]) 
+                {
+                    f = false;
+                    break;
+                }
+            }
+            
+            if(f)
+                t++;
+        }
+        
+        return t;
+    }
+};
