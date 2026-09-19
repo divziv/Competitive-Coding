@@ -1,0 +1,40 @@
+Problem Link:
+https://codeforces.com/problemset/problem/2114/B
+
+Solution:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    int t;
+    cin >> t;
+
+    while(t--) {
+        int n, k;
+        string s;
+        cin >> n >> k >> s;
+
+        int z = count(s.begin(), s.end(), '0');
+        int o = n - z;
+        int p = n / 2;
+
+        int m = p - k;
+
+        if(m <= min(z, o)) 
+        {
+            int r0 = z - m;
+            int r1 = o - m;
+
+            if(r0 >= 0 && r1 >= 0 && r0 % 2 == 0 && r1 % 2 == 0)
+                cout << "YES\n";
+            else
+                cout << "NO\n";
+        } 
+        else 
+        {
+            cout << "NO\n";
+        }
+    }
+
+    return 0;
+}
