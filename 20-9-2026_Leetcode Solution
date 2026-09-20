@@ -1,0 +1,18 @@
+Problem Link:
+https://leetcode.com/problems/reverse-degree-of-a-string/?envType=daily-question&envId=2026-09-20
+
+Solution:
+class Solution {
+public:
+    int reverseDegree(string s) {
+        int d = 0;
+
+        for(int i = 0; i < s.length(); i++) 
+        {
+            int r = 'z' - s[i] + 1;
+            d += r * (i + 1);
+        }
+
+        return d;
+    }
+};
