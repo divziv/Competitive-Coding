@@ -1,0 +1,33 @@
+Problem Link:
+https://leetcode.com/problems/find-x-value-of-array-i/?envType=daily-question&envId=2026-09-21
+
+Solution:
+class Solution {
+public:
+    vector<long long> resultArray(vector<int>& nums, int k) {
+        vector<long long> v(k, 0);
+        vector<long long> dp(k, 0);
+
+        for(int x : nums) 
+        {
+            int a = x % k;
+            vector<long long> ndp(k, 0);
+
+            ndp[a]++;
+
+            for(int r = 0; r < k; r++) 
+            {
+                ndp[(r * a) % k] += dp[r];
+            }
+
+            for(int r = 0; r < k; r++) 
+            {
+                v[r] += ndp[r];
+            }
+
+            dp.swap(ndp);
+        }
+
+        return v;
+    }
+};
