@@ -1,0 +1,65 @@
+Problem Link:
+https://leetcode.com/problems/brace-expansion-ii/?envType=daily-question&envId=2026-09-25
+
+Solution:
+class Solution {
+public:
+    vector<string> braceExpansionII(string expression) {
+        int i = 0;
+        set<string> res = parseUnion(expression, i);
+        return vector<string>(res.begin(), res.end());
+    }
+
+private:
+    set<string> parseUnion(const string& s, int& i) {
+        set<string> res = parseConcat(s, i);
+
+        while(i < s.size() && s[i] == ',') 
+        {
+            ++i;
+            set<string> right = parseConcat(s, i);
+            res.insert(right.begin(), right.end());
+        }
+
+        return res;
+    }
+
+    set<string> parseConcat(const string& s, int& i) {
+        set<string> res = {""};
+
+        while(i < s.size() && s[i] != '}' && s[i] != ',') 
+        {
+            set<string> cur = parseFactor(s, i);
+
+            set<string> next;
+
+            for(const string& a : res) 
+            {
+                for(const string& b : cur) 
+                {
+                    next.insert(a + b);
+                }
+            }
+
+            res = move(next);
+        }
+
+        return res;
+    }
+
+    set<string> parseFactor(const string& s, int& i) {
+        if(s[i] == '{') 
+        {
+            ++i;
+            set<string> res = parseUnion(s, i);
+            ++i;
+            return res;
+        }
+
+        set<string> res;
+        res.insert(string(1, s[i]));
+        ++i;
+
+        return res;
+    }
+};
