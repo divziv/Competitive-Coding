@@ -1,0 +1,44 @@
+Problem Link:
+https://codeforces.com/problemset/problem/414/B
+
+Solution:
+#include <bits/stdc++.h>
+using namespace std;
+
+const int m = 1000000007;
+
+int main() {
+    int n, k;
+    cin >> n >> k;
+
+    vector<int> dp(n + 1, 1), ndp(n + 1);
+
+    for(int len = 2; len <= k; ++len) 
+    {
+        fill(ndp.begin(), ndp.end(), 0);
+
+        for(int x = 1; x <= n; ++x) 
+        {
+            for(int y = x; y <= n; y += x) 
+            {
+                ndp[y] += dp[x];
+                if(ndp[y] >= m)
+                    ndp[y] -= m;
+            }
+        }
+
+        dp.swap(ndp);
+    }
+
+    int s = 0;
+    for(int x = 1; x <= n; ++x) 
+    {
+        s += dp[x];
+        if(s >= m)
+            s -= m;
+    }
+
+    cout << s << '\n';
+
+    return 0;
+}
