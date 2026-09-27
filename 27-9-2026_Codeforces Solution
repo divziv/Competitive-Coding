@@ -1,0 +1,31 @@
+Problem Link:
+https://codeforces.com/problemset/problem/1529/A
+
+Solution:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    int t;
+    cin >> t;
+
+    while(t--) {
+        int n;
+        cin >> n;
+
+        int m = INT_MAX;
+        vector<int> a(n);
+
+        for(int &x : a) 
+        {
+            cin >> x;
+            m = min(m, x);
+        }
+
+        int c = count(a.begin(), a.end(), m);
+
+        cout << n - c << '\n';
+    }
+
+    return 0;
+}
