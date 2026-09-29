@@ -1,0 +1,53 @@
+Problem Link:
+https://codeforces.com/problemset/problem/711/A
+
+Solution:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    int n;
+    cin >> n;
+
+    vector<string> bus(n);
+
+    for(auto &row : bus)
+    {
+        cin >> row;
+    }
+
+    for(auto &row : bus)
+    {
+        if(row[0] == 'O' && row[1] == 'O')
+        {
+            row[0] = row[1] = '+';
+
+            cout << "YES\n";
+
+            for(const auto &r : bus)
+            {
+                cout << r << '\n';
+            }
+
+            return 0;
+        }
+
+        if(row[3] == 'O' && row[4] == 'O')
+        {
+            row[3] = row[4] = '+';
+
+            cout << "YES\n";
+
+            for(const auto &r : bus)
+            {
+                cout << r << '\n';
+            }
+
+            return 0;
+        }
+    }
+
+    cout << "NO\n";
+
+    return 0;
+}
