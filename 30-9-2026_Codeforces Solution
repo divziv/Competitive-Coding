@@ -1,0 +1,36 @@
+Problem Link:
+https://codeforces.com/problemset/problem/978/C
+
+Solution:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main()
+{
+    int n, m;
+    cin >> n >> m;
+
+    vector<long long> prefix(n);
+
+    for(int i = 0; i < n; ++i)
+    {
+        long long a;
+        cin >> a;
+
+        prefix[i] = a + (i > 0 ? prefix[i - 1] : 0);
+    }
+
+    while(m--)
+    {
+        long long b;
+        cin >> b;
+
+        int dorm = lower_bound(prefix.begin(), prefix.end(), b) - prefix.begin();
+        long long before = (dorm == 0 ? 0 : prefix[dorm - 1]);
+        long long room = b - before;
+
+        cout << dorm + 1 << " " << room << '\n';
+    }
+
+    return 0;
+}
