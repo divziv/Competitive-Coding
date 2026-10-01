@@ -1,0 +1,31 @@
+Problem Link:
+https://codeforces.com/problemset/problem/1826/B
+
+Solution:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    int t;
+    cin >> t;
+
+    while(t--) {
+        int n;
+        cin >> n;
+
+        vector<long long> a(n);
+        for(auto &x : a) 
+            cin >> x;
+
+        long long g = 0;
+
+        for(int i = 0; i < n / 2; ++i) 
+        {
+            g = gcd(g, llabs(a[i] - a[n - 1 - i]));
+        }
+
+        cout << g << '\n';
+    }
+
+    return 0;
+}
