@@ -24,7 +24,7 @@ int main() {
             g = gcd(g, llabs(a[i] - a[n - 1 - i]));
         }
 
-        cout << g << '\n';
+        cout << g << "\n";
     }
 
     return 0;
