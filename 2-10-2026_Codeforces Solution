@@ -1,0 +1,41 @@
+Problem Link:
+https://codeforces.com/problemset/problem/199/A
+
+Solution:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main()
+{
+    long long n;
+    cin >> n;
+
+    vector<long long> f = {0, 1};
+
+    while(true)
+    {
+        long long x = f[f.size() - 1] + f[f.size() - 2];
+        if(x >= 1000000000LL)
+            break;
+        f.push_back(x);
+    }
+
+    for(long long a : f)
+    {
+        for(long long b : f)
+        {
+            for(long long c : f)
+            {
+                if(a + b + c == n)
+                {
+                    cout << a << ' ' << b << ' ' << c << '\n';
+                    return 0;
+                }
+            }
+        }
+    }
+
+    cout << "I'm too stupid to solve this problem\n";
+
+    return 0;
+}
