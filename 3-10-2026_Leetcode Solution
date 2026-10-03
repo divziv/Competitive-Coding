@@ -1,0 +1,34 @@
+Problem Link:
+https://leetcode.com/problems/longest-valid-parentheses/?envType=daily-question&envId=2026-10-03
+
+Solution:
+class Solution {
+    public:
+    int longestValidParentheses(string s) {
+    stack<int> st;
+    st.push(-1);
+    int lvp = 0;
+
+        for(int i = 0; i < s.size(); i++)
+        {
+            if(s[i] == '(')
+            {
+                st.push(i);
+            }
+            else
+            {
+                st.pop();
+
+                if(st.empty())
+                {
+                    st.push(i);
+                }
+                else
+                {
+                    lvp = max(lvp, i - st.top());
+                }
+            }
+        }
+        return lvp;
+    }
+};
