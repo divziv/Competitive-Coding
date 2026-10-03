@@ -1,0 +1,55 @@
+Problem Link:
+https://codeforces.com/problemset/problem/2193/C
+
+Solution:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main()
+{
+    int t;
+    cin >> t;
+
+    while(t--)
+    {
+        int n, q;
+        cin >> n >> q;
+
+        vector<long long> a(n), b(n);
+
+        for(auto &x : a)
+            cin >> x;
+
+        for(auto &x : b)
+            cin >> x;
+
+        vector<long long> c(n);
+        long long m = 0;
+
+        for(int i = n - 1; i >= 0; --i)
+        {
+            m = max({m, a[i], b[i]});
+            c[i] = m;
+        }
+
+        vector<long long> p(n + 1, 0);
+
+        for(int i = 0; i < n; ++i)
+            p[i + 1] = p[i] + c[i];
+
+        while(q--)
+        {
+            int l, r;
+            cin >> l >> r;
+
+            cout << p[r] - p[l - 1];
+
+            if(q)
+                cout << ' ';
+        }
+
+        cout << '\n';
+    }
+
+    return 0;
+}
