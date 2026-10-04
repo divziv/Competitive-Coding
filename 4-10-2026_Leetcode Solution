@@ -1,0 +1,35 @@
+Problem Link:
+https://leetcode.com/problems/valid-parenthesis-string/?envType=daily-question&envId=2026-10-04
+
+Solution:
+class Solution {
+public:
+    bool checkValidString(string s) {
+        int low = 0, high = 0;
+
+        for(char c : s) 
+        {
+            if(c == '(') 
+            {
+                low++;
+                high++;
+            } 
+            else if(c == ')') 
+            {
+                low--;
+                high--;
+            } 
+            else 
+            {
+                low--;
+                high++;
+            }
+
+            if(high < 0)
+                return false;
+
+            low = max(low, 0);
+        }
+        return low == 0;
+    }
+};
