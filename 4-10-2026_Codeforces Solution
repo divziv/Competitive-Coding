@@ -1,0 +1,27 @@
+Problem Link:
+https://codeforces.com/problemset/problem/1487/B
+
+Solution:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    int t;
+    cin >> t;
+
+    while(t--) {
+        long long n, k;
+        cin >> n >> k;
+
+        k--;
+
+        if(n % 2 == 1) 
+        {
+            k += k / (n / 2);
+        }
+
+        cout << (k % n) + 1 << '\n';
+    }
+
+    return 0;
+}
