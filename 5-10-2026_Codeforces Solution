@@ -1,0 +1,31 @@
+Problem Link:
+https://codeforces.com/problemset/problem/431/C
+
+Solution:
+#include <bits/stdc++.h>
+using namespace std;
+
+const int m = 1e9 + 7;
+
+int main() {
+    int n, k, d;
+    cin >> n >> k >> d;
+
+    vector<long long> dp(n + 1), small(n + 1);
+
+    dp[0] = 1;
+    small[0] = 1;
+
+    for(int s = 1; s <= n; ++s) 
+    {
+        for(int w = 1; w <= k && w <= s; ++w)
+            dp[s] = (dp[s] + dp[s - w]) % m;
+
+        for(int w = 1; w < d && w <= s; ++w)
+            small[s] = (small[s] + small[s - w]) % m;
+    }
+
+    cout << (dp[n] - small[n] + m) % m << '\n';
+
+    return 0;
+}
