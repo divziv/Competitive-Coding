@@ -1,0 +1,28 @@
+Problem Link:
+https://leetcode.com/problems/minimum-add-to-make-parentheses-valid/?envType=daily-question&envId=2026-10-06
+
+Solution:
+class Solution {
+public:
+    int minAddToMakeValid(string s) {
+        int o = 0;
+        int m = 0;
+
+        for(char c : s) 
+        {
+            if(c == '(') 
+            {
+                o++;
+            } 
+            else 
+            {
+                if(o > 0)
+                    o--;
+                else
+                    m++;
+            }
+        }
+
+        return m + o;
+    }
+};
