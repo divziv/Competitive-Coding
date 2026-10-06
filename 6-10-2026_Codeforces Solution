@@ -1,0 +1,19 @@
+Problem Link:
+https://codeforces.com/problemset/problem/224/A
+
+Solution:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    long long x, y, z;
+    cin >> x >> y >> z;
+
+    long long a = sqrt((long double)x * z / y);
+    long long b = sqrt((long double)x * y / z);
+    long long c = sqrt((long double)y * z / x);
+
+    cout << 4 * (a + b + c) << '\n';
+
+    return 0;
+}
