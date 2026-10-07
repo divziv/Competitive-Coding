@@ -1,0 +1,37 @@
+Problem Link:
+https://codeforces.com/problemset/problem/1324/C
+
+Solution:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main()
+{
+    int t;
+    cin >> t;
+
+    while(t--)
+    {
+        string s;
+        cin >> s;
+
+        int n = s.size();
+        int l = 0;
+        int m = 0;
+
+        for(int i = 1; i <= n; i++)
+        {
+            if(s[i - 1] == 'R')
+            {
+                m = max(m, i - l);
+                l = i;
+            }
+        }
+
+        m = max(m, n + 1 - l);
+
+        cout << m << '\n';
+    }
+
+    return 0;
+}
