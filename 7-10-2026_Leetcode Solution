@@ -1,0 +1,72 @@
+Problem Link:
+https://leetcode.com/problems/remove-invalid-parentheses/?envType=daily-question&envId=2026-10-07
+
+Solution:
+class Solution {
+public:
+    set<string> v;
+
+    void dfs(const string& s, int idx, int l, int r, int balance, string& cur) {
+        if(balance < 0 || l < 0 || r < 0)
+            return;
+
+        if(idx == s.size())
+        {
+            if(l == 0 && r == 0 && balance == 0)
+                v.insert(cur);
+            return;
+        }
+
+        char c = s[idx];
+
+        if(c == '(')
+        {
+            if(l > 0)
+                dfs(s, idx + 1, l - 1, r, balance, cur);
+
+            cur.push_back('(');
+            dfs(s, idx + 1, l, r, balance + 1, cur);
+            cur.pop_back();
+        }
+        else if(c == ')')
+        {
+            if(r > 0)
+                dfs(s, idx + 1, l, r - 1, balance, cur);
+
+            if(balance > 0)
+            {
+                cur.push_back(')');
+                dfs(s, idx + 1, l, r, balance - 1, cur);
+                cur.pop_back();
+            }
+        }
+        else
+        {
+            cur.push_back(c);
+            dfs(s, idx + 1, l, r, balance, cur);
+            cur.pop_back();
+        }
+    }
+
+    vector<string> removeInvalidParentheses(string s) {
+        int l = 0, r = 0;
+
+        for(char c : s)
+        {
+            if(c == '(')
+                l++;
+            else if(c == ')')
+            {
+                if(l > 0)
+                    l--;
+                else
+                    r++;
+            }
+        }
+
+        string cur;
+        dfs(s, 0, l, r, 0, cur);
+
+        return vector<string>(v.begin(), v.end());
+    }
+};
