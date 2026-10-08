@@ -1,0 +1,29 @@
+Problem Link:
+https://leetcode.com/problems/remove-outermost-parentheses/?envType=daily-question&envId=2026-10-08
+
+Solution:
+class Solution {
+public:
+    string removeOuterParentheses(string s) {
+        string r;
+        int d = 0;
+
+        for(char c : s) 
+        {
+            if(c == '(') 
+            {
+                if(d > 0)
+                    r += c;
+                d++;
+            }
+            else 
+            {
+                d--;
+                if(d > 0)
+                    r += c;
+            }
+        }
+
+        return r;
+    }
+};
