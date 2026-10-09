@@ -1,0 +1,36 @@
+Problem Link:
+https://codeforces.com/problemset/problem/2244/A
+
+Solution:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    int t;
+    cin >> t;
+
+    while(t--) {
+        int n;
+        string s;
+        cin >> n >> s;
+
+        int c = 0, m = 0;
+
+        for(char ch : s) 
+        {
+            if(ch == '#') 
+            {
+                c++;
+                m = max(m, c);
+            } 
+            else 
+            {
+                c = 0;
+            }
+        }
+
+        cout << (m + 1) / 2 << '\n';
+    }
+
+    return 0;
+}
