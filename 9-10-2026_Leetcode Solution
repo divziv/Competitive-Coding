@@ -1,0 +1,43 @@
+Problem Link:
+https://leetcode.com/problems/minimum-insertions-to-balance-a-parentheses-string/description/?envType=daily-question&envId=2026-10-09
+
+Solution:
+class Solution {
+public:
+    int minInsertions(string s) {
+        int m = 0;
+        int o = 0;
+
+        for(int i = 0; i < s.size(); i++) 
+        {
+            if(s[i] == '(') 
+            {
+                o++;
+            } 
+            else 
+            {
+                if(i + 1 < s.size() && s[i + 1] == ')') 
+                {
+                    i++;
+                } 
+                else 
+                {
+                    m++;
+                }
+
+                if(o > 0) 
+                {
+                    o--;
+                } 
+                else 
+                {
+                    m++;
+                }
+            }
+        }
+
+        m += o * 2;
+
+        return m;
+    }
+};
