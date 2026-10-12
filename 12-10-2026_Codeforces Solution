@@ -1,0 +1,50 @@
+Problem Link:
+https://codeforces.com/problemset/problem/1520/E
+
+Solution:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    int t;
+    cin >> t;
+
+    while(t--) {
+        int n;
+        cin >> n;
+
+        string s;
+        cin >> s;
+
+        vector<long long> pos;
+
+        for(int i = 0; i < n; i++) 
+        {
+            if(s[i] == '*') 
+            {
+                pos.push_back(i);
+            }
+        }
+
+        long long cnt = pos.size();
+
+        if(cnt == 0) 
+        {
+            cout << 0 << "\n";
+            continue;
+        }
+
+        long long mid = cnt / 2;
+        long long target = pos[mid];
+        long long ans = 0;
+
+        for(long long i = 0; i < cnt; i++) 
+        {
+            ans += abs(pos[i] - (target - (mid - i)));
+        }
+
+        cout << ans << "\n";
+    }
+
+    return 0;
+}
