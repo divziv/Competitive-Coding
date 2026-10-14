@@ -1,0 +1,39 @@
+Problem Link:
+https://codeforces.com/problemset/problem/4/B
+
+Solution:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    int d, sumTime;
+    cin >> d >> sumTime;
+
+    vector<int> minTime(d), maxTime(d);
+
+    for(int i = 0; i < d; i++) 
+    {
+        cin >> minTime[i] >> maxTime[i];
+    }
+
+    int minTimeSum = accumulate(minTime.begin(), minTime.end(), 0);
+    int maxTimeSum = accumulate(maxTime.begin(), maxTime.end(), 0);
+
+    if(minTimeSum <= sumTime && sumTime <= maxTimeSum) 
+    {
+        cout << "YES\n";
+
+        for(int i = 0; i < d; i++) 
+        {
+            int t = min(minTime[i] + sumTime - minTimeSum, maxTime[i]);
+            cout << t << (i + 1 < d ? " " : "\n");
+            sumTime -= (t - minTime[i]);
+        }
+    } 
+    else 
+    {
+        cout << "NO\n";
+    }
+
+    return 0;
+}
