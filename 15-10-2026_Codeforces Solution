@@ -1,0 +1,56 @@
+Problem Link:
+https://codeforces.com/problemset/problem/1352/D
+
+Solution:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main()
+{
+    int t;
+    cin >> t;
+
+    while(t--)
+    {
+        int n;
+        cin >> n;
+
+        vector<int> a(n);
+        for(int i = 0; i < n; i++)
+        {
+            cin >> a[i];
+        }
+
+        int cnt = 0, k = 1, last = 0;
+        int tot[2] = {0, 0};
+
+        for(int l = 0, r = n - 1; l <= r;)
+        {
+            int sum = 0;
+
+            if(k == 1)
+            {
+                while(l <= r && sum <= last)
+                {
+                    sum += a[l++];
+                }
+            }
+            else
+            {
+                while(l <= r && sum <= last)
+                {
+                    sum += a[r--];
+                }
+            }
+
+            cnt++;
+            tot[k] += sum;
+            last = sum;
+            k ^= 1;
+        }
+
+        cout << cnt << " " << tot[1] << " " << tot[0] << "\n";
+    }
+
+    return 0;
+}
