@@ -1,0 +1,56 @@
+Problem Link:
+https://leetcode.com/problems/minimum-swaps-to-sort-by-digit-sum/?envType=daily-question&envId=2026-10-17
+
+Solution:
+class Solution {
+public:
+    int minSwaps(vector<int>& nums) {
+        int n = nums.size();
+        vector<int> arr = nums;
+
+        auto digitSum = [](int x)
+        {
+            int sum = 0;
+            while(x)
+            {
+                sum += x % 10;
+                x /= 10;
+            }
+            return sum;
+        };
+
+        sort(arr.begin(), arr.end(), [&](int a, int b)
+        {
+            int x = digitSum(a);
+            int y = digitSum(b);
+            if(x == y)
+            {
+                return a < b;
+            }
+            return x < y;
+        });
+
+        unordered_map<int, int> pos;
+        for(int i = 0; i < n; i++)
+        {
+            pos[nums[i]] = i;
+        }
+
+        int swaps = 0;
+        for(int i = 0; i < n; i++)
+        {
+            if(nums[i] == arr[i])
+            {
+                continue;
+            }
+
+            int j = pos[arr[i]];
+            pos[nums[i]] = j;
+            pos[arr[i]] = i;
+            swap(nums[i], nums[j]);
+            swaps++;
+        }
+
+        return swaps;
+    }
+};
