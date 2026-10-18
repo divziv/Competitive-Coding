@@ -1,0 +1,59 @@
+Problem Link:
+https://leetcode.com/problems/number-of-ways-to-reorder-array-to-get-same-bst/?envType=daily-question&envId=2026-10-18
+
+Solution:
+class Solution {
+public:
+    static const int m = 1e9 + 7;
+    vector<vector<long long>> v;
+
+    long long solve(vector<int>& nums) {
+        int n = nums.size();
+
+        if(n <= 2)
+        {
+            return 1;
+        }
+
+        vector<int> left, right;
+        int root = nums[0];
+
+        for(int i = 1; i < n; i++)
+        {
+            if(nums[i] < root)
+            {
+                left.push_back(nums[i]);
+            }
+            else
+            {
+                right.push_back(nums[i]);
+            }
+        }
+
+        long long ways = v[n - 1][left.size()];
+
+        ways = ways * solve(left) % m;
+        ways = ways * solve(right) % m;
+
+        return ways;
+    }
+
+    int numOfWays(vector<int>& nums) {
+        int n = nums.size();
+
+        v.assign(n + 1, vector<long long>(n + 1, 0));
+
+        for(int i = 0; i <= n; i++)
+        {
+            v[i][0] = v[i][i] = 1;
+
+            for(int j = 1; j < i; j++)
+            {
+                v[i][j] = (v[i - 1][j - 1]
+                         + v[i - 1][j]) % m;
+            }
+        }
+
+        return (solve(nums) - 1 + m) % m;
+    }
+};
