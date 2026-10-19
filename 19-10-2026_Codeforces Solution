@@ -1,0 +1,87 @@
+Problem Link:
+https://codeforces.com/problemset/problem/1872/B
+
+Solution:
+#include <bits/stdc++.h> 
+using namespace std;
+
+const int INF = 1e9 + 7;
+
+struct Edge 
+{ 
+    int to, type; 
+};
+
+int main() {
+    int n, t;
+    cin >> n >> t;
+    
+    vector<vector<Edge>> adj(n + 1);
+    
+    for(int i = 1; i <= t; i++)
+    {
+    	int m;
+    	cin >> m;
+    
+    	for(int j = 0; j < m; j++)
+    	{
+    		int u, v;
+    		cin >> u >> v;
+    
+    		adj[u].push_back({v, i});
+    		adj[v].push_back({u, i});
+    	}
+    }
+    
+    int k;
+    cin >> k;
+    
+    vector<vector<int>> sequence_positions(t + 1);
+    
+    for(int i = 1; i <= k; i++)
+    {
+    	int a;
+    	cin >> a;
+    	sequence_positions[a].push_back(i);
+    }
+    
+    vector<int> dist(n + 1, INF);
+    
+    priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> pq;
+    
+    dist[1] = 0;
+    pq.push({0, 1});
+    
+    while(!pq.empty())
+    {
+    	auto [current_time, u] = pq.top();
+    	pq.pop();
+    
+    	if(current_time > dist[u]) 
+    	    continue;
+    	if(u == n) 
+    	    break;
+    
+    	for(auto &edge : adj[u])
+    	{
+    		int v = edge.to;
+    		int type = edge.type;
+    
+    		auto it = lower_bound(sequence_positions[type].begin(), sequence_positions[type].end(), current_time + 1);
+    
+    		if(it != sequence_positions[type].end())
+    		{
+    			int next_time = *it;
+    
+    			if(next_time < dist[v])
+    			{
+    				dist[v] = next_time;
+    				pq.push({dist[v], v});
+    			}
+    		}
+    	}
+    }
+    
+    cout << (dist[n] == INF ? -1 : dist[n]) << "\n";
+    return 0;
+}
