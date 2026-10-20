@@ -1,0 +1,43 @@
+Problem Link:
+https://codeforces.com/problemset/problem/816/B
+
+Solution:
+#include <bits/stdc++.h>
+using namespace std;
+
+const int m = 200005;
+
+int main()
+{
+    int n, k, q;
+    cin >> n >> k >> q;
+
+    vector<int> diff(m, 0);
+    vector<int> prefix(m, 0);
+
+    for(int i = 0; i < n; i++)
+    {
+        int l, r;
+        cin >> l >> r;
+        diff[l]++;
+        diff[r + 1]--;
+    }
+
+    int c = 0;
+
+    for(int i = 1; i < m; i++)
+    {
+        c += diff[i];
+        int f = (c >= k) ? 1 : 0;
+        prefix[i] = prefix[i - 1] + f;
+    }
+
+    for(int i = 0; i < q; i++)
+    {
+        int a, b;
+        cin >> a >> b;
+        cout << prefix[b] - prefix[a - 1] << "\n";
+    }
+
+    return 0;
+}
