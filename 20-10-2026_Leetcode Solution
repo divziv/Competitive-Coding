@@ -1,0 +1,62 @@
+Problem Link:
+https://leetcode.com/problems/sum-of-sortable-integers/?envType=daily-question&envId=2026-10-20
+
+Solution:
+class Solution {
+public:
+    int sortableIntegers(vector<int>& nums) {
+        int n = nums.size();
+        int c = 0;
+
+        for(int k = 1; k <= n; k++)
+        {
+            if(n % k != 0) 
+                continue;
+
+            bool f = true;
+            int prev = 0;
+
+            for(int start = 0; start < n; start += k)
+            {
+                int d = 0;
+                int mn = INT_MAX;
+                int mx = INT_MIN;
+
+                for(int j = 0; j < k; j++)
+                {
+                    int curr = start + j;
+                    int next = start + (j + 1) % k;
+
+                    mn = min(mn, nums[curr]);
+                    mx = max(mx, nums[curr]);
+
+                    if(nums[curr] > nums[next])
+                    {
+                        d++;
+                    }
+                }
+
+                if(d > 1 || (d == 0 && mn != mx))
+                {
+                    f = false;
+                    break;
+                }
+
+                if(start > 0 && prev > mn)
+                {
+                    f = false;
+                    break;
+                }
+
+                prev = mx;
+            }
+
+            if(f)
+            {
+                c += k;
+            }
+        }
+
+        return c;
+    }
+};
