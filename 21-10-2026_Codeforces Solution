@@ -1,0 +1,27 @@
+Problem Link:
+https://codeforces.com/problemset/problem/1945/A
+
+Solution:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    int t;
+    cin >> t;
+
+    while(t--) {
+        long long a, b, c;
+        cin >> a >> b >> c;
+
+        if((b % 3 != 0) && (b % 3) + c < 3) 
+        {
+            cout << -1 << "\n";
+            continue;
+        }
+
+        long long tents = a + (b + c + 2) / 3;
+        cout << tents << "\n";
+    }
+
+    return 0;
+}
