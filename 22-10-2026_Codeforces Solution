@@ -1,0 +1,24 @@
+Problem Link:
+https://codeforces.com/problemset/problem/236/A
+
+Solution:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    string username;
+    if(cin >> username) {
+        set<char> s(username.begin(), username.end());
+
+        if(s.size() % 2 == 0) 
+        {
+            cout << "CHAT WITH HER!\n";
+        } 
+        else 
+        {
+            cout << "IGNORE HIM!\n";
+        }
+    }
+
+    return 0;
+}
