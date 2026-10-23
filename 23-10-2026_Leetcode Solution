@@ -1,0 +1,22 @@
+Problem Link:
+https://leetcode.com/problems/maximum-k-to-sort-a-permutation/?envType=daily-question&envId=2026-10-23
+
+Solution:
+class Solution {
+public:
+    int sortPermutation(vector<int>& nums) {
+        int p = (1 << 30) - 1;
+        bool f = false;
+
+        for(int i = 0; i < nums.size(); i++) 
+        {
+            if(nums[i] != i) 
+            {
+                p &= nums[i];
+                f = true;
+            }
+        }
+
+        return f ? p : 0;
+    }
+};
