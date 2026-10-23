@@ -1,0 +1,37 @@
+Problem Link:
+https://codeforces.com/problemset/problem/1003/A
+
+Solution:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    int n;
+    cin >> n;
+
+    vector<int> coins(n);
+    for(int i = 0; i < n; i++) 
+    {
+        cin >> coins[i];
+    }
+
+    sort(coins.begin(), coins.end());
+
+    int mx = 0;
+    int c = 0;
+
+    for(int i = 0; i < n; i++) 
+    {
+        c++;
+
+        if(i == n - 1 || coins[i] != coins[i + 1]) 
+        {
+            mx = max(mx, c);
+            c = 0;
+        }
+    }
+
+    cout << mx << "\n";
+
+    return 0;
+}
