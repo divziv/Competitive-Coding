@@ -1,0 +1,34 @@
+Problem Link:
+https://codeforces.com/problemset/problem/1800/D
+
+Solution:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main()
+{
+    int t;
+    cin >> t;
+
+    while(t--)
+    {
+        long long n;
+        cin >> n;
+
+        string s;
+        cin >> s;
+
+        long long c = n - 1;
+        for(long p = 2; p < n; p++)
+        {
+            if(s[p] == s[p - 2])
+            {
+                c--;
+            }
+        }
+
+        cout << c << "\n";
+    }
+
+    return 0;
+}
