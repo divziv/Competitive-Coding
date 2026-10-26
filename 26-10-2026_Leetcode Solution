@@ -1,0 +1,45 @@
+Problem Link:
+https://leetcode.com/problems/count-islands-with-total-value-divisible-by-k/?envType=daily-question&envId=2026-10-26
+
+Solution:
+class Solution {
+public:
+    int m, n;
+
+    long long dfs(vector<vector<int>>& grid, int i, int j) {
+        if(i < 0 || i >= m || j < 0 || j >= n || grid[i][j] == 0)
+            return 0;
+
+        long long s = grid[i][j];
+        grid[i][j] = 0;
+
+        s += dfs(grid, i + 1, j);
+        s += dfs(grid, i - 1, j);
+        s += dfs(grid, i, j + 1);
+        s += dfs(grid, i, j - 1);
+
+        return s;
+    }
+
+    int countIslands(vector<vector<int>>& grid, int k) {
+        m = grid.size();
+        n = grid[0].size();
+
+        int c = 0;
+
+        for(int i = 0; i < m; i++) 
+        {
+            for(int j = 0; j < n; j++) 
+            {
+                if(grid[i][j] > 0) 
+                {
+                    long long s = dfs(grid, i, j);
+                    if(s % k == 0)
+                        c++;
+                }
+            }
+        }
+
+        return c;
+    }
+};
