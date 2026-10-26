@@ -1,0 +1,23 @@
+Problem Link:
+https://codeforces.com/problemset/problem/75/A
+
+Solution:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    long long a, b;
+    cin >> a >> b;
+
+    long long c = a + b;
+
+    string x = to_string(a), y = to_string(b), z = to_string(c);
+
+    x.erase(remove(x.begin(), x.end(), '0'), x.end());
+    y.erase(remove(y.begin(), y.end(), '0'), y.end());
+    z.erase(remove(z.begin(), z.end(), '0'), z.end());
+
+    cout << (stoll(x) + stoll(y) == stoll(z) ? "YES" : "NO") << '\n';
+
+    return 0;
+}
