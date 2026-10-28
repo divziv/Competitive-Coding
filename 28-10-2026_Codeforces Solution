@@ -1,0 +1,32 @@
+Problem Link:
+https://codeforces.com/problemset/problem/1341/A
+
+Solution:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    int t;
+    cin >> t;
+    while (t--) {
+        long long n, a, b, c, d;
+        cin >> n >> a >> b >> c >> d;
+    
+        long long mngw = n * (a - b);
+        long long mxgw = n * (a + b);
+    
+        long long mnpw = c - d;
+        long long mxpw = c + d;
+    
+        if(mngw <= mxpw && mnpw <= mxgw) 
+        {
+            cout << "YES\n";
+        } 
+        else 
+        {
+            cout << "NO\n";
+        }
+    }
+
+    return 0;
+}
