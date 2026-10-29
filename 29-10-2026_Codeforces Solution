@@ -1,0 +1,36 @@
+Problem Link:
+https://codeforces.com/problemset/problem/276/A
+
+Solution:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    int n;
+    long long k;
+    cin >> n >> k;
+
+    long long m = LLONG_MIN;
+
+    for(int i = 0; i < n; ++i) 
+    {
+        long long f, t;
+        cin >> f >> t;
+
+        long long c;
+        if(t > k) 
+        {
+            c = f - (t - k);
+        } 
+        else 
+        {
+            c = f;
+        }
+
+        m = max(m, c);
+    }
+
+    cout << m << "\n";
+
+    return 0;
+}
