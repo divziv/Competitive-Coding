@@ -1,0 +1,72 @@
+Problem Link:
+https://codeforces.com/problemset/problem/1986/B
+
+Solution:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main()
+{
+    int t;
+    cin >> t;
+
+    while(t--)
+    {
+        int n, m;
+        cin >> n >> m;
+
+        vector<vector<long long>> grid(n, vector<long long>(m));
+
+        for(int i = 0; i < n; i++)
+        {
+            for(int j = 0; j < m; j++)
+            {
+                cin >> grid[i][j];
+            }
+        }
+
+        int dx[] = {-1, 1, 0, 0};
+        int dy[] = {0, 0, -1, 1};
+
+        for(int i = 0; i < n; i++)
+        {
+            for(int j = 0; j < m; j++)
+            {
+                long long mx = 0;
+                bool f = true;
+
+                for(int k = 0; k < 4; k++)
+                {
+                    int ni = i + dx[k];
+                    int nj = j + dy[k];
+
+                    if(ni >= 0 && ni < n && nj >= 0 && nj < m)
+                    {
+                        mx = max(mx, grid[ni][nj]);
+
+                        if(grid[i][j] <= grid[ni][nj])
+                        {
+                            f = false;
+                        }
+                    }
+                }
+
+                if(f)
+                {
+                    grid[i][j] = mx;
+                }
+            }
+        }
+
+        for(int i = 0; i < n; i++)
+        {
+            for(int j = 0; j < m; j++)
+            {
+                cout << grid[i][j] << (j == m - 1 ? "" : " ");
+            }
+            cout << "\n";
+        }
+    }
+
+    return 0;
+}
