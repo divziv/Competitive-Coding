@@ -1,0 +1,120 @@
+Problem Link:
+https://leetcode.com/problems/minimum-operations-to-make-elements-within-k-subarrays-equal/?envType=daily-question&envId=2026-11-04
+
+Solution:
+class Solution {
+public:
+    multiset<int> lo, hi;
+    long long sumLo = 0, sumHi = 0;
+
+    void add(int v) {
+        if(lo.empty() || v <= *lo.rbegin())
+        {
+            lo.insert(v);
+            sumLo += v;
+        }
+        else
+        {
+            hi.insert(v);
+            sumHi += v;
+        }
+        balance();
+    }
+
+    void remove(int v) {
+        auto it = lo.find(v);
+
+        if(it != lo.end())
+        {
+            lo.erase(it);
+            sumLo -= v;
+        }
+        else
+        {
+            it = hi.find(v);
+            hi.erase(it);
+            sumHi -= v;
+        }
+
+        balance();
+    }
+
+    void balance() {
+        while(lo.size() > hi.size() + 1)
+        {
+            auto it = prev(lo.end());
+            int v = *it;
+            lo.erase(it);
+            sumLo -= v;
+            hi.insert(v);
+            sumHi += v;
+        }
+
+        while(lo.size() < hi.size())
+        {
+            auto it = hi.begin();
+            int v = *it;
+            hi.erase(it);
+            sumHi -= v;
+            lo.insert(v);
+            sumLo += v;
+        }
+    }
+
+    long long getCost() {
+        long long med = *lo.rbegin();
+
+        return med * lo.size() - sumLo
+             + sumHi - med * hi.size();
+    }
+
+    long long minOperations(vector<int>& nums, int x, int k) {
+        int n = nums.size();
+
+        vector<long long> cost(n - x + 1);
+
+        for(int i = 0; i < n; i++)
+        {
+            add(nums[i]);
+
+            if(i >= x)
+            {
+                remove(nums[i - x]);
+            }
+
+            if(i >= x - 1)
+            {
+                cost[i - x + 1] = getCost();
+            }
+        }
+
+        const long long INF = LLONG_MAX / 4;
+
+        vector<vector<long long>> dp(
+            n + 1, vector<long long>(k + 1, INF)
+        );
+
+        for(int i = 0; i <= n; i++)
+        {
+            dp[i][0] = 0;
+        }
+
+        for(int i = 1; i <= n; i++)
+        {
+            for(int j = 1; j <= k; j++)
+            {
+                dp[i][j] = dp[i - 1][j];
+
+                if(i >= x && dp[i - x][j - 1] != INF)
+                {
+                    dp[i][j] = min(
+                        dp[i][j],
+                        dp[i - x][j - 1] + cost[i - x]
+                    );
+                }
+            }
+        }
+
+        return dp[n][k];
+    }
+};
