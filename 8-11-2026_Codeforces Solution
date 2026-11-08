@@ -1,0 +1,72 @@
+Problem Link:
+https://codeforces.com/problemset/problem/1679/B
+
+Solution:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main()
+{
+    int n, q;
+    cin >> n >> q;
+
+    vector<long long> a(n + 1);
+    long long sum = 0;
+
+    for(int i = 1; i <= n; i++)
+    {
+        cin >> a[i];
+        sum += a[i];
+    }
+
+    long long l = 0;
+    bool f = false;
+    map<int, long long> m;
+
+    for(int j = 1; j <= q; j++)
+    {
+        int t;
+        cin >> t;
+
+        if(t == 1)
+        {
+            int i;
+            long long x;
+            cin >> i >> x;
+
+            if(f)
+            {
+                if(m.count(i))
+                {
+                    sum -= m[i];
+                }
+                else
+                {
+                    sum -= l;
+                }
+            }
+            else
+            {
+                sum -= a[i];
+            }
+
+            m[i] = x;
+            a[i] = x;
+            sum += x;
+        }
+        else
+        {
+            long long x;
+            cin >> x;
+
+            l = x;
+            f = true;
+            m.clear();
+            sum = x * n;
+        }
+
+        cout << sum << "\n";
+    }
+
+    return 0;
+}
