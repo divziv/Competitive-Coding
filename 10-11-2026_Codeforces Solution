@@ -1,0 +1,27 @@
+Problem Link:
+https://codeforces.com/problemset/problem/1650/B
+
+Solution:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    int t;
+    cin >> t;
+    
+    while(t--) {
+        long long l, r, a;
+        cin >> l >> r >> a;
+        
+        long long s = (r / a) + (r % a);
+        
+        long long p = (r / a) * a - 1;
+        if(p >= l) 
+        {
+            s = max(s, (p / a) + (p % a));
+        }
+        
+        cout << s << '\n';
+    }
+    return 0;
+}
