@@ -1,0 +1,59 @@
+Problem Link:
+https://codeforces.com/problemset/problem/1879/C
+
+Solution:
+#include <bits/stdc++.h>
+using namespace std;
+
+const int mod = 998244353;
+
+void precompute(int n, vector<long long>& fact)
+{
+    fact[0] = 1;
+    for(int i = 1; i <= n; ++i)
+    {
+        fact[i] = (fact[i - 1] * i) % mod;
+    }
+}
+
+int main()
+{
+    int t;
+    cin >> t;
+
+    while(t--)
+    {
+        string s;
+        cin >> s;
+
+        int n = s.length();
+        long long m = 0, w = 1;
+        int l = 1;
+
+        for(int i = 1; i < n; ++i)
+        {
+            if(s[i] == s[i - 1])
+            {
+                l++;
+            }
+            else
+            {
+                m += (l - 1);
+                w = (w * l) % mod;
+                l = 1;
+            }
+        }
+
+        m += (l - 1);
+        w = (w * l) % mod;
+
+        vector<long long> fact(m + 1);
+        precompute(m, fact);
+
+        long long total = (w * fact[m]) % mod;
+
+        cout << m << " " << total << "\n";
+    }
+
+    return 0;
+}
