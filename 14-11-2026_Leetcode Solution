@@ -1,0 +1,28 @@
+Problem Link:
+https://leetcode.com/problems/minimum-positive-sum-subarray/?envType=daily-question&envId=2026-11-14
+
+Solution:
+class Solution {
+public:
+    int minimumSumSubarray(vector<int>& nums, int l, int r) {
+        int n = nums.size();
+        int m = INT_MAX;
+
+        for(int i = 0; i < n; i++)
+        {
+            int s = 0;
+
+            for(int j = i; j < n && j - i + 1 <= r; j++)
+            {
+                s += nums[j];
+
+                if(j - i + 1 >= l && s > 0)
+                {
+                    m = min(m, s);
+                }
+            }
+        }
+
+        return m == INT_MAX ? -1 : m;
+    }
+};
