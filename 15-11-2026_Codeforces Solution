@@ -1,0 +1,46 @@
+Problem Link:
+https://codeforces.com/problemset/problem/1454/B
+
+Solution:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    int t;
+    cin >> t;
+
+    while(t--) {
+        int n;
+        cin >> n;
+
+        vector<int> freq(n + 1, 0);
+        vector<int> pos(n + 1, 0);
+
+        for(int i = 1; i <= n; i++) 
+        {
+            int a;
+            cin >> a;
+            freq[a]++;
+            pos[a] = i;
+        }
+
+        bool f = false;
+
+        for(int v = 1; v <= n; v++) 
+        {
+            if(freq[v] == 1) 
+            {
+                cout << pos[v] << "\n";
+                f = true;
+                break;
+            }
+        }
+
+        if(!f) 
+        {
+            cout << -1 << "\n";
+        }
+    }
+
+    return 0;
+}
