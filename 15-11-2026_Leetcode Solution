@@ -1,0 +1,27 @@
+Problem Link:
+https://leetcode.com/problems/number-of-sub-arrays-with-odd-sum/?envType=daily-question&envId=2026-11-15
+
+Solution:
+class Solution {
+public:
+    int numOfSubarrays(vector<int>& arr) {
+        const int m = 1e9 + 7;
+        int o = 0, e = 1, s = 0, c = 0; 
+        for(int n : arr) 
+        {
+            s += n;
+            
+            if(s % 2 != 0) 
+            {
+                c = (c + e) % m;
+                o++;
+            } 
+            else 
+            {
+                c = (c + o) % m;
+                e++;
+            }
+        }
+        return c;
+    }
+};
