@@ -1,0 +1,39 @@
+Problem Link:
+https://codeforces.com/problemset/problem/1743/A
+
+Solution:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    int t;
+    cin >> t;
+
+    while(t--) {
+        int n;
+        cin >> n;
+
+        int x;
+        bool used[10] = {};
+
+        for(int i = 0; i < n; i++) 
+        {
+            cin >> x;
+            used[x] = true;
+        }
+
+        int k = 0;
+        for(int i = 0; i < 10; i++) 
+        {
+            if(!used[i]) 
+            {
+                k++;
+            }
+        }
+
+        int a = (k * (k - 1) / 2) * 6;
+        cout << a << '\n';
+    }
+
+    return 0;
+}
