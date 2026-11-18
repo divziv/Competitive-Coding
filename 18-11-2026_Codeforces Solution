@@ -1,0 +1,16 @@
+Problem Link:
+https://codeforces.com/problemset/problem/1285/A
+
+Solution:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    int n;
+    string s;
+    cin >> n >> s;
+    
+    cout << n + 1 << "\n";
+    
+    return 0;
+}
