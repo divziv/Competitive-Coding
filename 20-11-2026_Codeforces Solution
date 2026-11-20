@@ -1,0 +1,38 @@
+Problem Link:
+https://codeforces.com/problemset/problem/237/A
+
+Solution:
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    int n;
+    cin >> n;
+
+    int ph, pm;
+    cin >> ph >> pm;
+
+    int cs = 1, mc = 1;
+
+    for(int i = 1; i < n; ++i) 
+    {
+        int h, m;
+        cin >> h >> m;
+
+        if(h == ph && m == pm) 
+        {
+            cs++;
+            mc = max(mc, cs);
+        } 
+        else 
+        {
+            cs = 1;
+        }
+
+        ph = h;
+        pm = m;
+    }
+
+    cout << mc << "\n";
+    return 0;
+}
